@@ -1,0 +1,94 @@
+body {
+	font-family: 'Tahoma','Arial Narrow',sans-serif;
+}
+.flign-cus {
+	border-color: 1px solid red;
+}
+.flign-cus thead tr,.flign-cus tfoot tr {
+	font-family: 'Arial Narrow',sans-serif;
+	/*background-color: #000154;*/
+	background-color: #3778BC;
+	color: black;
+}
+.flign-cus thead tr th,.flign-cus tfoot tr td {
+	text-align: center;
+	vertical-align: middle;
+	text-transform: uppercase;
+}
+.flign-cus thead tr th {
+	font-weight: bold;
+	font-size: 22px;
+	color: white;
+}
+.flign-cus tfoot tr td {
+	font-weight: bold;
+	font-size: 25px;
+}
+.flign-cus tbody tr td {
+	font-family: 'Tahoma','Arial Narrow',sans-serif;
+	/*background-color: #004087;*/
+	background-color: #CEDFF1;
+	font-size: 23px;
+	color: black;
+}
+table.table-condensed > thead > tr > th{
+    border: 0px solid white;
+}
+table.table-condensed > tbody > tr > td{
+    border: 0px solid white;
+}
+#toggle {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.kuning td {
+	color: #8a2be2 !important;
+}
+.putih td {
+	color: white;
+}
+.gb-logo-header {
+	width: 100px;
+	height: auto;
+	float: left;
+	margin-right: 15px;
+}
+.tgl_header {
+	font-size: 15px;
+	/*background-color: #3778BC;*/
+	padding: 2px 5px;
+	line-height: 25px;
+	font-weight: bold;
+}
+.tgl_header #ejam {
+	font-size: 30px;
+	color: brown;
+}
+.heylit td {
+	background-color: #a8cff7 !important;
+}
+.kensel td {
+	color : red !important;
+	text-decoration: line-through;
+}
+.halamankosong {
+	text-align: center; 
+	vertical-align: middle; 
+	font-size: 45px; 
+	font-weight: bold; 
+	border : 2px solid brown; 
+	height: 500px; 
+	line-height: 45px;
+	padding-top: 170px;
+}
+.pesanjalan {
+	width: 100%;
+	background-color: #4263eb;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	color: white;
+	z-index: 999;
+	font-size: 20px;
+}
