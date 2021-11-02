@@ -17,7 +17,7 @@
 											<div class="col-md-7">
 												<select class="form-control input-sm" name="jnsurat" id="jnsurat" >
 													<option value="">--Pilih--</option>
-													<option value="CT">Cuti Tahunan</option>
+													<option value="C">Cuti Tahunan</option>
 													<option value="CP">Cuti Panjang</option>
 													<option value="CH">Cuti Haid</option>
 													<option value="IK">Izin Khusus</option>

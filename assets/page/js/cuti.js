@@ -72,7 +72,7 @@ function setinput(jnsurat){
 	$("#formtempatik").addClass('hilang');
 	$("#formtombol").addClass('hilang');
 	switch(jnsurat){
-		case 'CT' :
+		case 'C' :
 			$("#setjeniscuti").removeClass('hilang');
 			$("#formtgldari").removeClass('hilang');
 			$("#formtglsampai").removeClass('hilang');

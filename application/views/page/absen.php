@@ -75,7 +75,7 @@
 															<option value="SD">Surat Dokter</option>
 															<option value="OP">Opname</option>
 															<option value="DS">Dispensasi</option>
-															<option value="IZ">Izin</option>
+															<option value="I">Izin</option>
 														</select>
 													</div>
 												</div>
