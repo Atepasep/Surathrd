@@ -459,7 +459,7 @@ body .btn-dark[disabled] {
   position: relative; }
 
 #ifn-aside {
-  padding-top: 3em;
+  padding-top: 2em;
   padding-bottom: 40px;
   padding-left: 3em;
   padding-right: 3em;
@@ -468,10 +468,14 @@ body .btn-dark[disabled] {
   bottom: 0;
   top: 0;
   left: 0;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-y: auto;
   z-index: 1001;
   /*background: #2C2C2C;*/
-  background: #0a0626;
+  /* background: #0a0626; */
+  background-image: url('../../../assets/images/gambar-menu.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s; }
@@ -488,16 +492,23 @@ body .btn-dark[disabled] {
       transform: translateX(-270px);
       padding-top: 4em; } }
   #ifn-aside #ifn-logo {
-    text-align: right;
+    position: relative;
+    z-index: 1002 !important;
+    text-align: center !important;
     font-weight: 700;
     font-size: 22px;
     text-transform: uppercase;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
     display: block; 
-    width: 100%;}
+    width: 100%;
+    /* box-shadow: 7px 6px 35px 0px rgba(0,0,0,0.64) inset;
+    -webkit-box-shadow: 7px 6px 35px 0px rgba(0,0,0,0.64) inset;
+    -moz-box-shadow: 7px 6px 35px 0px rgba(0,0,0,0.64) inset;
+    border:  2px solid rgba(10, 6, 38, .6) !important; */
+  }
     #ifn-aside #ifn-logo a img {
-      height: 50px;
-      width: auto;
+      width: 100%;
+      height: auto;
     }
     @media screen and (max-width: 768px) {
       #ifn-aside #ifn-logo {
@@ -505,7 +516,8 @@ body .btn-dark[disabled] {
     #ifn-aside #ifn-logo a {
       display: block;
       text-align: center;
-      color: #fff;
+      color: #fff !important;
+      /* color: #000 !important; */
       border-color: white;
       letter-spacing: 2px;
       padding-right: .3em; }
@@ -525,7 +537,7 @@ body .btn-dark[disabled] {
       text-transform: uppercase;
       letter-spacing: 1px; }
       #ifn-aside #ifn-main-menu ul li a {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
         position: relative;
         padding: 10px 0;
@@ -603,6 +615,16 @@ body .btn-dark[disabled] {
             text-decoration: none;
             outline: none;
             color: #FFC300; }
+
+#ifn-aside .overlay {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(10, 6, 38, .75) !important;
+  color: white !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 #ifn-main {
   width: 80%;
@@ -838,7 +860,11 @@ body.offcanvas {
     transform: translateX(0);
     width: 270px;
     /*background: #2C2C2C;*/
-    background: #0a0626;
+    /* background: #0a0626; */
+    /* background: red; */
+    background-image: url('../../../assets/images/gambar-menu.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 999;
     position: fixed; }
   body.offcanvas #ifn-main, body.offcanvas .ifn-nav-toggle {
@@ -2077,4 +2103,12 @@ select.input-sml {
   border-right: 3px solid #f73939;
   border-bottom: 3px solid transparent;
   border-top: 3px solid #f73939;
+}
+.infohalaman {
+  text-align: center !important;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 45px;
+  color: black;
 }

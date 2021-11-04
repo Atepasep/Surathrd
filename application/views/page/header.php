@@ -168,27 +168,32 @@
 	<div id="ifn-page">
 		<a href="#" class="js-ifn-nav-toggle ifn-nav-toggle"><i></i></a>
 		<aside id="ifn-aside" role="complementary" class="border js-fullheight" class="nano">
-			<h1 id="ifn-logo"><a href="<?= base_url() ?>">I . F . N</a></h1>
+			<div id="ifn-logo"><a href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/images/logodepan.png"></a></div>
+			<div class="overlay"></div>
 			<nav id="ifn-main-menu" role="navigation">
 				<ul>
 					<li class="<?= $m1 ?>"><a href="<?= base_url() ?>">Dashboard</a></li>
 					<li class="<?= $m2 ?>"><a href="<?= base_url().'cuti' ?>" title="Permohonan Cuti dan Izin Khusus">Cuti dan Izin khusus</a></li>
 					<li class="<?= $m3 ?>"><a href="<?= base_url().'izin' ?>" title="surat izin keluar, pulang, terlambat">Izin P/L/K</a></li>
 					<li class="<?= $m4 ?>"><a href="<?= base_url().'absen' ?>" title="surat keterangan tidak masuk">Keterangan Absen</a></li>
-					<!-- <li class="<?= $m5 ?>"><a href="" title="Surat Lembur">Overtime</a></li> -->
+					<?php if($this->session->userdata('hakdep') != "'X'"){ ?>
+						<li class="<?= $m5 ?>"><a href="<?= base_url().'spl' ?>" title="Surat Perintah Lembur">Overtime</a></li>
+					<?php } ?>
 		 			<br>
-					 <br>
+					<br>
+					<br>
+					<br>
 					<li><a href="<?= base_url().'Apps/logout' ?>">Log Out</a></li>
 				</ul>
 			</nav>
 
-<!-- 			<div class="ifn-footer">
+			<div class="ifn-footer">
 				<ul>
 					<li><a href="#"><i class="icon-facebook2"></i></a></li>
 					<li><a href="#"><i class="icon-twitter2"></i></a></li>
 					<li><a href="#"><i class="icon-instagram"></i></a></li>
 					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
 				</ul>
-			</div> -->
+			</div>
 
 		</aside>

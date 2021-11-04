@@ -1,5 +1,31 @@
 $(document).ready(function(){
 	setinput('');
+
+	$('#jamik').on('change click keyup input paste',(function (event) {
+		$(this).val(function (index, value) {
+			return value.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{2})+(?!\d))/g, ":");
+		});
+	}));
+})
+$("#jamik").on('blur',function(){
+	var kata = $(this).val();
+	if(kata != ''){
+		var panjang = kata.length;
+		if(panjang<5){
+			if(panjang>2){
+				kata = '0'+kata;
+			}
+			kata = kata.replace(':','');
+			for(dari=panjang;dari <= 4;dari++){
+				kata += '0';
+			}
+		}
+		var pisah1 = kata.substr(0,2);
+		var pisah2 = kata.substr(2,2);
+		if(!kata.includes(':')){
+			$(this).val(pisah1+':'+pisah2);
+		}
+	}
 })
 $("#tgldari").on('change textInput Input', function(){
 	cekhari($(this).val(),$("#tglsampai").val());

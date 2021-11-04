@@ -11,6 +11,7 @@
 								<?php 
 									$data0 =0;$data1=0;$data2=0;$data3=0;
 									// print_r($getriwayat);
+									echo $this->session->userdata('hakdep');
 								?>
 								<table style="width: 100%;">
 									<tr class="bg-aqua bold">

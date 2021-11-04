@@ -33,9 +33,6 @@
 	<?php if(isset($footer) and $footer=='absen'): ?>
 		<script src="<?= LOK_PAGE ?>js/absen.js"></script>
 	<?php endif; ?>
-	<?php if(isset($footer) and $footer=='dids'): ?>
-		<script src="<?= LOK_PAGE ?>js/dids.js"></script>
-	<?php endif; ?>
 	<script type="text/javascript">
 		$(".nano").nanoScroller();
 		<?php if($this->session->flashdata('info') == 'tidakberhak'){ ?>
