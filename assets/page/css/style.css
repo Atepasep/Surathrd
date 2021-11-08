@@ -1993,6 +1993,9 @@ select.input-sml {
 .text-gray {
   color: #d2d6de !important;
 }
+.text-black {
+  color: #000000 !important;
+}
 .back-ifn {
    background:url('../../images/background_pattern.jpg') top left;
 }
@@ -2111,4 +2114,12 @@ select.input-sml {
   font-family: 'Courier New', Courier, monospace;
   padding: 45px;
   color: black;
+}
+.tabelakses tr {
+  /* background-color: rgba(204, 245, 39, 0.6) !important; */
+  cursor: pointer;
+}
+.tabelakses tr.activex {
+  background-color: rgba(204, 245, 39, 0.6) !important;
+  cursor: pointer;
 }

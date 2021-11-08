@@ -168,7 +168,7 @@
 	<div id="ifn-page">
 		<a href="#" class="js-ifn-nav-toggle ifn-nav-toggle"><i></i></a>
 		<aside id="ifn-aside" role="complementary" class="border js-fullheight" class="nano">
-			<div id="ifn-logo"><a href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/images/logodepan.png"></a></div>
+			<div id="ifn-logo"><a href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/images/logodepan2.png"></a></div>
 			<div class="overlay"></div>
 			<nav id="ifn-main-menu" role="navigation">
 				<ul>
@@ -182,7 +182,7 @@
 		 			<br>
 					<br>
 					<br>
-					<br>
+					<li><a href="<?= base_url().'hakakses' ?>">Hak Akses Dep</a></li>
 					<li><a href="<?= base_url().'Apps/logout' ?>">Log Out</a></li>
 				</ul>
 			</nav>

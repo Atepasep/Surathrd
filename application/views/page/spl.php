@@ -9,7 +9,7 @@
 					  <div class="panel-body pan">
 					    <div class="row">
 							<div class="col-sm-12">
-								<div class="infohalaman">Dalam Masa Pembuatan</div>			
+								<div class="infohalaman">Dalam Pembuatan</div>			
 							</div>
 					    </div>
 					</div>
