@@ -15,7 +15,7 @@ class Izin extends CI_Controller{
 		$footer['footer'] = 'izin';
 		$data['judul'] = 'Permohonan Izin Keluar, Pulang dan Terlambat';
 		$data['formaction'] = base_url().'izin/simpanizin';
-		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'));
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/izin',$data);
 		$this->load->view('page/footer',$footer);
@@ -25,7 +25,7 @@ class Izin extends CI_Controller{
 		$head['act'] = 3;
 		$footer['footer'] = 'izin';
 		$data['judul'] = 'Approve Izin Keluar, Pulang dan Terlambat';
-		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'));
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$data['dataizin'] = $this->m_cuti->getdataizin();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/detizin',$data);
@@ -57,5 +57,9 @@ class Izin extends CI_Controller{
 		$alasan = $_POST['alasn'];
 		$hasil = $this->m_cuti->tolakdataizin($id,$alasan);
 		echo $hasil;
+	}
+	public function approvesemuadata(){
+		$this->m_cuti->approvesemuadataizin();
+		redirect('izin/detizin');
 	}
 }

@@ -1,4 +1,7 @@
-$(document).on("click","#rekuser",function(){
+$(document).ready(function(){
+    $(".tabelakses tr.aktif").click();
+})
+$(".tabelakses tr").on('click',function(){
     var  rel = $(this).attr('rel');
     $.ajax({
         dataType: 'json',
@@ -7,15 +10,17 @@ $(document).on("click","#rekuser",function(){
         data : {idkey : rel },
         success : function(data){
               if(data.length > 0){
-                  $("#tabelakses tr").removeClass("activex");
-                  $(this).addClass("activex");
+                //   $(".tabelakses tr").removeClass('bold');
+                  $(".tabelakses tr").removeClass('aktif');
+                //   $("#rekuser"+rel).addClass('bold');
+                  $("#rekuser"+rel).addClass('aktif');
                   $("#noinduk").val(data[0]['noinduk']);
                   $("#namauser").val(data[0]['nama']);
                   $("#jabatan").val(data[0]['jabatan']);
                   isihak(rel);
               }
         }
-      })
+      })   
 })
 function isihak(no){
     $.ajax({
@@ -30,12 +35,31 @@ function isihak(no){
                      if(kata.substr(x-1,1)!='0'){
                         $("#cekbagian"+x).removeClass('text-black');
                         $("#cekbagian"+x).addClass('text-red');
+                        $("#cekbagian"+x+" i").removeClass('fa-circle-o');
+                        $("#cekbagian"+x+" i").addClass('fa-check-circle-o');
+                        $("#cekbagian"+x).addClass('bold');
                      }else{
                         $("#cekbagian"+x).removeClass('text-red');
                         $("#cekbagian"+x).addClass('text-black');
+                        $("#cekbagian"+x+" i").removeClass('fa-check-circle-o');
+                        $("#cekbagian"+x+" i").addClass('fa-circle-o');
+                        $("#cekbagian"+x).removeClass('bold');
                      }
                  }
               }
+        }
+      })
+}
+function Editakses(a) {
+    //var rel = $(this).sibling.attr('rel');
+    var no = $("#noinduk").val();
+    $.ajax({
+        dataType: 'json',
+        type : "POST",
+        url : "hakakses/editakses2",
+        data : {noin : no,ke : a},
+        success : function(data){
+            $(".tabelakses tr.aktif").click();
         }
       })
 }

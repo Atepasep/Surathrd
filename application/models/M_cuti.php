@@ -17,8 +17,18 @@ class M_cuti extends CI_Model {
 		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."  order by a.dibuat asc");
 		return $query->result_array();
 	}
+	public function getdepcuti(){
+		$hakdep = $this->session->userdata('hakdep');
+		$idjabat = $this->session->userdata('id_jabatan');
+		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat,b.bagian from cuti a 
+		left join mperson b on b.noinduk = a.noinduk
+		left join jeniscuti c on a.jncuti = c.kode
+		left join jabatan d on b.jabatan = d.namajabatan
+		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." group by b.bagian order by a.dibuat asc");
+		return $query->result_array();
+	}
 	public function getdatadetailcuti($id){
-		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
+		$query = $this->db->query("select a.*,b.nama,b.noinduk,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
 		left join mperson b on b.noinduk = a.noinduk
 		left join jeniscuti c on a.jncuti = c.kode
 		left join mperson d on d.noinduk = a.disetujui
@@ -213,6 +223,18 @@ class M_cuti extends CI_Model {
 	public function tolakdataizin($id,$alasan){
 		$noinduk = $this->session->userdata('noinduk');
 		$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		return $query;
+	}
+	public function approvesemuadatacuti(){
+		$noinduk = $this->session->userdata('noinduk');
+		$hakdep = $this->session->userdata('hakdep');
+		$query = $this->db->query("update cuti set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+		return $query;
+	}
+	public function approvesemuadataizin(){
+		$noinduk = $this->session->userdata('noinduk');
+		$hakdep = $this->session->userdata('hakdep');
+		$query = $this->db->query("update izin set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 		return $query;
 	}
 }

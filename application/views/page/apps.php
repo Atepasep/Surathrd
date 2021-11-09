@@ -102,7 +102,17 @@
 								<?php if($data['approve']==0){ ?>
 									<td style="text-align: center;"><a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i></a></td>
 								<?php }else{ ?>
-									<td></td>
+									<?php 
+										switch (substr($data['kunci'],0,4)) {
+											case 'cuti':
+												$repo = 'apps/cetakrep/';
+												break;
+											case 'izin':
+												$repo = 'apps/cetakform/';
+												break;
+										}
+									?>
+									<td style="text-align: center;"><a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i></a></td>
 								<?php } ?>
 								<td style="text-align: center;"><a href="<?= 'cuti/viewdata/'.$data['kunci'] ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>
 							</tr>

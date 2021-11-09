@@ -247,6 +247,12 @@
 		$pecahkan = explode('-', $tanggal);
 		return $hari[date('w')].', '.$pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
 	}
+	function tglpanjang($dt){
+		$hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu"];
+		$bulan = array (1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+		$pecahkan = explode('-', $dt);
+		return $pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
+	}
  	function header_dids(){
  		$bulan = array (1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
  		return $bulan[(int) date('m')].', '.date('Y');
@@ -261,6 +267,13 @@
 		$m = $today->diff($birthDate)->m;
 		$d = $today->diff($birthDate)->d;
 		return $y." tahun, ".$m." bulan, ".$d." hari";
+	}
+	function selisihhari($awal,$tglakhir){
+		$tgl1 = strtotime($awal); 
+		$tgl2 = strtotime($tglakhir); 
+		$jarak = ($tgl2 - $tgl1) +1;
+		$hari = $jarak / 60 / 60 / 24;
+		return ceil($hari).' hari';
 	}
 	function prosedursurat($nomor){
 		switch($nomor){

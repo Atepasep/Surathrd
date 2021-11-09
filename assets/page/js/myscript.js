@@ -57,6 +57,12 @@ $(document).ready(function(){
 		scrollY: false,
 		ordering : false
 	});
+	$(".datatable5").DataTable({
+		paging : false,
+		searching: true,
+		info: false,
+		scrollY: false
+	});
 
 	$('#confirm-delete').on('show.bs.modal', function(e) {
 		var string = document.getElementById("confirm-delete").innerHTML;

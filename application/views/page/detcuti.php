@@ -8,13 +8,16 @@
 				</div>
 				<div class="panel-body pan">
 					<div class="row">
-						<div class="col-sm-6">
-						  	<div class="form-inline">
-
-							</div>
+						<div class="col-sm-4">
+							<a class="btn btn-xs btn-success" href="<?= base_url() ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
 						</div> 
-						<div class="col-sm-6" style="text-align: right;">
-							<a href="#" class="btn btn-sm btn-danger" id="isisemuaapprove" data-href="<?= base_url().'cuti/approvesemuadata' ?>" data-news="Yakin anda akan menyetujui semua data ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Approve Data"><i class="fa fa-check"></i> Approve Semua</a>
+						<div class="col-sm-4" style="text-align: center;">
+							<!-- <select class="form-control form-control-sm">
+								<option>-- Pilih Bagian --</option>
+							</select> -->
+						</div>
+						<div class="col-sm-4" style="text-align: right;">
+							<a href="#" class="btn btn-xs btn-danger" id="isisemuaapprove" data-href="<?= base_url().'cuti/approvesemuadata' ?>" data-news="Yakin anda akan menyetujui semua data ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Approve Data"><i class="fa fa-check"></i> Approve Semua</a>
 						</div>
 					</div>
 					<div class="row">

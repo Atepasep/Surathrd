@@ -15,7 +15,7 @@ class Absen extends CI_Controller{
 		$footer['footer'] = 'absen';
 		$data['judul'] = 'Keterangan tidak Masuk Kerja';
 		$data['formaction'] = base_url().'absen/simpanabsen';
-		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'));
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/absen',$data);
 		$this->load->view('page/footer',$footer);
@@ -25,7 +25,7 @@ class Absen extends CI_Controller{
 		$head['act'] = 4;
 		$footer['footer'] = 'absen';
 		$data['judul'] = 'Approve Absen (Keterangan tidak Masuk Kerja)';
-		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'));
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$data['dataabsen'] = $this->m_absen->getdataabsen();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/detabsen',$data);
@@ -58,5 +58,9 @@ class Absen extends CI_Controller{
 		$alasan = $_POST['alasn'];
 		$hasil = $this->m_absen->tolakdataabsen($id,$alasan);
 		echo $hasil;
+	}
+	public function approvesemuadata(){
+		$this->m_absen->approvesemuadataabsen();
+		redirect('absen/detabsen');
 	}
 }

@@ -7,27 +7,18 @@ class M_user extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function getdetailuser($id,$cek){
-		
+	public function getdetailuser($id,$cek=0){
 		// $sql = $this->db->where('idkey',$id)->get('mperson');
 		$sql = $this->db->query("SELECT a.*,b.id AS id_jabat FROM mperson a 
 		left join jabatan b ON a.jabatan = b.namajabatan  
 		where a.idkey='".$id."' ");
-		if(isset($cek)){
-			return $sql;
-		}else{
-			return $sql->row_array();
-		}
+		return $sql;
 	}
-	public function getdatauser($id,$cek){
+	public function getdatauser($id,$cek=0){
 		$sql = "SELECT a.*,b.nama,b.jabatan,b.idkey FROM akses_departemen a
 				LEFT JOIN mperson b ON a.noinduk = b.noinduk WHERE b.idkey = '".$id."'  ";
 		$query = $this->db->query($sql);
-		if(isset($cek)){
-			return $query;
-		}else{
-			return $query->result_array();
-		}
+		return $query;
 	}
 	public function getbagian(){
 		$query = $this->db->query("select * from bagian order by id");
@@ -36,5 +27,13 @@ class M_user extends CI_Model {
 	public function editakses($nik){
 		$query = $this->db->query("select * from mperson where noinduk = '".$nik."' ");
 		return $query;
+	}
+	public function editakses2($nik,$ke){
+		$query = $this->db->query("select * from akses_departemen where noinduk = '".$nik."' ")->row_array();
+		$hakdep = $query['hakdep'];
+		$tampung = substr($hakdep,$ke-1,1)=='1' ? '0' : '1';
+		$hasil = substr_replace($hakdep,$tampung,$ke-1,1);
+		$queryfinal = $this->db->query("update akses_departemen set hakdep = '".$hasil."' where noinduk = '".$nik."' ");
+		return $queryfinal;
 	}
 }

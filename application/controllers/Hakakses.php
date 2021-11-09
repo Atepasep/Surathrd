@@ -11,7 +11,7 @@ class Hakakses extends CI_Controller{
 		$this->load->model('m_user');
 	}
 	public function index(){
-		$head['act'] = 5;
+		$head['act'] = 6;
 		$footer['footer'] = 'akses';
 		$data['judul'] = 'Hak Akses Departemen';
 		$data['datauser'] = $this->m_user->getuser();
@@ -35,5 +35,11 @@ class Hakakses extends CI_Controller{
 		$idkey = $_POST['noin'];
 		$hasil = $this->m_user->getdatauser($idkey,1)->result();
 		echo json_encode($hasil);
+	}
+	public function editakses2(){
+		$noin = $_POST['noin'];
+		$ke = $_POST['ke'];
+		$hasil = $this->m_user->editakses2($noin,$ke);
+		echo $hasil;
 	}
 }

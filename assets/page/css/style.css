@@ -2119,7 +2119,8 @@ select.input-sml {
   /* background-color: rgba(204, 245, 39, 0.6) !important; */
   cursor: pointer;
 }
-.tabelakses tr.activex {
-  background-color: rgba(204, 245, 39, 0.6) !important;
+.tabelakses tr.aktif {
+  /* background-color: rgba(216, 239, 226, 0.6) !important; */
+  background-color: rgba(213, 252, 123, 0.6) !important;
   cursor: pointer;
 }

@@ -107,4 +107,10 @@ class M_absen extends CI_Model {
 		}
 		return (!empty($uploadData)) ? $uploadData['file_name'] : NULL;
 	}
+	public function approvesemuadataabsen(){
+		$noinduk = $this->session->userdata('noinduk');
+		$hakdep = $this->session->userdata('hakdep');
+		$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+		return $query;
+	}
 }

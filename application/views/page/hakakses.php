@@ -9,20 +9,24 @@
 					  <div class="panel-body pan">
 					    <div class="row">
 							<div class="col-sm-12">
-								<div class="col-sm-6 font-kecil">
-									<table class="table table-bordered table-striped table-hover responsive nowrap tabelakses">
+								<div class="col-sm-6 font-kecil table-responsive"> 
+									<table class="table table-bordered table-striped table-hover nowrap tabelakses responsive datatable5">
+										<thead style="background-color: #D8EFE2;">
 										<tr>
 											<th class="text-center">No</th>
 											<th class="text-center">No Induk</th>
 											<th class="text-center">Nama</th>
 										</tr>
+										</thead>
+										<tbody>
 										<?php $no=0; foreach($datauser as $data): $no++; ?>
-											<tr id="rekuser" rel="<?= $data['idkey'] ?>">
+											<tr id="rekuser<?= $data['idkey'] ?>" rel="<?= $data['idkey'] ?>" class="<?php if($no==1){ echo "aktif"; } ?>">
 												<td style="padding: 3px 4px;"><?= $no ?></td>
 												<td style="padding: 3px 4px;"><?= $data['noinduk'] ?></td>
 												<td style="padding: 3px 4px;"><?= $data['nama'] ?></td>
 											</tr>
 										<?php endforeach; ?>
+										</tbody>
 									</table>
 								</div>
 								<div class="col-sm-6">
@@ -46,6 +50,7 @@
 											</div>
 										</div>
 										<div class="formakses font-kecil" style="border: 1px dashed #fc6e2d !important; padding: 5px;">
+											<div class="text-center" style="border-bottom: 1px solid black; margin: 5px;">Daftar Departemen</div>
 											<div class="row">
 												<?php $num = $bagian->num_rows(); $xnum = ($num/2)+1; $no=0; foreach($bagian->result_array() as $databagian): $no++; ?>
 													<?php if($no==$xnum){ ?>
@@ -54,9 +59,8 @@
 													<?php if($no==1 || $no==$xnum){ ?>
 														<div class="col-sm-6">
 													<?php } ?>
-													<?php $tek = 'text-black'; ?>
-													<a href="#" style="text-decoration: none;" class="<?= $tek ?>" id="cekbagian<?= $databagian['id'] ?>" rel="<?= $databagian['id'] ?>">
-														<i class="fa fa-circle-o text-yellow "></i> <?= ucwords($databagian['bagian']) ?> <br>
+													<a href="#" style="text-decoration: none;" class="text-black" id="cekbagian<?= $databagian['id'] ?>" rel="<?= $databagian['id'] ?>" onclick="Editakses(<?= $databagian['id'] ?>)">
+														<i class="fa text-yellow "></i> <?= ucwords($databagian['bagian']) ?> <br>
 													</a>
 													<?php if($no==$num){ ?>
 														</div>

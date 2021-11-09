@@ -16,7 +16,7 @@ class Cuti extends CI_Controller{
 		$footer['footer'] = 'cuti';
 		$data['judul'] = 'Permohonan cuti dan Izin Khusus';
 		$data['formaction'] = base_url().'cuti/simpancuti';
-		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'));
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/cuti',$data);
 		$this->load->view('page/footer',$footer);
@@ -25,8 +25,9 @@ class Cuti extends CI_Controller{
 		$head['act'] = 2;
 		$footer['footer'] = 'cuti';
 		$data['judul'] = 'Approve cuti dan Izin Khusus';
-		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'));
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$data['datacuti'] = $this->m_cuti->getdatacuti();
+		$data['depcuti'] = $this->m_cuti->getdepcuti();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/detcuti',$data);
 		$this->load->view('page/footer',$footer);		
@@ -82,5 +83,9 @@ class Cuti extends CI_Controller{
 		$alasan = $_POST['alasn'];
 		$hasil = $this->m_cuti->tolakdata($id,$alasan);
 		echo $hasil;
+	}
+	public function approvesemuadata(){
+		$this->m_cuti->approvesemuadatacuti();
+		redirect('cuti/detcuti');
 	}
 }

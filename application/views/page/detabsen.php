@@ -9,10 +9,10 @@
 				<div class="panel-body pan">
 					<div class="row">
 						<div class="col-sm-6">
-
+							<a class="btn btn-xs btn-success" id="kembali" href="<?= base_url() ?>" ><i class="fa fa-arrow-left"></i> Kembali</a>
 						</div> 
 						<div class="col-sm-6" style="text-align: right;">
-							<a href="#" class="btn btn-sm btn-danger" id="isisemuaapprove" data-href="<?= base_url().'absen/approvesemuadata' ?>" data-news="Yakin anda akan menyetujui semua data ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Approve Data"><i class="fa fa-check"></i> Approve Semua</a>
+							<a href="#" class="btn btn-xs btn-danger" id="isisemuaapprove" data-href="<?= base_url().'absen/approvesemuadata' ?>" data-news="Yakin anda akan menyetujui semua data ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Approve Data"><i class="fa fa-check"></i> Approve Semua</a>
 						</div>
 					</div>
 					<div class="row">
