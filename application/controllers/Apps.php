@@ -23,6 +23,73 @@ class Apps extends CI_Controller{
 		$this->load->view('page/footer',$footer);
 	}
 
+	public function cetakform($jenis,$id){
+		$data = $this->m_cuti->getdatadetailizin($id);
+		$file = 'Suratizin.pdf';
+        $pdf = new FPDF_Protection('p','mm','A4');
+        $pdf->SetProtection(array('print'), '');
+		$pdf->AddPage();
+		$pdf->AddFont('couriernew','','COUR_1.php');
+		$pdf->AddFont('couriernewb','B','COURBD_1.php');
+		$pdf->SetFont('Times','',14);
+		$pdf->Cell(190,2,'SURAT '.strtoupper($data['keterangan']),0,1,'C');
+		$pdf->SetFont('Courier','',9);
+		$pdf->Cell(10,3,'',0,1);
+		$pdf->Cell(190,2,'Tanggal : '.tglpanjang($data['tgl_izin']),0,1,'C');
+		// Kumpulan garis
+		$pdf->Line(10,20,200,20);
+		$pdf->Line(10,20,10,55);
+		$pdf->Line(40,20,40,55);
+		$pdf->Line(105,20,105,48);
+		$pdf->Line(135,20,135,48);
+		$pdf->Line(200,20,200,55);
+		$pdf->Line(10,27,200,27);
+		$pdf->Line(10,34,200,34);
+		$pdf->Line(10,41,200,41);
+		$pdf->Line(10,48,200,48);
+		$pdf->Line(10,55,200,55);
+
+		$pdf->Line(10,57,200,57);
+		$pdf->Line(10,64,200,64);
+		$pdf->Line(10,80,200,80);
+		$pdf->Line(10,57,10,80);
+		$pdf->Line(57,57,57,80);
+		$pdf->Line(105,57,105,80);
+		$pdf->Line(152,57,152,80);
+		$pdf->Line(200,57,200,80);
+		// end Kumpulan garis 
+		$pdf->SetFont('couriernew','',10);
+		$pdf->Cell(10,6,'',0,1);
+		$pdf->Cell(30,2,'Nama');
+		$pdf->Cell(65,2,$data['nama']);
+		$pdf->Cell(30,2,'Noinduk');
+		$pdf->Cell(65,2,$data['noinduk']);
+		$pdf->Cell(10,7,'',0,1);
+		$pdf->Cell(30,2,'Jabatan');
+		$pdf->Cell(65,2,$data['jabatan']);
+		$pdf->Cell(30,2,'Bagian/Group');
+		$pdf->Cell(65,2,$data['bagian']);
+		$pdf->Cell(10,7,'',0,1);
+		$pdf->Cell(30,2,'Masuk Jam');
+		$pdf->Cell(65,2,$data['masuk']);
+		$pdf->Cell(30,2,'Pulang Jam');
+		$pdf->Cell(65,2,$data['pulang']);
+		$pdf->Cell(10,7,'',0,1);
+		$pdf->Cell(30,2,'Keluar Jam');
+		$pdf->Cell(65,2,$data['keluar']);
+		$pdf->Cell(30,2,'Kembali Jam');
+		$pdf->Cell(65,2,$data['kembali']);
+		$pdf->Cell(10,7,'',0,1);
+		$pdf->Cell(30,2,'Alasan');
+		$pdf->Cell(160,2,$data['alasan']);
+		$pdf->Cell(10,9,'',0,1);
+		$pdf->Cell(47,2,'yang Bersangkutan,',0,0,'C');
+		$pdf->Cell(48,2,'Chief Of Leader,',0,0,'C');
+		$pdf->Cell(47,2,'Supervisor,',0,0,'C');
+		$pdf->Cell(48,2,'Personalia,',0,0,'C');
+		$pdf->Output($file,'D');
+	}
+
 	public function cetakrep($jenis,$id){
 		$data = $this->m_cuti->getdatadetailcuti($id);
 		$ambil = $data['ambil']==1 ? 'Ambil Cuti' : 'Tidak diambil Cuti';

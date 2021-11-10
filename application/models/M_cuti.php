@@ -51,7 +51,7 @@ class M_cuti extends CI_Model {
 		return $query->result_array();
 	}
 	public function getdatadetailizin($id){
-		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from izin a 
+		$query = $this->db->query("select a.*,b.nama,b.jabatan,b.bagian,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from izin a 
 		left join mperson b on b.noinduk = a.noinduk
 		left join jeniscuti c on a.jnizin = c.kode
 		left join mperson d on d.noinduk = a.disetujui
