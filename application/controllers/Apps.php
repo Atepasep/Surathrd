@@ -278,6 +278,12 @@ class Apps extends CI_Controller{
 		return $tempdir.$jenis.'-'.$id;
 	}
 
+	public function cekqr(){
+		$text = " PRODUCT ID 23456";
+
+		QRcode::png($text);
+	}
+
 	public function logout(){
 		$this->session->sess_destroy();
 		$url = base_url();
