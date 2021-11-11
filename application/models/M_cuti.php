@@ -28,12 +28,13 @@ class M_cuti extends CI_Model {
 		return $query->result_array();
 	}
 	public function getdatadetailcuti($id){
-		$query = $this->db->query("select a.*,b.nama,b.noinduk,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
+		$query = $this->db->query("select a.*,b.nama,b.noinduk,f.id as id_jabat,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
 		left join mperson b on b.noinduk = a.noinduk
 		left join jeniscuti c on a.jncuti = c.kode
 		left join mperson d on d.noinduk = a.disetujui
 		left join mperson e on e.noinduk = a.diterima
-		where id='".$id."' ");
+		left join jabatan f on f.namajabatan = b.jabatan
+		where a.id='".$id."' ");
 		return $query->row_array();		
 	}
 	public function hapusdatacuti($id){

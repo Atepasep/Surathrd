@@ -110,10 +110,11 @@
 										}
 									?>
 									<td style="text-align: center;">
-										<?php if($data['approve']==0){ ?>
-											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i></a> | 
+										<?php if($data['approve']<=0){ ?>
+											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i></a>
+										<?php }else{ ?>
+											<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i></a>
 										<?php } ?>
-										<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i></a>
 									</td>
 								<td style="text-align: center;"><a href="<?= 'cuti/viewdata/'.$data['kunci'] ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>
 							</tr>
