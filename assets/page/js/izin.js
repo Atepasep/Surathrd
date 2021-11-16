@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	setinput('');
+	//setinput('');
+	$("#jnizin").change();
 })
 $('#masuk').on('change click keyup input paste',(function (event) {
     $(this).val(function (index, value) {
@@ -107,7 +108,12 @@ $("#jnizin").change(function(){
 	$("#jnizinx").val(hh);
 })
 $("#batalizin").click(function(){
-	kosongkanform();
+	var rel = $("#kirimizin").attr('rel');
+	if(rel=='Simpan'){
+		kosongkanform();
+	}else{
+		window.location.href = "../../";
+	}
 })
 $("#kirimizin").click(function(){
 	if(($("#masuk").val()=='' && $("#keluar").val()=='' && $("#pulang").val()=='' && $("#kembali").val()=='') || $("#alasan").val()==''){
@@ -117,7 +123,7 @@ $("#kirimizin").click(function(){
 	}
 })
 function setinput(jnsurat){
-	kosongkanform();
+	//kosongkanform();
 	$("#setjeniscuti").addClass('hilang');
 	$("#notsetjeniscuti").addClass('hilang');
 	$("#formmasuk").addClass('hilang');
@@ -148,7 +154,7 @@ function kosongkanform(){
 	$("#keluar").val('');
 	$("#pulang").val('');
 	$("#kembali").val('');
-	$("#keterangan").val('');
+	$("#alasan").val('');
 }
 function cekhari(tglawal,tglakhir){
 	if(tglawal=='' || tglakhir==''){

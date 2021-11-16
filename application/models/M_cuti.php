@@ -2,16 +2,18 @@
 class M_cuti extends CI_Model {
 	public function getdata(){
 		$noinduk = $this->session->userdata('noinduk');
+		$krit = substr($this->session->userdata('kritper'),0,1);
+		$pers = substr($this->session->userdata('kritper'),1,8);
 		$query = $this->db->query("SELECT a.*,b.keterangan AS namacuti FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
-		WHERE a.noinduk = '".$noinduk."' order by a.dibuat desc ");
+		WHERE a.kritkar = ".$krit." and a.person_id = '".$pers."' order by a.dibuat desc ");
 		return $query; //->result_array();
 	}
 	public function getdatacuti(){
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from cuti a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
 		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."  order by a.dibuat asc");
@@ -21,7 +23,7 @@ class M_cuti extends CI_Model {
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat,b.bagian from cuti a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
 		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." group by b.bagian order by a.dibuat asc");
@@ -29,7 +31,7 @@ class M_cuti extends CI_Model {
 	}
 	public function getdatadetailcuti($id){
 		$query = $this->db->query("select a.*,b.nama,b.noinduk,f.id as id_jabat,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join mperson d on d.noinduk = a.disetujui
 		left join mperson e on e.noinduk = a.diterima
@@ -45,7 +47,7 @@ class M_cuti extends CI_Model {
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from izin a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
 		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." order by a.dibuat asc");
@@ -53,7 +55,7 @@ class M_cuti extends CI_Model {
 	}
 	public function getdatadetailizin($id){
 		$query = $this->db->query("select a.*,b.nama,b.jabatan,b.bagian,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from izin a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join mperson d on d.noinduk = a.disetujui
 		left join mperson e on e.noinduk = a.diterima
@@ -73,9 +75,32 @@ class M_cuti extends CI_Model {
 		$data['dari'] = tglmysql($data['dari']);
 		$data['sampai'] = tglmysql($data['sampai']);
 		$data['dibuat'] = date("Y-m-d H:i:s");
+		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
+		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
 		unset($data['jnsuratx']);
 		unset($data['tglik']);
+		unset($data['idx']);
 		$this->db->insert('cuti',$data);
+		$url = base_url().'apps';
+		redirect($url);
+	}
+	public function updatecuti(){
+		$data= $_POST;
+		$data['noinduk'] = $this->session->userdata('noinduk');
+		$data['ambil'] = $data['jncuti'];
+		$data['jncuti'] = $data['jnsuratx'];
+		$data['tgl_khusus'] = tglmysql($data['tglik']);
+		$data['dari'] = tglmysql($data['dari']);
+		$data['sampai'] = tglmysql($data['sampai']);
+		$data['dibuat'] = date("Y-m-d H:i:s");
+		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
+		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
+		unset($data['jnsuratx']);
+		unset($data['tglik']);
+		$dataid = $data['idx'];
+		unset($data['idx']);
+		$this->db->where('id',$dataid);
+		$this->db->update('cuti',$data);
 		$url = base_url().'apps';
 		redirect($url);
 	}
@@ -85,8 +110,27 @@ class M_cuti extends CI_Model {
 		$data['dibuat'] = date("Y-m-d H:i:s"); 
 		$data['jnizin'] = $data['jnizinx'];
 		$data['tgl_izin'] = tglmysql($data['tgl_izin']);
+		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
+		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
  		unset($data['jnizinx']);
+		 unset($data['idx']);
 		$this->db->insert('izin',$data);
+		$url = base_url().'apps';
+		redirect($url);
+	}
+	public function updateizin(){
+		$data = $_POST;
+		$data['noinduk'] = $this->session->userdata('noinduk');
+		$data['dibuat'] = date("Y-m-d H:i:s"); 
+		$data['jnizin'] = $data['jnizinx'];
+		$data['tgl_izin'] = tglmysql($data['tgl_izin']);
+		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
+		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
+ 		unset($data['jnizinx']);
+		$dataid = $data['idx'];
+		unset($data['idx']);
+		$this->db->where('id',$dataid);
+		$this->db->update('izin',$data);
 		$url = base_url().'apps';
 		redirect($url);
 	}
@@ -125,7 +169,7 @@ class M_cuti extends CI_Model {
 				'keterangan'=>$dataabsen['keterangan'],
 				'dibuat'=>$dataabsen['dibuat'],
 				'approve'=>$dataabsen['approve'],
-				'kunci'=>'ketabsen/'.$dataabsen['id']
+				'kunci'=>'absen/'.$dataabsen['id']
 			);
 			$mdarray[] = $databaru;
 		}
@@ -139,7 +183,7 @@ class M_cuti extends CI_Model {
 		$hakdep = $this->session->userdata('hakdep');
 		$query = $this->db->query("SELECT COUNT(a.jncuti) as cuti FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
-		LEFT JOIN mperson c ON a.noinduk = c.noinduk 
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
 		WHERE a.approve=0 AND c.bagian IN (".$hakdep.") AND d.id < ".$idjabat."
 		GROUP BY c.bagian ");
@@ -152,10 +196,12 @@ class M_cuti extends CI_Model {
 	function getriwayatcuti(){
 		$bag = $this->session->userdata('bagian');
 		$noinduk = $this->session->userdata('noinduk');
+		$krit = substr($this->session->userdata('kritper'),0,1);
+		$pers = substr($this->session->userdata('kritper'),1,8);
 		$query = $this->db->query("SELECT a.*,b.keterangan,c.bagian,c.jabatan FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti=b.kode
-		LEFT JOIN mperson c ON a.noinduk = c.noinduk
-		WHERE c.bagian = '".$bag."' and a.noinduk = '".$noinduk."' ");
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
+		WHERE c.bagian = '".$bag."' and a.person_id = '".$pers."' and a.kritkar = ".$krit);
 		return $query->result_array();
 	}
 	function gettaskizin(){
@@ -163,7 +209,7 @@ class M_cuti extends CI_Model {
 		$idjabat = $this->session->userdata('id_jabatan');
 		$query = $this->db->query("SELECT COUNT(a.jnizin) as izin FROM izin a
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
-		LEFT JOIN mperson c ON a.noinduk = c.noinduk 
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
 		WHERE a.approve=0 AND c.bagian = '".$bag."' AND d.id < ".$idjabat."
 		GROUP BY c.bagian ");
@@ -176,10 +222,12 @@ class M_cuti extends CI_Model {
 	function getriwayatizin(){
 		$bag = $this->session->userdata('bagian');
 		$noinduk = $this->session->userdata('noinduk');
+		$krit = substr($this->session->userdata('kritper'),0,1);
+		$pers = substr($this->session->userdata('kritper'),1,8);
 		$query = $this->db->query("SELECT a.*,b.keterangan,c.bagian,c.jabatan FROM izin a
 		LEFT JOIN jeniscuti b ON a.jnizin=b.kode
-		LEFT JOIN mperson c ON a.noinduk = c.noinduk
-		WHERE c.bagian = '".$bag."' and a.noinduk = '".$noinduk."' ");
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
+		WHERE c.bagian = '".$bag."' and a.person_id = '".$pers."' and a.kritkar = ".$krit);
 		return $query->result_array();
 	}
 	function gettaskabsen(){
@@ -187,7 +235,7 @@ class M_cuti extends CI_Model {
 		$idjabat = $this->session->userdata('id_jabatan');
 		$query = $this->db->query("SELECT COUNT(a.jnabsen) as absen FROM ketabsen a
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
-		LEFT JOIN mperson c ON a.noinduk = c.noinduk 
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
 		WHERE a.approve=0 AND c.bagian = '".$bag."' AND d.id < ".$idjabat."
 		GROUP BY c.bagian ");
@@ -200,40 +248,42 @@ class M_cuti extends CI_Model {
 	function getriwayatabsen(){
 		$bag = $this->session->userdata('bagian');
 		$noinduk = $this->session->userdata('noinduk');
+		$krit = substr($this->session->userdata('kritper'),0,1);
+		$pers = substr($this->session->userdata('kritper'),1,8);
 		$query = $this->db->query("SELECT a.*,b.keterangan,c.bagian,c.jabatan FROM ketabsen a
 		LEFT JOIN jeniscuti b ON a.jnabsen=b.kode
 		LEFT JOIN mperson c ON a.noinduk = c.noinduk
-		WHERE c.bagian = '".$bag."' and a.noinduk = '".$noinduk."' ");
+		WHERE c.bagian = '".$bag."' and a.person_id = '".$pers."' and a.kritkar = ".$krit);
 		return $query->result_array();
 	}
 	public function isiapprove($id){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		return $query;
 	}
 	public function isiapproveizin($id){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		return $query;
 	}
 	public function tolakdata($id,$alasan){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		return $query;
 	}
 	public function tolakdataizin($id,$alasan){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		return $query;
 	}
 	public function approvesemuadatacuti(){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$hakdep = $this->session->userdata('hakdep');
 		$query = $this->db->query("update cuti set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 		return $query;
 	}
 	public function approvesemuadataizin(){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$hakdep = $this->session->userdata('hakdep');
 		$query = $this->db->query("update izin set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 		return $query;

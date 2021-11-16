@@ -116,7 +116,7 @@
 								</tr>
 							<?php } ?>
 						</table> 
-					<?php }else{ ?>
+					<?php }elseif($mode=='absen'){ ?>
 						<table class="table borderless">
 							<tr>
 								<td style="width: 20%;">Jenis Absen</td>

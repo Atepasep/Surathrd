@@ -1,5 +1,10 @@
 $("#batalabsen").click(function(){
-    kosongkanform();
+    var rel = $("#kirimabsen").attr('rel');
+    if(rel=='Simpan'){
+        kosongkanform();
+    }else{
+        window.location.href = "../../";
+    }
 })
 $("#kirimabsen").on('click',function(){
     if($("#jnabsen").val()=='' || $("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#ket").val()==''){

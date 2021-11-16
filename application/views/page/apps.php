@@ -11,7 +11,6 @@
 								<?php 
 									$data0 =0;$data1=0;$data2=0;$data3=0;
 									// print_r($getriwayat);
-									// echo $this->session->userdata('hakdep');
 								?>
 								<table style="width: 100%;">
 									<tr class="bg-aqua bold">
@@ -102,18 +101,31 @@
 									<?php 
 										switch (substr($data['kunci'],0,4)) {
 											case 'cuti':
+												$kunci1 = substr($data['kunci'],0,4);
+												$kunci2 = substr($data['kunci'],5,6);
 												$repo = 'apps/cetakrep/';
+												$upda = 'editcuti';
 												break;
 											case 'izin':
+												$kunci1 = substr($data['kunci'],0,4);
+												$kunci2 = substr($data['kunci'],5,6);
 												$repo = 'apps/cetakform/';
+												$upda = 'editizin';
+												break;
+											case 'abse':
+												$kunci1 = substr($data['kunci'],0,5);
+												$kunci2 = substr($data['kunci'],6,6);
+												$repo = 'apps/cetakform2/';
+												$upda = 'editabsen';
 												break;
 										}
 									?>
 									<td style="text-align: center;">
 										<?php if($data['approve']<=0){ ?>
-											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i></a>
+											<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
+											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
 										<?php }else{ ?>
-											<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i></a>
+											<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
 										<?php } ?>
 									</td>
 								<td style="text-align: center;"><a href="<?= 'cuti/viewdata/'.$data['kunci'] ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>

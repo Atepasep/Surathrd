@@ -17,6 +17,45 @@ class Cuti extends CI_Controller{
 		$data['judul'] = 'Permohonan cuti dan Izin Khusus';
 		$data['formaction'] = base_url().'cuti/simpancuti';
 		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$data['jncuti'] =null;
+		$data['tgldibuat'] = null;
+		$data['ambil'] = null;
+		$data['dari'] = null;
+		$data['sampai'] = null;
+		$data['jmhari']= null;
+		$data['masakerja'] = null;
+		$data['alasan'] = null;
+		$data['tglik'] = null;
+		$data['hariik'] = null;
+		$data['jamik'] = null;
+		$data['tempatik'] = null;
+		$data['idx'] = null;
+		$data['kode'] = 'Simpan';
+		$this->load->view('page/header',$head);
+		$this->load->view('page/cuti',$data);
+		$this->load->view('page/footer',$footer);
+	}
+	public function editcuti($id){
+		$head['act'] = 2;
+		$footer['footer'] = 'cuti';
+		$data['judul'] = 'Permohonan cuti dan Izin Khusus';
+		$data['formaction'] = base_url().'cuti/updatecuti';
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$temp = $this->m_cuti->getdatadetailcuti($id);
+		$data['jncuti'] = $temp['jncuti'];
+		$data['tgldibuat'] = $temp['dibuat'];
+		$data['ambil'] = $temp['ambil'];
+		$data['dari'] = tglmysql($temp['dari']);
+		$data['sampai'] = tglmysql($temp['sampai']);
+		$data['jmhari']= selisihhari($temp['dari'],$temp['sampai']);
+		$data['masakerja'] = $temp['masakerja'];
+		$data['alasan'] = $temp['alasan'];
+		$data['tglik'] = tglmysql($temp['tgl_khusus']);
+		$data['hariik'] = $temp['hari'];
+		$data['jamik'] = $temp['jam'];
+		$data['tempatik'] = $temp['tempat'];
+		$data['idx'] = $temp['id'];
+		$data['kode'] = 'Update';
 		$this->load->view('page/header',$head);
 		$this->load->view('page/cuti',$data);
 		$this->load->view('page/footer',$footer);
@@ -35,7 +74,7 @@ class Cuti extends CI_Controller{
 
 	public function viewdata($tabel,$id){
 		switch ($tabel) {
-			case 'ketabsen':
+			case 'absen':
 				$data['getdata'] = $this->m_absen->getdatadetailabsen($id);
 				break;
 			case 'cuti':
@@ -66,6 +105,11 @@ class Cuti extends CI_Controller{
 
 	public function simpancuti(){
 		$this->m_cuti->simpancuti();
+		redirect('cuti');
+	}
+
+	public function updatecuti(){
+		$this->m_cuti->updatecuti();
 		redirect('cuti');
 	}
 

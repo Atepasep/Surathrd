@@ -173,11 +173,15 @@
 			<nav id="ifn-main-menu" role="navigation">
 				<ul>
 					<li class="<?= $m1 ?>"><a href="<?= base_url() ?>">Dashboard</a></li>
-					<li class="<?= $m2 ?>"><a href="<?= base_url().'cuti' ?>" title="Permohonan Cuti dan Izin Khusus">Cuti dan Izin khusus</a></li>
+					<?php if(substr($this->session->userdata('kritper'),0,1)=='0'){ ?>
+						<li class="<?= $m2 ?>"><a href="<?= base_url().'cuti' ?>" title="Permohonan Cuti dan Izin Khusus">Cuti dan Izin khusus</a></li>
+					<?php } ?>
 					<li class="<?= $m3 ?>"><a href="<?= base_url().'izin' ?>" title="surat izin keluar, pulang, terlambat">Izin P/L/K</a></li>
 					<li class="<?= $m4 ?>"><a href="<?= base_url().'absen' ?>" title="surat keterangan tidak masuk">Keterangan Absen</a></li>
 					<?php if($this->session->userdata('hakdep') != "'X'"){ ?>
 						<li class="<?= $m5 ?>"><a href="<?= base_url().'spl' ?>" title="Surat Perintah Lembur">Overtime</a></li>
+						<li class="<?= $m7 ?>"><a href="<?= base_url().'kupmak' ?>" title="Input Kupon Makan">Kupon Makan</a></li>
+						<li class=""><a href="<?= base_url() ?>" title="Ubah ID Key">Ganti idKey</a></li>
 					<?php } ?>
 		 			<br>
 					<br>

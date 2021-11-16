@@ -46,7 +46,7 @@
 							Sign in
 						</button>
 					</div>
-					<div class="ket-login">Silahkan masukan id Key yang terdiri dari noinduk+tgllahir. <br>ex : BXXXX11011990</div>
+					<div class="ket-login">Silahkan masukan id Key yang default terdiri dari noinduk+tgllahir. <br>ex : BXXXX11011990</div>
 				</form>
 				<div class="login100-more" style="background-image: url('<?= base_url() ?>assets/images/bg1.jpg');"></div>
 			</div>

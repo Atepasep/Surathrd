@@ -2,9 +2,11 @@
 class M_absen extends CI_Model {
 	public function getdata(){
 		$noinduk = $this->session->userdata('noinduk');
+		$krit = substr($this->session->userdata('kritper'),0,1);
+		$pers = substr($this->session->userdata('kritper'),1,8);
 		$query = $this->db->query("SELECT a.*,b.keterangan AS namacuti FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
-		WHERE a.noinduk = '".$noinduk."' order by a.dibuat desc ");
+		WHERE  a.kritkar = ".$krit." and a.person_id = '".$pers."' order by a.dibuat desc ");
 		return $query; //->result_array();
 	}
 	public function simpanabsen(){
@@ -13,10 +15,31 @@ class M_absen extends CI_Model {
 		$data['dari'] = tglmysql($data['dari']);
 		$data['sampai'] = tglmysql($data['sampai']);
 		$data['dibuat'] = date("Y-m-d H:i:s");
+		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
+		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
 		$data['dok'] = $this->uploadLogo();
 		unset($data['jnizinx']);
 		unset($data['dokumen']);
+		unset($data['idx']);
 		$this->db->insert('ketabsen',$data);
+		$url = base_url().'apps';
+		redirect($url);
+	}
+	public function updateabsen(){
+		$data= $_POST;
+		$data['noinduk'] = $this->session->userdata('noinduk');
+		$data['dari'] = tglmysql($data['dari']);
+		$data['sampai'] = tglmysql($data['sampai']);
+		$data['dibuat'] = date("Y-m-d H:i:s");
+		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
+		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
+		$data['dok'] = $this->uploadLogo();
+		unset($data['jnizinx']);
+		unset($data['dokumen']);
+		$dataid = $data['idx'];
+		unset($data['idx']);
+		$this->db->where('id',$dataid);
+		$this->db->update('ketabsen',$data);
 		$url = base_url().'apps';
 		redirect($url);
 	}
@@ -29,7 +52,7 @@ class M_absen extends CI_Model {
 		$bag = $this->session->userdata('bagian');
 		$query = $this->db->query("Select count(jncuti) AS jmlcuti,b.gr AS gr,c.bagian,d.id as id_jabatan from cuti a 
 		left join jeniscuti b ON b.kode = a.jncuti  
-		LEFT JOIN mperson c ON a.noinduk = c.noinduk 
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d ON c.jabatan = d.namajabatan 
 		WHERE a.approve=0 AND bagian = '".$bag."' 
 		GROUP BY gr,bagian,id_jabatan
@@ -41,7 +64,7 @@ class M_absen extends CI_Model {
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from ketabsen a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
 		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." order by a.dibuat asc");
@@ -50,7 +73,7 @@ class M_absen extends CI_Model {
 
 	public function getdatadetailabsen($id){
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from ketabsen a 
-		left join mperson b on b.noinduk = a.noinduk
+		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
 		left join mperson d on d.noinduk = a.disetujui
 		left join mperson e on e.noinduk = a.diterima
@@ -64,12 +87,12 @@ class M_absen extends CI_Model {
 	}
 
 	public function isiapproveabsen($id){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$query = $this->db->query("update ketabsen set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		return $query;
 	}
 	public function tolakdataabsen($id,$alasan){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$query = $this->db->query("update ketabsen set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		return $query;
 	}

@@ -16,6 +16,29 @@ class Absen extends CI_Controller{
 		$data['judul'] = 'Keterangan tidak Masuk Kerja';
 		$data['formaction'] = base_url().'absen/simpanabsen';
 		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$data['kode'] = 'Simpan';
+		$data['jnabsen'] = null;
+		$data['dari'] = null;
+		$data['sampai'] = null;
+		$data['ket'] = null;
+		$data['idx'] = null;
+		$this->load->view('page/header',$head);
+		$this->load->view('page/absen',$data);
+		$this->load->view('page/footer',$footer);
+	}
+	public function editabsen($id){
+		$head['act'] = 4;
+		$footer['footer'] = 'absen';
+		$data['judul'] = 'Keterangan tidak Masuk Kerja';
+		$data['formaction'] = base_url().'absen/updateabsen';
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$temp = $this->m_absen->getdatadetailabsen($id);
+		$data['kode'] = 'Update';
+		$data['jnabsen'] = $temp['jnabsen'];
+		$data['dari'] = tglmysql($temp['dari']);
+		$data['sampai'] = tglmysql($temp['sampai']);
+		$data['ket'] = $temp['ket'];
+		$data['idx']= $temp['id'];
 		$this->load->view('page/header',$head);
 		$this->load->view('page/absen',$data);
 		$this->load->view('page/footer',$footer);
@@ -41,6 +64,11 @@ class Absen extends CI_Controller{
 
 	public function simpanabsen(){
 		$this->m_absen->simpanabsen();
+		redirect('absen');
+	}
+
+	public function updateabsen(){
+		$this->m_absen->updateabsen();
 		redirect('absen');
 	}
 

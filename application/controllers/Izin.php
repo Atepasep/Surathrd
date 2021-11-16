@@ -16,6 +16,36 @@ class Izin extends CI_Controller{
 		$data['judul'] = 'Permohonan Izin Keluar, Pulang dan Terlambat';
 		$data['formaction'] = base_url().'izin/simpanizin';
 		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$data['jnizin'] = null;
+		$data['tglizin'] = null;
+		$data['masuk'] = null;
+		$data['pulang'] = null;
+		$data['keluar'] = null;
+		$data['kembali'] = null;
+		$data['alasan'] = null;
+		$data['idx'] = null;
+		$data['kode'] = 'Simpan';
+		$this->load->view('page/header',$head);
+		$this->load->view('page/izin',$data);
+		$this->load->view('page/footer',$footer);
+	}
+
+	public function editizin($id){
+		$head['act'] = 3;
+		$footer['footer'] = 'izin';
+		$data['judul'] = 'Permohonan Izin Keluar, Pulang dan Terlambat';
+		$data['formaction'] = base_url().'izin/updateizin';
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$temp = $this->m_cuti->getdatadetailizin($id);
+		$data['jnizin'] = $temp['jnizin'];
+		$data['tglizin'] = $temp['tgl_izin'];
+		$data['masuk'] = $temp['masuk'];
+		$data['pulang'] = $temp['pulang'];
+		$data['keluar'] = $temp['keluar'];
+		$data['kembali'] = $temp['kembali'];
+		$data['alasan'] = $temp['alasan'];
+		$data['idx'] = $temp['id'];
+		$data['kode'] = 'Update';
 		$this->load->view('page/header',$head);
 		$this->load->view('page/izin',$data);
 		$this->load->view('page/footer',$footer);
@@ -40,6 +70,11 @@ class Izin extends CI_Controller{
 
 	public function simpanizin(){
 		$this->m_cuti->simpanizin();
+		redirect('izin');
+	}
+
+	public function updateizin(){
+		$this->m_cuti->updateizin();
 		redirect('izin');
 	}
 

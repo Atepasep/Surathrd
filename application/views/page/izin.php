@@ -17,21 +17,21 @@
 											<div class="col-md-7">
 												<select class="form-control input-sm" name="jnizin" id="jnizin" >
 													<option value="">--Pilih--</option>
-													<option value="IT">Terlambat</option>
-													<option value="IP">Pulang</option>
-													<option value="IE">Keluar</option>
+													<option value="IT" <?php if($jnizin=='IT'){ echo 'selected'; } ?>>Terlambat</option>
+													<option value="IP" <?php if($jnizin=='IP'){ echo 'selected'; } ?>>Pulang</option>
+													<option value="IE" <?php if($jnizin=='IE'){ echo 'selected'; } ?>>Keluar</option>
 												</select>
 											</div>
 										</div>
 									</div>
 									<div class="col-sm-4"></div>
 									<div class="col-sm-4">
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-6 control-label" for="inputDefault">Tanggal Pengajuan</label>
 											<div class="col-md-6">
-												<input type="text" class="form-control input-sm" value="<?= tglhariini(date('d-m-Y')); ?>" readonly>
+												<input type="text" class="form-control input-sm" value="" readonly>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -79,43 +79,44 @@
 								</div>
 								<form method="POST" id="formizin" name="formizin" action="<?= $formaction ?>">
 									<div class="col-sm-5 font-kecil hilang" id="setjeniscuti">
-										<input type="text" id="jnizinx" name="jnizinx" hidden>
+										<input type="text" id="jnizinx" name="jnizinx" hidden value="<?= $jnizin ?>">
+										<input type="text" id="idx" name="idx" hidden value="<?= $idx ?>">
 										<div class="form-horizontal">
 											<div class="row">
 												<div class="form-group" id="formtgldari">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Tanggal</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm tglpilih" id="tgl_izin" name="tgl_izin" value="<?= date('d-m-Y') ?>">
+														<input type="text" class="form-control input-sm" id="tgl_izin" name="tgl_izin" value="<?php if(!isset($tglizin)) { echo date('d-m-Y'); }else{ echo tglmysql($tglizin); } ?>" readonly>
 													</div>
 												</div>
 												<div class="form-group" id="formmasuk">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Masuk</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="masuk" name="masuk" maxlength="5">
+														<input type="text" class="form-control input-sm" id="masuk" name="masuk" maxlength="5" value="<?= $masuk ?>"> 
 													</div>
 												</div>
 												<div class="form-group" id="formpulang">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Pulang</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="pulang" name="pulang" maxlength="5">
+														<input type="text" class="form-control input-sm" id="pulang" name="pulang" maxlength="5" value="<?= $pulang ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formkeluar">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Keluar</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="keluar" name="keluar" maxlength="5">
+														<input type="text" class="form-control input-sm" id="keluar" name="keluar" maxlength="5" value="<?= $keluar ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formkembali">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Kembali</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="kembali" name="kembali" maxlength="">
+														<input type="text" class="form-control input-sm" id="kembali" name="kembali" maxlength="5" value="<?= $kembali ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formketerangan">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Keterangan</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="alasan" name="alasan">
+														<input type="text" class="form-control input-sm" id="alasan" name="alasan" value="<?= $alasan ?>">
 													</div>
 												</div>
 											</div>
@@ -123,7 +124,7 @@
 										<hr class="small">
 										</form>
 										<div class="text-center" id="formtombol" style="margin-top: 10px;">
-											<a class="btn btn-xs btn-success btn-flat" id="kirimizin"><i class="fa fa-check"></i> Simpan</a>
+											<a class="btn btn-xs btn-success btn-flat" id="kirimizin" rel="<?= $kode ?>"><i class="fa fa-check"></i> <?= $kode ?></a>
 											<a class="btn btn-xs btn-danger btn-flat" id="batalizin"><i class="fa fa-times"></i> Batal</a>
 										</div>
 									</div>

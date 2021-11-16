@@ -24,6 +24,7 @@ class Login extends CI_Controller{
 			$this->session->set_userdata('id_jabatan',$data['id_jabatan']);
 			$this->session->set_userdata('lastlogin',$data['lastlogin']);
 			$this->session->set_userdata('hakdep',gethakdep($data['hakdep']));
+			$this->session->set_userdata('kritper',$data['kritkar'].$data['person_id']);
 			$this->session->set_userdata('appscuti',1);
 			$this->m_login->inputlogin($data['idkey']);
 			$this->loginberhasil();

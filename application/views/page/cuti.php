@@ -17,10 +17,10 @@
 											<div class="col-md-7">
 												<select class="form-control input-sm" name="jnsurat" id="jnsurat" >
 													<option value="">--Pilih--</option>
-													<option value="C">Cuti Tahunan</option>
-													<option value="CP">Cuti Panjang</option>
-													<option value="CH">Cuti Haid</option>
-													<option value="IK">Izin Khusus</option>
+													<option value="C" <?php if($jncuti=='C'){ echo 'selected'; } ?>>Cuti Tahunan</option>
+													<option value="CP" <?php if($jncuti=='CP'){ echo 'selected'; } ?>>Cuti Panjang</option>
+													<option value="CH" <?php if($jncuti=='CH'){ echo 'selected'; } ?>>Cuti Haid</option>
+													<option value="IK" <?php if($jncuti=='IK'){ echo 'selected'; } ?>>Izin Khusus</option>
 												</select>
 											</div>
 										</div>
@@ -30,7 +30,7 @@
 										<div class="form-group">
 											<label class="col-md-6 control-label" for="inputDefault">Tanggal Pengajuan</label>
 											<div class="col-md-6">
-												<input type="text" class="form-control input-sm" value="<?= tglhariini(date('d-m-Y')); ?>" readonly>
+												<input type="text" class="form-control input-sm" value="<?= !isset($tgldibuat) ? tglhariini(date('d-m-Y')) :tglhariini(date('d-m-Y', strtotime($tgldibuat)));  ?>" readonly>
 											</div>
 										</div>
 									</div>
@@ -80,71 +80,72 @@
 								</div>
 								<form method="POST" id="formcuti" name="formcuti" action="<?= $formaction ?>">
 									<div class="col-sm-5 font-kecil hilang" id="setjeniscuti">
-										<input type="text" id="jnsuratx" name="jnsuratx" hidden>
+										<input type="text" id="jnsuratx" name="jnsuratx" hidden value="<?= $jncuti ?>">
+										<input type="text" id="idx" name="idx" hidden value="<?= $idx ?>" >
 										<div class="form-horizontal">
 											<div class="row">
 												<div class="form-group" id="formjncuti">
-													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Pilihan Cuti</label>
+													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Pilihan Cuti <?= $ambil ?></label>
 													<div class="col-md-8">
 														<select class="form-control input-sm" name="jncuti" id="jncuti" name="jncuti" >
 															<option value="">--Pilih--</option>
-															<option value="1">Ambil Cuti</option>
-															<option value="2">Tidak ambil Cuti</option>
+															<option value="1" <?php if($ambil==1){ echo 'selected'; } ?>>Ambil Cuti</option>
+															<option value="2" <?php if($ambil==2){ echo 'selected'; } ?>>Tidak ambil Cuti</option>
 														</select>
 													</div>
 												</div>
 												<div class="form-group" id="formtgldari">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Dari Tanggal</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm tglpilih" id="tgldari" name="dari">
+														<input type="text" class="form-control input-sm tglpilih" id="tgldari" name="dari" value="<?= $dari ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formtglsampai">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Sampai dengan</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm tglpilih" id="tglsampai" name="sampai">
+														<input type="text" class="form-control input-sm tglpilih" id="tglsampai" name="sampai" value="<?= $sampai ?>">
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Selama</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="selama" readonly>
+														<input type="text" class="form-control input-sm" id="selama" readonly value="<?= $jmhari ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formmasakerja">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Masa kerja ke</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="masakerja" name="masakerja">
+														<input type="text" class="form-control input-sm" id="masakerja" name="masakerja" value="<?= $masakerja ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formalasan">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Alasan cuti</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="alasan" name="alasan">
+														<input type="text" class="form-control input-sm" id="alasan" name="alasan" value="<?= $alasan ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formtglik">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Tanggal</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm tglpilih" id="tglik" name="tglik">
+														<input type="text" class="form-control input-sm tglpilih" id="tglik" name="tglik" value="<?= $tglik ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formhariik">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Hari</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="hariik" name="hari">
+														<input type="text" class="form-control input-sm" id="hariik" name="hari" value="<?= $hariik ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formjamik">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Jam</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="jamik" name="jam">
+														<input type="text" class="form-control input-sm" id="jamik" name="jam" value="<?= $jamik ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formtempatik">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Tempat</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="tempatik" name="tempat">
+														<input type="text" class="form-control input-sm" id="tempatik" name="tempat" value="<?= $tempatik ?>">
 													</div>
 												</div>
 											</div>
@@ -152,7 +153,7 @@
 										<hr class="small">
 										</form>
 										<div class="text-center" id="formtombol" style="margin-top: 10px;">
-											<a class="btn btn-xs btn-success btn-flat" id="kirimcuti"><i class="fa fa-check"></i> Simpan</a>
+											<a class="btn btn-xs btn-success btn-flat" id="kirimcuti" rel="<?= $kode ?>"><i class="fa fa-check"></i> <?= $kode ?></a>
 											<a class="btn btn-xs btn-danger btn-flat" id="batalcuti"><i class="fa fa-times"></i> Batal</a>
 										</div>
 									</div>

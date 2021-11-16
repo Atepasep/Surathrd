@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	setinput('');
+	//setinput('');
+	$("#jnsurat").change();
+	$("#jncuti").change();
 
 	$('#jamik').on('change click keyup input paste',(function (event) {
 		$(this).val(function (index, value) {
@@ -49,7 +51,12 @@ $("#jncuti").on('change',function(){
 	}
 })
 $("#batalcuti").click(function(){
-	kosongkanform();
+	var rel = $("#kirimcuti").attr('rel');
+	if(rel=='Update'){
+		window.location.href = "../../";
+	}else{
+		kosongkanform();
+	}
 })
 $("#kirimcuti").click(function(){
 	var jncuti = $("#jncuti").val();
@@ -85,7 +92,7 @@ $("#kirimcuti").click(function(){
 	}
 })
 function setinput(jnsurat){
-	kosongkanform();
+	// kosongkanform();
 	$("#setjeniscuti").addClass('hilang');
 	$("#notsetjeniscuti").addClass('hilang');
 	$("#formtgldari").addClass('hilang');
