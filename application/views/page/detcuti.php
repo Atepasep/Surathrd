@@ -32,6 +32,7 @@
 											<th>No induk / Nama</th>
 											<th>Cuti</th>
 											<th>Tgl Cuti</th>
+											<th>Hari</th>
 											<th>Keterangan</th>
 											<th>Aksi</th>
 										</tr>
@@ -44,6 +45,7 @@
 												<td><?= $data['noinduk'].'/'.$data['nama'] ?></td>
 												<td><?= $data['keterangan'] ?></td>
 												<td><?= tglmysql($data['dari']).' s/d '.tglmysql($data['sampai']) ?></td>
+												<td><?= $data['lama'] ?></td>
 												<?php if($data['jncuti']!='IK'){ ?>
 													<td><?= $data['alasan'] ?></td>
 												<?php }else{ ?>

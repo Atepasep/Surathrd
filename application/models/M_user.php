@@ -36,4 +36,17 @@ class M_user extends CI_Model {
 		$queryfinal = $this->db->query("update akses_departemen set hakdep = '".$hasil."' where noinduk = '".$nik."' ");
 		return $queryfinal;
 	}
+	public function updateidkey($key){
+		$krit = $this->session->userdata('kritper');
+		$query = $this->db->query("update mperson set idkey = '".$key."' where concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
+		if($query){
+			$this->session->set_userdata('iduser',$key);
+			$query2 = $this->db->query("select * from mperson where idkey = '".$key."' and concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
+		}
+		return $query2;
+	}
+	public function cekidkey($key){
+		$query2 = $this->db->query("select * from mperson where idkey = '".$key."' ");
+		return $query2;
+	}
 }

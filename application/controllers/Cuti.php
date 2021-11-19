@@ -25,6 +25,7 @@ class Cuti extends CI_Controller{
 		$data['jmhari']= null;
 		$data['masakerja'] = null;
 		$data['alasan'] = null;
+		$data['xalasan'] = null;
 		$data['tglik'] = null;
 		$data['hariik'] = null;
 		$data['jamik'] = null;
@@ -47,9 +48,10 @@ class Cuti extends CI_Controller{
 		$data['ambil'] = $temp['ambil'];
 		$data['dari'] = tglmysql($temp['dari']);
 		$data['sampai'] = tglmysql($temp['sampai']);
-		$data['jmhari']= selisihhari($temp['dari'],$temp['sampai']);
+		$data['jmhari']= $temp['lama'];
 		$data['masakerja'] = $temp['masakerja'];
 		$data['alasan'] = $temp['alasan'];
+		$data['xalasan'] = $temp['alasan'];
 		$data['tglik'] = tglmysql($temp['tgl_khusus']);
 		$data['hariik'] = $temp['hari'];
 		$data['jamik'] = $temp['jam'];

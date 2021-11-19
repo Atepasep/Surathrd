@@ -33,8 +33,8 @@ class M_cuti extends CI_Model {
 		$query = $this->db->query("select a.*,b.nama,b.noinduk,f.id as id_jabat,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
-		left join mperson d on d.noinduk = a.disetujui
-		left join mperson e on e.noinduk = a.diterima
+		left join mperson d on concat(d.kritkar,d.person_id) = a.disetujui
+		left join mperson e on concat(e.kritkar,e.person_id) = a.diterima
 		left join jabatan f on f.namajabatan = b.jabatan
 		where a.id='".$id."' ");
 		return $query->row_array();		
@@ -57,8 +57,8 @@ class M_cuti extends CI_Model {
 		$query = $this->db->query("select a.*,b.nama,b.jabatan,b.bagian,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from izin a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
-		left join mperson d on d.noinduk = a.disetujui
-		left join mperson e on e.noinduk = a.diterima
+		left join mperson d on concat(d.kritkar,d.person_id) = a.disetujui
+		left join mperson e on concat(e.kritkar,e.person_id) = a.diterima
 		where id='".$id."' ");
 		return $query->row_array();
 	}

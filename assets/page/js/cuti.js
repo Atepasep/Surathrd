@@ -9,6 +9,32 @@ $(document).ready(function(){
 		});
 	}));
 })
+$("#selama").on('blur',function(){
+	var cek = document.getElementById('selama').readOnly;
+	if(!cek){
+		if($(this).val!=''){
+			var isi = $(this).val();
+			var xe = isi.substring(isi.length-4);
+			if(xe.toUpperCase()=='HARI'){
+				$(this).val(isi);
+			}else{
+				$(this).val(isi+' Hari');
+			}
+		}
+	}
+})
+$("#selama").on('focus',function(){
+	var cek = document.getElementById('selama').readOnly;
+	if(!cek){
+		if($(this).val!=''){
+			var isi = $(this).val();
+			var xe = isi.substring(isi.length-4);
+			if(xe.toUpperCase()=='HARI'){
+				$(this).val(isi.substring(0,isi.length-5));
+			}
+		}
+	}
+})
 $("#jamik").on('blur',function(){
 	var kata = $(this).val();
 	if(kata != ''){
@@ -45,8 +71,15 @@ $("#jncuti").on('change',function(){
 		$("#formtombol").addClass('hilang');
 	}else{
 		$("#formtombol").removeClass('hilang');
+		$("#selama").prop('readonly',true);
 		if($(this).val()=='2'){
+			$("#selama").prop('readonly',false);
 			$("#alasan").val('Diuangkan');
+			$("#formtgldari").addClass('hilang');
+			$("#formtglsampai").addClass('hilang');
+		}else{
+			$("#formtgldari").removeClass('hilang');
+			$("#formtglsampai").removeClass('hilang');
 		}
 	}
 })
@@ -147,12 +180,13 @@ function kosongkanform(){
 	$("#tgldari").val('');
 	$("#tglsampai").val('');
 	$("#masakerja").val('');
-	$("#alasan").val('');
+	//$("#alasan").val('');
 	$("#tglik").val('');
 	$("#hariik").val('');
 	$("#jamik").val('');
 	$("#tempatik").val('');
 	$("#selama").val('');
+	$("#selama").prop('readonly',true);
 }
 function cekhari(tglawal,tglakhir){
 	if(tglawal=='' || tglakhir==''){

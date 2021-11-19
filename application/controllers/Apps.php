@@ -182,7 +182,7 @@ class Apps extends CI_Controller{
 		$pdf->Cell(5,2,'');
 		$pdf->Cell(62,2,'');
 		$pdf->Cell(3,2,'');
-		$pdf->Cell(65,2,'( '.selisihhari($data['dari'],$data['sampai']).' )');
+		$pdf->Cell(65,2,'( '.$data['lama'].' )');
 		$pdf->Cell(10,7,'',0,1);
 		$pdf->Cell(5,2,'9.');
 		$pdf->Cell(62,2,'Alasan yang jelas mengapa mengambil /');
@@ -220,13 +220,11 @@ class Apps extends CI_Controller{
 			$pdf->Cell(44,2,'PERSONEL MANAGER',0,0,'C');
 		}else if($data['id_jabat']==5){
 			$pdf->Cell(10,6,'',0,1);
-			$pdf->Cell(44,2,'Menyetujui',0,0,'C');
-			$pdf->Cell(44,2,'Menyetujui',0,0,'C');
-			$pdf->Cell(44,2,'Mengetahui,',0,0,'C');
+			$pdf->Cell(66,2,'Menyetujui',0,0,'C');
+			$pdf->Cell(66,2,'Mengetahui,',0,0,'C');
 			$pdf->Cell(10,4,'',0,1);
-			$pdf->Cell(44,2,'SUPERVISOR',0,0,'C');
-			$pdf->Cell(44,2,'MANAGER',0,0,'C');
-			$pdf->Cell(44,2,'PERSONEL MANAGER',0,0,'C');
+			$pdf->Cell(66,2,'MANAGER',0,0,'C');
+			$pdf->Cell(66,2,'PERSONEL MANAGER',0,0,'C');
 		}else if($data['id_jabat']>=6){
 			$pdf->Cell(10,6,'',0,1);
 			$pdf->Cell(33,2,'Menyetujui',0,0,'C');
@@ -265,7 +263,7 @@ class Apps extends CI_Controller{
 		$namafile = $jenis.'-'.$id;
 		if (!file_exists($tempdir)) //Buat folder bername temp
 		mkdir($tempdir);
-		if($setuju==''){
+		if($namasetuju!=''){
 			$kata = ', disetujui tgl '.date('d-m-Y H:i:s', strtotime($setuju)).' oleh '.$namasetuju;
 		}else{
 			$kata = 'Belum disetujui';

@@ -85,7 +85,7 @@
 										<div class="form-horizontal">
 											<div class="row">
 												<div class="form-group" id="formjncuti">
-													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Pilihan Cuti <?= $ambil ?></label>
+													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Pilihan Cuti</label>
 													<div class="col-md-8">
 														<select class="form-control input-sm" name="jncuti" id="jncuti" name="jncuti" >
 															<option value="">--Pilih--</option>
@@ -109,7 +109,7 @@
 												<div class="form-group">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Selama</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="selama" readonly value="<?= $jmhari ?>">
+														<input type="text" class="form-control input-sm" id="selama" name="lama" readonly value="<?= $jmhari ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formmasakerja">
@@ -121,7 +121,7 @@
 												<div class="form-group" id="formalasan">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Alasan cuti</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="alasan" name="alasan" value="<?= $alasan ?>">
+														<input type="text" class="form-control input-sm" id="alasan" name="alasan" value="<?= $xalasan ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formtglik">

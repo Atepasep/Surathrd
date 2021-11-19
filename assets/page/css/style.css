@@ -2124,3 +2124,9 @@ select.input-sml {
   background-color: rgba(213, 252, 123, 0.6) !important;
   cursor: pointer;
 }
+.kolom-idkey-pertama {
+  border: 2px dashed #c1bfbf;
+}
+.kolom-idkey {
+  padding: 10px;
+}

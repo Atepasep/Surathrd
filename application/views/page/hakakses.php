@@ -52,7 +52,7 @@
 										<div class="formakses font-kecil" style="border: 1px dashed #fc6e2d !important; padding: 5px;">
 											<div class="text-center" style="border-bottom: 1px solid black; margin: 5px;">Daftar Departemen</div>
 											<div class="row">
-												<?php $num = $bagian->num_rows(); $xnum = ($num/2)+1; $no=0; foreach($bagian->result_array() as $databagian): $no++; ?>
+												<?php $num = $bagian->num_rows(); $xnum = floor($num/2)+1; $no=0; foreach($bagian->result_array() as $databagian): $no++; ?>
 													<?php if($no==$xnum){ ?>
 														</div>
 													<?php } ?>

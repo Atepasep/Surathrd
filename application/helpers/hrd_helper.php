@@ -248,10 +248,14 @@
 		return $hari[date('w')].', '.$pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
 	}
 	function tglpanjang($dt){
-		$hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu"];
-		$bulan = array (1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
-		$pecahkan = explode('-', $dt);
-		return $pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
+		if($dt!='0000-00-00'){
+			$hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu"];
+			$bulan = array (1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+			$pecahkan = explode('-', $dt);
+			return $pecahkan[2].' '.$bulan[ (int)$pecahkan[1] ].' '.$pecahkan[0];
+		}else{
+			return '-';
+		}
 	}
  	function header_dids(){
  		$bulan = array (1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
@@ -313,5 +317,12 @@
 			}
 		}
 		return $dp;
+	}
+	function ubahpagar($kata){
+		$hasil = '';
+		for($x=1;$x<=strlen($kata);$x++){
+			$hasil .= '#';
+		}
+		return $hasil;
 	}
 ?>

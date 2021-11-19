@@ -16,7 +16,11 @@
 							<tr>
 								<td>Tgl</td>
 								<td>:</td>
-								<td><?= tglmysql($getdata['dari']).' s/d '.tglmysql($getdata['sampai']) ?></td>
+								<?php if($getdata['ambil']==2){ ?>
+									<td><?= '- s/d -' ?></td>
+								<?php }else{ ?>
+									<td><?= tglmysql($getdata['dari']).' s/d '.tglmysql($getdata['sampai']).' ('.$getdata['lama'].')' ?></td>
+								<?php } ?>
 							</tr>
 							<tr>
 								<td>Ambil Cuti</td>
@@ -32,7 +36,11 @@
 								<tr>
 									<td>Keterangan</td>
 									<td>:</td>
-									<td><?= $getdata['alasan'] ?></td>
+									<?php if($getdata['ambil']==2){ ?>
+										<td><?= $getdata['alasan'].' ('.$getdata['lama'].')' ?></td>
+									<?php }else{ ?>
+										<td><?= $getdata['alasan'] ?></td>
+									<?php } ?>
 								</tr>
 								<?php if($getdata['jncuti']=='IK'){ ?>
 									<tr>
