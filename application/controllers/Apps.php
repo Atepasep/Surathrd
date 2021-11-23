@@ -238,9 +238,6 @@ class Apps extends CI_Controller{
 			$pdf->Cell(33,2,'PERSONEL MANAGER',0,0,'C');
 		}
 		$pdf->Cell(10,15,'',0,1);
-		// $pdf->Cell(44,2,'(                         )',0,0,'C');
-		// $pdf->Cell(44,2,'(                         )',0,0,'C');
-		// $pdf->Cell(44,2,'(                         )',0,0,'C');
 		$pdf->Cell(10,5,'',0,1);
 		$pdf->Cell(65,2,'* Perhitungan :');
 		$pdf->Cell(10,5,'',0,1);
@@ -252,23 +249,28 @@ class Apps extends CI_Controller{
 		$pdf->Cell(75,2,'');
 		$pdf->Cell(25,2,'');
 		$pdf->Cell(40,2,'- Finance');
-		$qr = $this->cetakqr($jenis,$id,$data['dibuat'],$data['disetujui_tgl'],$data['nama_setuju']);
+		$qr = $this->cetakqr($jenis,$id,$data['dibuat'],$data['disetujui_tgl'],$data['nama_setuju'],$data['diterima_tgl'],$data['nama_terima']);
 		$pdf->Image(base_url().$qr.'.png',15,127,20);
 		$pdf->Output($file,'D');
 	}
 
-	function cetakqr($jenis,$id,$dibuat,$setuju,$namasetuju){	
+	function cetakqr($jenis,$id,$dibuat,$setuju,$namasetuju,$terima,$namaterima){	
 		// $tempdir = base_url()."assets/page/images/qr/";
 		$tempdir = "temp/";
 		$namafile = $jenis.'-'.$id;
+		$enter = '\r\n';
 		if (!file_exists($tempdir)) //Buat folder bername temp
 		mkdir($tempdir);
 		if($namasetuju!=''){
-			$kata = ', disetujui tgl '.date('d-m-Y H:i:s', strtotime($setuju)).' oleh '.$namasetuju;
+			if($namaterima!=''){
+				$kata = "\r\napprove : ".date('d-m-Y H:i:s', strtotime($setuju))." oleh : ".$namasetuju."\r\nHRD : ".date('d-m-Y H:i:s', strtotime($terima))."oleh : ".$namaterima;
+			}else{
+				$kata = "\r\napprove : ".date('d-m-Y H:i:s', strtotime($setuju))." oleh : ".$namasetuju."\r\nHRD : ";
+			}
 		}else{
-			$kata = 'Belum disetujui';
+			$kata = "\r\napprove : \r\nHRD : ";
 		}
-		$codeContents = 'dibuat '.date('d-m-Y H:i:s', strtotime($dibuat)).$kata;
+		$codeContents = "dibuat : ".date('d-m-Y H:i:s', strtotime($dibuat)).$kata;
 		QRcode::png($codeContents, $tempdir . $namafile. '.png', QR_ECLEVEL_L, 1);
 		// QRcode::png($codeContents, $tempdir . '02.png', QR_ECLEVEL_L, 2);
 		// QRcode::png($codeContents, $tempdir . '03.png', QR_ECLEVEL_L, 3);
