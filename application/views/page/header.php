@@ -185,10 +185,10 @@
 						<li class="<?= $m5 ?>"><a href="<?= base_url().'spl' ?>" title="Surat Perintah Lembur">Overtime</a></li>
 						<li class="<?= $m7 ?>"><a href="<?= base_url().'kupmak' ?>" title="Input Kupon Makan">Kupon Makan</a></li>
 					<?php }else{ ?>
-					<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Ganti idKey</a></li>
 					<br>
 					<br>
 					<?php } ?>
+					<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Ganti idKey</a></li>
 					<br>
 					<br>
 					<br>
