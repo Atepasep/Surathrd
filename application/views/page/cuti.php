@@ -19,7 +19,9 @@
 													<option value="">--Pilih--</option>
 													<option value="C" <?php if($jncuti=='C'){ echo 'selected'; } ?>>Cuti Tahunan</option>
 													<option value="CP" <?php if($jncuti=='CP'){ echo 'selected'; } ?>>Cuti Panjang</option>
-													<option value="CH" <?php if($jncuti=='CH'){ echo 'selected'; } ?>>Cuti Haid</option>
+													<?php if($this->session->userdata('kel')=='P'){ ?>
+														<option value="CH" <?php if($jncuti=='CH'){ echo 'selected'; } ?>>Cuti Haid</option>
+													<?php } ?>
 													<option value="IK" <?php if($jncuti=='IK'){ echo 'selected'; } ?>>Izin Khusus</option>
 												</select>
 											</div>

@@ -39,7 +39,7 @@
 
 	</head>
 	<body>
-	<div class="modal fade" id="modalBox" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modalBox" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	    <div class='modal-dialog modal-lg'>
 	      	<div class='modal-content'>
 	        	<div class='modal-header bg-warning'>
@@ -50,7 +50,7 @@
 	     	</div>
 	    </div>
 	 </div>
-	 <div class="modal fade" id="modalBox2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	 <div class="modal fade" id="modalBox2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	    <div class='modal-dialog modal-lg'>
 	      	<div class='modal-content'>
 	        	<div class='modal-header btn-info'>
@@ -78,7 +78,7 @@
 	     	</div>
 	    </div>
 	 </div>
-	 <div class="modal fade" id="modalBox3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	 <div class="modal fade" id="modalBox3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	    <div class='modal-dialog modal-lg' style="width: 100% !important;">
 	      	<div class='modal-content'>
 	        	<div class='modal-header bg-warning'>
@@ -89,7 +89,7 @@
 	     	</div>
 	    </div>
 	 </div>
-    <div class='modal fade' id='confirm-delete' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal fade' id='confirm-delete' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static" data-keyboard="false">
     	<div class='modal-dialog'>
     		<div class='modal-content'>
     			<div class='modal-header btn-info'>
@@ -178,12 +178,19 @@
 					<?php } ?>
 					<li class="<?= $m3 ?>"><a href="<?= base_url().'izin' ?>" title="surat izin keluar, pulang, terlambat">Izin P/L/K</a></li>
 					<li class="<?= $m4 ?>"><a href="<?= base_url().'absen' ?>" title="surat keterangan tidak masuk">Keterangan Absen</a></li>
+					<?php if(trim($this->session->userdata('bagian')) == 'IT' || trim($this->session->userdata('bagian')) == 'SATPAM' || trim($this->session->userdata('bagian')) == 'PERSONALIA'){ ?>
+						<li class="<?= $m9 ?>"><a href="<?= base_url().'busabsen' ?>" title="Absen bus jemputan">Absen Bus</a></li>
+					<?php } ?>
 					<?php if($this->session->userdata('hakdep') != "'X'"){ ?>
 						<li class="<?= $m5 ?>"><a href="<?= base_url().'spl' ?>" title="Surat Perintah Lembur">Overtime</a></li>
 						<li class="<?= $m7 ?>"><a href="<?= base_url().'kupmak' ?>" title="Input Kupon Makan">Kupon Makan</a></li>
-						<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Ganti idKey</a></li>
+					<?php }else{ ?>
+					<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Ganti idKey</a></li>
+					<br>
+					<br>
 					<?php } ?>
-		 			<br>
+					<br>
+					<br>
 					<br>
 					<br>
 					<?php if(trim($this->session->userdata('bagian')) == 'IT' || $this->session->userdata('id_jabatan') >= 5 ){ ?>

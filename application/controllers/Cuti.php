@@ -92,7 +92,7 @@ class Cuti extends CI_Controller{
 
 	public function hapusdata($tabel,$id){
 		switch ($tabel) {
-			case 'ketabsen':
+			case 'absen':
 				$data['getdata'] = $this->m_absen->hapusdata($id);
 				break;
 			case 'cuti':

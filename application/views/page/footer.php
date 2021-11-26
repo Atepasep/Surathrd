@@ -36,6 +36,9 @@
 	<?php if(isset($footer) and $footer=='akses'): ?>
 		<script src="<?= LOK_PAGE ?>js/akses.js"></script>
 	<?php endif; ?>
+	<?php if(isset($footer) and $footer=='busabsen'): ?>
+		<script src="<?= LOK_PAGE ?>js/busabsen.js"></script>
+	<?php endif; ?>
 	<script type="text/javascript">
 		$(".nano").nanoScroller();
 		<?php if($this->session->flashdata('info') == 'tidakberhak'){ ?>

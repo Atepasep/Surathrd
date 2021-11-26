@@ -35,6 +35,8 @@
 										<td class="bg-aqua"><a href="" style="color: black;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
 									</tr>
 								</table>
+								<div style="width: 100%; margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
+								<div style="width: 100%;"><a href="#" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
 							</div>
 						</div>
 					</div>

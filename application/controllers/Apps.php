@@ -8,6 +8,7 @@ class Apps extends CI_Controller{
 			redirect($url);
 		}
 		$this->load->model('m_cuti');
+		$this->load->model('m_absen');
 		$this->load->model('m_user');
 		$this->load->library('pdf');
 		$this->load->library('Qr');
@@ -22,6 +23,23 @@ class Apps extends CI_Controller{
 		$this->load->view('page/header',$head);
 		$this->load->view('page/apps',$data);
 		$this->load->view('page/footer',$footer);
+	}
+
+	public function karyabsen(){
+		$head['act'] = 1;
+		$footer['footer'] = 'dash';
+		$data['judul'] = 'List Karyawan Absen / Cuti # '.$this->session->userdata('bagian');
+		$this->load->view('page/header',$head);
+		$this->load->view('page/karyabsen',$data);
+		$this->load->view('page/footer',$footer);
+	}
+
+	public function viewkaryabsen($tgl){
+		$bagian = $this->session->userdata('bagian');
+		$data['tgl'] = $tgl;
+		$data['datacuti'] = $this->m_cuti->getkarycutiperhari($tgl);
+		$data['dataabsen'] = $this->m_cuti->getkaryabsenperhari($tgl);
+		$this->load->view('page/viewkaryabsen',$data);
 	}
 
 	public function cetakform($jenis,$id){

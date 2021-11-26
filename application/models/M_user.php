@@ -49,4 +49,8 @@ class M_user extends CI_Model {
 		$query2 = $this->db->query("select * from mperson where idkey = '".$key."' ");
 		return $query2;
 	}
+	public function getdatauserkrit($kritper){
+		$query2 = $this->db->query("select * from mperson where concat(kritkar,person_id) = '".$kritper."' ");
+		return $query2;
+	}
 }

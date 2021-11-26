@@ -316,6 +316,9 @@
 				$dp = substr($dp,0,strlen($dp)-1);
 			}
 		}
+		if($dp == ''){
+			$dp="'X'";
+		}
 		return $dp;
 	}
 	function ubahpagar($kata){
@@ -324,5 +327,23 @@
 			$hasil .= '#';
 		}
 		return $hasil;
+	}
+
+	function carikaryabsen($tgl){
+		$CI = & get_instance();
+		$nan = $CI->m_cuti->getkaryabsen($tgl)->row_array();
+		$nam = $CI->m_cuti->getkarycuti($tgl)->row_array();
+		$jml = $nam['jml']+$nan['jml'];
+		if($jml==0){
+			return  '-';
+		}else{
+			return $jml.' Orang';
+		}
+	}
+
+	function getidentitas($kritper){
+		$CI = & get_instance();
+		$nan = $CI->m_user->getdatauserkrit($kritper)->row_array();
+		return $nan;
 	}
 ?>

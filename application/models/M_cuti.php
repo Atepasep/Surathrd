@@ -12,11 +12,12 @@ class M_cuti extends CI_Model {
 	public function getdatacuti(){
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from cuti a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."  order by a.dibuat asc");
+		where if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and grp = '".$grp."',d.id < ".$idjabat.")  order by a.dibuat asc");
 		return $query->result_array();
 	}
 	public function getdepcuti(){
@@ -46,11 +47,12 @@ class M_cuti extends CI_Model {
 	public function getdataizin(){
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from izin a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." order by a.dibuat asc");
+		where if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp = '".$grp."',d.id < ".$idjabat.") order by a.dibuat asc");
 		return $query->result_array();
 	}
 	public function getdatadetailizin($id){
@@ -77,6 +79,10 @@ class M_cuti extends CI_Model {
 		$data['dibuat'] = date("Y-m-d H:i:s");
 		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if(!in_array($this->session->userdata('bagian'),$departemen)){
+			$data['appcol'] = 1;
+		}
 		unset($data['jnsuratx']);
 		unset($data['tglik']);
 		unset($data['idx']);
@@ -112,6 +118,10 @@ class M_cuti extends CI_Model {
 		$data['tgl_izin'] = tglmysql($data['tgl_izin']);
 		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if(!in_array($this->session->userdata('bagian'),$departemen)){
+			$data['appcol'] = 1;
+		}
  		unset($data['jnizinx']);
 		 unset($data['idx']);
 		$this->db->insert('izin',$data);
@@ -181,11 +191,13 @@ class M_cuti extends CI_Model {
 		$bag = $this->session->userdata('bagian');
 		$idjabat = $this->session->userdata('id_jabatan');
 		$hakdep = $this->session->userdata('hakdep');
+		$grp = $this->session->userdata('grp');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		$query = $this->db->query("SELECT COUNT(a.jncuti) as cuti FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE a.approve=0 AND c.bagian IN (".$hakdep.") AND d.id < ".$idjabat."
+		WHERE if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian IN (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and c.grp = '".$grp."',d.id < ".$idjabat.")
 		GROUP BY c.bagian ");
 		if($query->num_rows() == 0){
 			return array('cuti'=>'0');
@@ -207,11 +219,12 @@ class M_cuti extends CI_Model {
 	function gettaskizin(){
 		$bag = $this->session->userdata('bagian');
 		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
 		$query = $this->db->query("SELECT COUNT(a.jnizin) as izin FROM izin a
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE a.approve=0 AND c.bagian = '".$bag."' AND d.id < ".$idjabat."
+		WHERE if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian = '".$bag."' AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp = '".$grp."',d.id < ".$idjabat.")
 		GROUP BY c.bagian ");
 		if($query->num_rows() == 0){
 			return array('izin'=>'0');
@@ -233,11 +246,12 @@ class M_cuti extends CI_Model {
 	function gettaskabsen(){
 		$bag = $this->session->userdata('bagian');
 		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
 		$query = $this->db->query("SELECT COUNT(a.jnabsen) as absen FROM ketabsen a
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE a.approve=0 AND c.bagian = '".$bag."' AND d.id < ".$idjabat."
+		WHERE if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian = '".$bag."' AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp = '".$grp."',d.id < ".$idjabat.")
 		GROUP BY c.bagian ");
 		if($query->num_rows() == 0){
 			return array('absen'=>'0');
@@ -258,34 +272,128 @@ class M_cuti extends CI_Model {
 	}
 	public function isiapprove($id){
 		$noinduk = $this->session->userdata('kritper');
-		$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if($jabat >= 5){
+			$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		}else{
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update cuti set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
+		}
 		return $query;
 	}
 	public function isiapproveizin($id){
 		$noinduk = $this->session->userdata('kritper');
-		$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if($jabat >= 5){
+			$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		}else{
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update izin set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
+		}
 		return $query;
 	}
 	public function tolakdata($id,$alasan){
 		$noinduk = $this->session->userdata('kritper');
-		$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if($jabat >= 5){
+			$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		}else{
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
+		}
 		return $query;
 	}
 	public function tolakdataizin($id,$alasan){
 		$noinduk = $this->session->userdata('kritper');
-		$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if($jabat >= 5){
+			$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+		}else{
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");	
+			}else{
+				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
+		}
 		return $query;
 	}
 	public function approvesemuadatacuti(){
 		$noinduk = $this->session->userdata('kritper');
 		$hakdep = $this->session->userdata('hakdep');
-		$query = $this->db->query("update cuti set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if($jabat >= 5){
+			$query = $this->db->query("update cuti set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+		}else{
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query = $this->db->query("update cuti set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			}else{
+				$query = $this->db->query("update cuti set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			}
+		}
 		return $query;
 	}
 	public function approvesemuadataizin(){
 		$noinduk = $this->session->userdata('kritper');
 		$hakdep = $this->session->userdata('hakdep');
-		$query = $this->db->query("update izin set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		if($jabat >= 5){
+			$query = $this->db->query("update izin set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+		}else{
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query = $this->db->query("update izin set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			}else{
+				$query = $this->db->query("update izin set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			}
+		}
+		return $query;
+	}
+	public function getkaryabsen($tgl){
+		$bagian = $this->session->userdata('bagian');
+		$query = $this->db->query("SELECT COUNT(*) as jml FROM ketabsen a
+		LEFT JOIN mperson b ON concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id) 
+		WHERE (a.dari <= '".$tgl."' AND a.sampai >= '".$tgl."') AND b.bagian = '".$bagian."'
+		AND a.approve = 1");
+		return $query;
+	}
+	public function getkarycuti($tgl){
+		$bagian = $this->session->userdata('bagian');
+		$query = $this->db->query("SELECT COUNT(*) as jml FROM cuti a
+		LEFT JOIN mperson b ON concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id) 
+		WHERE (a.dari <= '".$tgl."' AND a.sampai >= '".$tgl."')  AND b.bagian = '".$bagian."'
+		AND a.approve = 1");
+		return $query;
+	}
+	public function getkarycutiperhari($tgl){
+		$bagian = $this->session->userdata('bagian');
+		$query = $this->db->query("SELECT * FROM cuti a
+		LEFT JOIN mperson b ON concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id) 
+		LEFT JOIN jeniscuti c ON a.jncuti = c.kode
+		WHERE (a.dari <= '".$tgl."' AND a.sampai >= '".$tgl."')  AND b.bagian = '".$bagian."'
+		AND a.approve = 1");
+		return $query;
+	}
+	public function getkaryabsenperhari($tgl){
+		$bagian = $this->session->userdata('bagian');
+		$query = $this->db->query("SELECT * FROM ketabsen a
+		LEFT JOIN mperson b ON concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id) 
+		LEFT JOIN jeniscuti c ON a.jnabsen = c.kode
+		WHERE (a.dari <= '".$tgl."' AND a.sampai >= '".$tgl."')  AND b.bagian = '".$bagian."'
+		AND a.approve = 1");
 		return $query;
 	}
 }
