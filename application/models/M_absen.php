@@ -18,7 +18,7 @@ class M_absen extends CI_Model {
 		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
-		if(!in_array($this->session->userdata('bagian'),$departemen)){
+		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
 		$data['dok'] = $this->uploadLogo();

@@ -279,19 +279,23 @@
 		$hari = $jarak / 60 / 60 / 24;
 		return ceil($hari).' hari';
 	}
-	function prosedursurat($nomor){
-		switch($nomor){
-			case 1:
-				$ket = 'Menunggu di Submit HRD';
-				break;
-			case 2:
-				$ket = 'Selesai';
-				break;
-			case 3:
-				$ket = 'Ditolak';
-				break;
-			default:
-				$ket = 'Menunggu Approve Kepala Departemen';
+	function prosedursurat($nomor,$nom2){
+		if($nom2==0){
+			$ket = 'Menunggu Approve Kepala Shift';
+		}else{
+			switch($nomor){
+				case 1:
+					$ket = 'Menunggu di Submit HRD';
+					break;
+				case 2:
+					$ket = 'Selesai';
+					break;
+				case 3:
+					$ket = 'Ditolak';
+					break;
+				default:
+					$ket = 'Menunggu Approve Kepala Departemen';
+			}
 		}
 		return $ket;
 	}

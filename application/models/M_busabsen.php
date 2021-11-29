@@ -31,7 +31,7 @@ class M_busabsen extends CI_Model{
 	}
 	public function adddata($tgl, $idbus,$kodeshift,$masuk,$pulang){
 		$nama = getidentitas($this->session->userdata('kritper'));
-		$upd = $nama['nama'].date('d-m-Y H:i:s');
+		$upd = trim($nama['nama'])." on ".date('d-m-Y H:i:s');
 		$data = array(
 			'idbus' => $idbus,
 			'kodeshift' => $kodeshift,
@@ -45,7 +45,7 @@ class M_busabsen extends CI_Model{
 	}
 	public function editdata($id,$masuk,$pulang){
 		$nama = getidentitas($this->session->userdata('kritper'));
-		$upd = $nama['nama'].date('d-m-Y H:i:s');
+		$upd = trim($nama['nama'])." on ".date('d-m-Y H:i:s');
 		$data = array(
 			'masuk' => $masuk,
 			'pulang' => $pulang,

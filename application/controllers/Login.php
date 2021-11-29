@@ -20,7 +20,7 @@ class Login extends CI_Controller{
 			$data = $ceklogin->row_array();
 			$this->session->set_userdata('iduser',$data['idkey']);
 			$this->session->set_userdata('noinduk',$data['noinduk']);
-			$this->session->set_userdata('bagian',$data['bagian']);
+			$this->session->set_userdata('bagian',trim($data['bagian']));
 			$this->session->set_userdata('id_jabatan',$data['id_jabatan']);
 			$this->session->set_userdata('lastlogin',$data['lastlogin']);
 			$this->session->set_userdata('hakdep',gethakdep($data['hakdep']));

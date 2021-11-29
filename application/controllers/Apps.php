@@ -42,6 +42,15 @@ class Apps extends CI_Controller{
 		$this->load->view('page/viewkaryabsen',$data);
 	}
 
+	public function logapprove(){
+		$head['act'] = 1;
+		$footer['footer'] = 'dash';
+		$data['judul'] = 'History Approve / Tolak ';
+		$this->load->view('page/header',$head);
+		$this->load->view('page/logapprove',$data);
+		$this->load->view('page/footer',$footer);
+	}
+
 	public function cetakform($jenis,$id){
 		$data = $this->m_cuti->getdatadetailizin($id);
 		$file = 'Suratizin.pdf';

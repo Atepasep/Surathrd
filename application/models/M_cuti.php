@@ -80,7 +80,7 @@ class M_cuti extends CI_Model {
 		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
-		if(!in_array($this->session->userdata('bagian'),$departemen)){
+		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
 		unset($data['jnsuratx']);
@@ -118,8 +118,9 @@ class M_cuti extends CI_Model {
 		$data['tgl_izin'] = tglmysql($data['tgl_izin']);
 		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
+		$data['appcol'] = 0;
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
-		if(!in_array($this->session->userdata('bagian'),$departemen)){
+		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
  		unset($data['jnizinx']);
@@ -161,6 +162,7 @@ class M_cuti extends CI_Model {
 				'keterangan'=>$datacuti['keterangan'],
 				'dibuat'=>$datacuti['dibuat'],
 				'approve'=>$datacuti['approve'],
+				'appcol'=>$datacuti['appcol'],
 				'kunci'=>'cuti/'.$datacuti['id']
 			);
 			$mdarray[] = $databaru;
@@ -170,6 +172,7 @@ class M_cuti extends CI_Model {
 				'keterangan'=>$dataizin['keterangan'],
 				'dibuat'=>$dataizin['dibuat'],
 				'approve'=>$dataizin['approve'],
+				'appcol'=>$dataizin['appcol'],
 				'kunci'=>'izin/'.$dataizin['id']
 			);
 			$mdarray[] = $databaru;
@@ -179,6 +182,7 @@ class M_cuti extends CI_Model {
 				'keterangan'=>$dataabsen['keterangan'],
 				'dibuat'=>$dataabsen['dibuat'],
 				'approve'=>$dataabsen['approve'],
+				'appcol'=>$dataabsen['appcol'],
 				'kunci'=>'absen/'.$dataabsen['id']
 			);
 			$mdarray[] = $databaru;
@@ -277,7 +281,7 @@ class M_cuti extends CI_Model {
 		if($jabat >= 5){
 			$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		}else{
-			if(!in_array($this->session->userdata('bagian'),$departemen)){
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
 				$query = $this->db->query("update cuti set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
@@ -292,7 +296,7 @@ class M_cuti extends CI_Model {
 		if($jabat >= 5){
 			$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		}else{
-			if(!in_array($this->session->userdata('bagian'),$departemen)){
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
 				$query = $this->db->query("update izin set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
@@ -307,7 +311,7 @@ class M_cuti extends CI_Model {
 		if($jabat >= 5){
 			$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		}else{
-			if(!in_array($this->session->userdata('bagian'),$departemen)){
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
 				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
@@ -322,7 +326,7 @@ class M_cuti extends CI_Model {
 		if($jabat >= 5){
 			$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		}else{
-			if(!in_array($this->session->userdata('bagian'),$departemen)){
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");	
 			}else{
 				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");

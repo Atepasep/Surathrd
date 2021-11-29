@@ -36,7 +36,7 @@
 									</tr>
 								</table>
 								<div style="width: 100%; margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
-								<div style="width: 100%;"><a href="#" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
+								<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
 							</div>
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 								<td><?= $no+1 ?></td>
 								<td class="bold"><?= $data['keterangan']; ?></td>
 								<td>dibuat <?= tglhariini(date('d-m-Y', strtotime($data['dibuat']))); ?></td>
-								<td><?= prosedursurat($data['approve']) ?></td>
+								<td><?= prosedursurat($data['approve'],$data['appcol']) ?></td>
 									<?php 
 										switch (substr($data['kunci'],0,4)) {
 											case 'cuti':
