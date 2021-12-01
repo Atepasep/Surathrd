@@ -102,14 +102,14 @@ $("#kirimcuti").click(function(){
 	}else{
 		var jnsurat = $("#jnsuratx").val();
 		if(jnsurat=='CH'){
-			if($("#dari").val()=='' || $("#sampai").val()==''){
+			if($("#tgldari").val()=='' || $("#tglsampai").val()==''){
 				pesan('Isi data demgan lengkap');
 			}else{
 				document.formcuti.submit();
 			}
 		}else{
 			if(jnsurat!='IK'){
-				if($("#dari").val()=='' || $("#sampai").val()=='' || $("#masakerja").val()=='' || $("#alasan").val()==''){
+				if($("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#masakerja").val()=='' || $("#alasan").val()==''){
 					pesan('Isi data demgan lengkap');
 				}else{
 					document.formcuti.submit();

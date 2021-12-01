@@ -85,6 +85,9 @@ class M_cuti extends CI_Model {
 		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
+		if($this->session->userdata('hakdep') != "'X'" && $this->session->userdata('id_jabatan') <= 4){
+			$data['appcol'] = 1;
+		}
 		unset($data['jnsuratx']);
 		unset($data['tglik']);
 		unset($data['idx']);
@@ -123,6 +126,9 @@ class M_cuti extends CI_Model {
 		$data['appcol'] = 0;
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
+			$data['appcol'] = 1;
+		}
+		if($this->session->userdata('hakdep') != "'X'" && $this->session->userdata('id_jabatan') <= 4){
 			$data['appcol'] = 1;
 		}
  		unset($data['jnizinx']);
@@ -200,7 +206,7 @@ class M_cuti extends CI_Model {
 		$absen = $this->gethistoryabsen();
 		foreach($cuti as $datacuti){
 			$databaru = array(
-				'tanggal' => date('d-m-Y',strtotime($datacuti['disetujui_tgl'])),
+				'tanggal' => tglmysql(date('d-m-Y',strtotime($datacuti['disetujui_tgl']))),
 				'jam' => date('H:i:s',strtotime($datacuti['disetujui_tgl'])),
 				'nama' => $datacuti['nama'],
 				'jenis' => $datacuti['keterangan'],
@@ -211,7 +217,7 @@ class M_cuti extends CI_Model {
 		}
 		foreach($izin as $dataizin){
 			$databaru = array(
-				'tanggal' => date('d-m-Y',strtotime($dataizin['disetujui_tgl'])),
+				'tanggal' => tglmysql(date('d-m-Y',strtotime($dataizin['disetujui_tgl']))),
 				'jam' => date('H:i:s',strtotime($dataizin['disetujui_tgl'])),
 				'nama' => $dataizin['nama'],
 				'jenis' => $dataizin['keterangan'],
@@ -222,7 +228,7 @@ class M_cuti extends CI_Model {
 		}
 		foreach($absen as $dataabsen){
 			$databaru = array(
-				'tanggal' => date('d-m-Y',strtotime($dataabsen['disetujui_tgl'])),
+				'tanggal' => tglmysql(date('d-m-Y',strtotime($dataabsen['disetujui_tgl']))),
 				'jam' => date('H:i:s',strtotime($dataabsen['disetujui_tgl'])),
 				'nama' => $dataabsen['nama'],
 				'jenis' => $dataabsen['keterangan'],
@@ -241,7 +247,7 @@ class M_cuti extends CI_Model {
 		$query = $this->db->query("select * from cuti a
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
-	 	where a.disetujui ='".$kritper."' and a.approve > 0 ");
+	 	where a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
 		return $query->result_array();
 	}
 	function gethistoryizin(){
@@ -249,7 +255,7 @@ class M_cuti extends CI_Model {
 		$query = $this->db->query("select * from izin a
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
-	 	where a.disetujui ='".$kritper."' and a.approve > 0 ");
+	 	where a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
 		return $query->result_array();
 	}
 	function gethistoryabsen(){
@@ -257,7 +263,7 @@ class M_cuti extends CI_Model {
 		$query = $this->db->query("select * from ketabsen a
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
-	 	where a.disetujui ='".$kritper."' and approve > 0 ");
+	 	where a.disetujui ='".$kritper."' and approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
 		return $query->result_array();
 	}
 	function gettaskcuti(){
