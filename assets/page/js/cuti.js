@@ -115,7 +115,7 @@ $("#kirimcuti").click(function(){
 					document.formcuti.submit();
 				}
 			}else{
-				if($("#dari").val()=='' || $("#sampai").val()=='' || $("#masakerja").val()=='' || $("#alasan").val()=='' || $("#tglik").val()=='' || $("#hariik").val()=='' || $("#jamik").val()=='' || $("#tempatik").val()==''){
+				if($("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#masakerja").val()=='' || $("#alasan").val()=='' || $("#tglik").val()=='' || $("#hariik").val()=='' || $("#jamik").val()=='' || $("#tempatik").val()==''){
 					pesan('Isi data dengan lengkap');
 				}else{
 					document.formcuti.submit();
