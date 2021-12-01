@@ -77,11 +77,12 @@ class M_absen extends CI_Model {
 	}
 
 	public function getdatadetailabsen($id){
-		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from ketabsen a 
+		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima,f.nama as nama_cek from ketabsen a 
 		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
-		left join mperson d on d.noinduk = a.disetujui
-		left join mperson e on e.noinduk = a.diterima
+		left join mperson d on concat(d.kritkar,d.person_id) = a.disetujui
+		left join mperson e on concat(e.kritkar,e.person_id) = a.diterima
+		left join mperson f on concat(f.kritkar,f.person_id) = a.cekshift
 		where id='".$id."' ");
 		return $query->row_array();
 	}
@@ -94,20 +95,30 @@ class M_absen extends CI_Model {
 	public function isiapproveabsen($id){
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if($jabat >= 5){
 			$query = $this->db->query("update ketabsen set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		}else{
-			$query = $this->db->query("update ketabsen set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
+				$query = $this->db->query("update ketabsen set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update ketabsen set appcol = 1,cekshift='".$noinduk."',cekshift = now() where id = '".$id."' ");
+			}
 		}
 		return $query;
 	}
 	public function tolakdataabsen($id,$alasan){
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if($jabat >= 5){
 			$query = $this->db->query("update ketabsen set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 		}else{
-			$query = $this->db->query("update ketabsen set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
+				$query = $this->db->query("update ketabsen set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update ketabsen set alasan_tolak = '".$alasan."',appcol=3,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
+			}
 		}
 		return $query;
 	}
@@ -146,13 +157,18 @@ class M_absen extends CI_Model {
 		return (!empty($uploadData)) ? $uploadData['file_name'] : NULL;
 	}
 	public function approvesemuadataabsen(){
-		$noinduk = $this->session->userdata('noinduk');
+		$noinduk = $this->session->userdata('kritper');
 		$hakdep = $this->session->userdata('hakdep');
 		$jabat = $this->session->userdata('id_jabatan');
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if($jabat >= 5){
 			$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 		}else{
-			$query = $this->db->query("update ketabsen set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
+				$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			}else{
+				$query = $this->db->query("update ketabsen set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			}
 		}
 		return $query;
 	}

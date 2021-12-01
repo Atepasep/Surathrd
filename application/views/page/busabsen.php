@@ -15,11 +15,12 @@
 											<div class="form-horizontal">
 												<div class="form-group font-kecil" id="formtgldari">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Tanggal</label>
-													<div class="col-md-5">
+													<div class="col-md-4">
 														<input type="text" class="form-control font-kecil input-sm tglpilih" id="tglabsen" name="tglabsen" value="<?= $this->session->flashdata('tglabsen') ?>">
-													</div>
-													<div class="col-md-3">
 														
+													</div>
+													<div class="col-md-4" style="padding-top: 3px; font-size: 16px; font-style: bolder;">
+														<?= namahari(tglmysql($this->session->flashdata('tglabsen'))) ?>
 													</div>
 												</div>
 											</div>

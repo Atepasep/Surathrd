@@ -45,7 +45,8 @@ class Apps extends CI_Controller{
 	public function logapprove(){
 		$head['act'] = 1;
 		$footer['footer'] = 'dash';
-		$data['judul'] = 'History Approve / Tolak ';
+		$data['judul'] = 'History Approve / Tolak (7 hari Terakhir)';
+		$data['dataada'] = $this->m_cuti->gethistory();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/logapprove',$data);
 		$this->load->view('page/footer',$footer);
@@ -276,26 +277,30 @@ class Apps extends CI_Controller{
 		$pdf->Cell(75,2,'');
 		$pdf->Cell(25,2,'');
 		$pdf->Cell(40,2,'- Finance');
-		$qr = $this->cetakqr($jenis,$id,$data['dibuat'],$data['disetujui_tgl'],$data['nama_setuju'],$data['diterima_tgl'],$data['nama_terima']);
+		$qr = $this->cetakqr($jenis,$id,$data['dibuat'],$data['nama_cek'],$data['cekshift_tgl'],$data['disetujui_tgl'],$data['nama_setuju'],$data['diterima_tgl'],$data['nama_terima']);
 		$pdf->Image(base_url().$qr.'.png',15,127,20);
 		$pdf->Output($file,'D');
 	}
 
-	function cetakqr($jenis,$id,$dibuat,$setuju,$namasetuju,$terima,$namaterima){	
+	function cetakqr($jenis,$id,$dibuat,$namacek,$cek,$setuju,$namasetuju,$terima,$namaterima){	
 		// $tempdir = base_url()."assets/page/images/qr/";
 		$tempdir = "temp/";
 		$namafile = $jenis.'-'.$id;
 		$enter = '\r\n';
+		$kata = '';
 		if (!file_exists($tempdir)) //Buat folder bername temp
 		mkdir($tempdir);
+		if($namacek!=''){
+			$kata .= "\r\nKa Shift : ".date('d-m-Y H:i:s', strtotime($cek))." oleh : ".$namacek;
+		}
 		if($namasetuju!=''){
 			if($namaterima!=''){
-				$kata = "\r\napprove : ".date('d-m-Y H:i:s', strtotime($setuju))." oleh : ".$namasetuju."\r\nHRD : ".date('d-m-Y H:i:s', strtotime($terima))."oleh : ".$namaterima;
+				$kata .= "\r\nApprove : ".date('d-m-Y H:i:s', strtotime($setuju))." oleh : ".$namasetuju."\r\nHRD : ".date('d-m-Y H:i:s', strtotime($terima))."oleh : ".$namaterima;
 			}else{
-				$kata = "\r\napprove : ".date('d-m-Y H:i:s', strtotime($setuju))." oleh : ".$namasetuju."\r\nHRD : ";
+				$kata .= "\r\nApprove : ".date('d-m-Y H:i:s', strtotime($setuju))." oleh : ".$namasetuju."\r\nHRD : ";
 			}
 		}else{
-			$kata = "\r\napprove : \r\nHRD : ";
+			$kata .= "\r\nApprove : \r\nHRD : ";
 		}
 		$codeContents = "dibuat : ".date('d-m-Y H:i:s', strtotime($dibuat)).$kata;
 		QRcode::png($codeContents, $tempdir . $namafile. '.png', QR_ECLEVEL_L, 1);

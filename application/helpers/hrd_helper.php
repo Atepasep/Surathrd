@@ -257,6 +257,17 @@
 			return '-';
 		}
 	}
+	function namahari($dt){
+		if($dt!='0000-00-00'){
+			$timestamp = strtotime($dt);
+			$day = date('w', $timestamp);
+			$hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu"];
+			$namahari = $hari[$day];
+			return $namahari;
+		}else{
+			return '-';
+		}
+	}
  	function header_dids(){
  		$bulan = array (1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
  		return $bulan[(int) date('m')].', '.date('Y');
@@ -292,6 +303,9 @@
 					break;
 				case 3:
 					$ket = 'Ditolak';
+					break;
+				case 4:
+					$ket = 'Di CANCEL oleh YBS';
 					break;
 				default:
 					$ket = 'Menunggu Approve Kepala Departemen';

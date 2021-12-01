@@ -25,6 +25,10 @@ $('#kembali').on('change click keyup input paste',(function (event) {
 $("#masuk").on('blur',function(){
 	var kata = $(this).val();
 	if(kata != ''){
+		if(kata.includes('.')){
+			kata = kata.replace('.',':');
+			$(this).val(kata);
+		}
 		var panjang = kata.length;
 		if(panjang<5){
 			if(panjang>2){
@@ -45,6 +49,10 @@ $("#masuk").on('blur',function(){
 $("#pulang").on('blur',function(){
 	var kata = $(this).val();
 	if(kata != ''){
+		if(kata.includes('.')){
+			kata = kata.replace('.',':');
+			$(this).val(kata);
+		}
 		var panjang = kata.length;
 		if(panjang<5){
 			if(panjang>2){
@@ -65,6 +73,10 @@ $("#pulang").on('blur',function(){
 $("#keluar").on('blur',function(){
 	var kata = $(this).val();
 	if(kata != ''){
+		if(kata.includes('.')){
+			kata = kata.replace('.',':');
+			$(this).val(kata);
+		}
 		var panjang = kata.length;
 		if(panjang<5){
 			if(panjang>2){
@@ -85,6 +97,10 @@ $("#keluar").on('blur',function(){
 $("#kembali").on('blur',function(){
 	var kata = $(this).val();
 	if(kata != ''){
+		if(kata.includes('.')){
+			kata = kata.replace('.',':');
+			$(this).val(kata);
+		}
 		var panjang = kata.length;
 		if(panjang<5){
 			if(panjang>2){
@@ -116,10 +132,25 @@ $("#batalizin").click(function(){
 	}
 })
 $("#kirimizin").click(function(){
-	if(($("#masuk").val()=='' && $("#keluar").val()=='' && $("#pulang").val()=='' && $("#kembali").val()=='') || $("#alasan").val()==''){
-		pesan('Isi data dengan lengkap');
+	var jnsurat = $("#jnizinx").val();
+	if(jnsurat=='IP'){
+		if($("#masuk").val()=='' || $("#pulang").val()=='' || $("#alasan").val()==''){
+			pesan('Isi data dengan lengkap');
+		}else{
+			document.formizin.submit();
+		}
+	}else if(jnsurat=='IT'){
+		if($("#masuk").val()=='' || $("#alasan").val()==''){
+			pesan('Isi data dengan lengkap');
+		}else{
+			document.formizin.submit();
+		}
 	}else{
-		document.formizin.submit();
+		if($("#keluar").val()=='' || $("#alasan").val()==''){
+			pesan('Isi data dengan lengkap');
+		}else{
+			document.formizin.submit();
+		}
 	}
 })
 function setinput(jnsurat){
@@ -135,6 +166,7 @@ function setinput(jnsurat){
 		$("#setjeniscuti").removeClass('hilang');
 		switch (jnsurat) {
 			case 'IP':
+				$("#formmasuk").removeClass('hilang');
 				$("#formpulang").removeClass('hilang');
 				break;
 			case 'IT':

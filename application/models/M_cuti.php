@@ -31,11 +31,12 @@ class M_cuti extends CI_Model {
 		return $query->result_array();
 	}
 	public function getdatadetailcuti($id){
-		$query = $this->db->query("select a.*,b.nama,b.noinduk,f.id as id_jabat,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from cuti a 
+		$query = $this->db->query("select a.*,b.nama,b.noinduk,f.id as id_jabat,b.jabatan,b.bagian,b.tglmasuk,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima,g.nama as nama_cek from cuti a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join mperson d on concat(d.kritkar,d.person_id) = a.disetujui
 		left join mperson e on concat(e.kritkar,e.person_id) = a.diterima
+		left join mperson g on concat(g.kritkar,g.person_id) = a.cekshift
 		left join jabatan f on f.namajabatan = b.jabatan
 		where a.id='".$id."' ");
 		return $query->row_array();		
@@ -56,11 +57,12 @@ class M_cuti extends CI_Model {
 		return $query->result_array();
 	}
 	public function getdatadetailizin($id){
-		$query = $this->db->query("select a.*,b.nama,b.jabatan,b.bagian,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima from izin a 
+		$query = $this->db->query("select a.*,b.nama,b.jabatan,b.bagian,c.keterangan,d.nama AS nama_setuju,e.nama AS nama_terima,f.nama as nama_cek from izin a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join mperson d on concat(d.kritkar,d.person_id) = a.disetujui
 		left join mperson e on concat(e.kritkar,e.person_id) = a.diterima
+		left join mperson f on concat(f.kritkar,f.person_id) = a.cekshift
 		where id='".$id."' ");
 		return $query->row_array();
 	}
@@ -191,6 +193,73 @@ class M_cuti extends CI_Model {
 		array_multisort( $col, SORT_DESC, $mdarray );
 		return $mdarray;
 	}
+	public function gethistory(){
+		$mdarray = array();
+		$cuti = $this->gethistorycuti();
+		$izin = $this->gethistoryizin();
+		$absen = $this->gethistoryabsen();
+		foreach($cuti as $datacuti){
+			$databaru = array(
+				'tanggal' => date('d-m-Y',strtotime($datacuti['disetujui_tgl'])),
+				'jam' => date('H:i:s',strtotime($datacuti['disetujui_tgl'])),
+				'nama' => $datacuti['nama'],
+				'jenis' => $datacuti['keterangan'],
+				'approve' =>$datacuti['approve'],
+				'tgl' => $datacuti['disetujui_tgl']
+			);
+			$mdarray[] = $databaru;
+		}
+		foreach($izin as $dataizin){
+			$databaru = array(
+				'tanggal' => date('d-m-Y',strtotime($dataizin['disetujui_tgl'])),
+				'jam' => date('H:i:s',strtotime($dataizin['disetujui_tgl'])),
+				'nama' => $dataizin['nama'],
+				'jenis' => $dataizin['keterangan'],
+				'approve' =>$dataizin['approve'],
+				'tgl' => $dataizin['disetujui_tgl']
+			);
+			$mdarray[] = $databaru;
+		}
+		foreach($absen as $dataabsen){
+			$databaru = array(
+				'tanggal' => date('d-m-Y',strtotime($dataabsen['disetujui_tgl'])),
+				'jam' => date('H:i:s',strtotime($dataabsen['disetujui_tgl'])),
+				'nama' => $dataabsen['nama'],
+				'jenis' => $dataabsen['keterangan'],
+				'approve' =>$dataabsen['approve'],
+				'tgl' => $dataabsen['disetujui_tgl']
+			);
+			$mdarray[] = $databaru;
+		}
+		$col = array_column( $mdarray, "tanggal" );
+		$col2 = array_column( $mdarray, "jam" );
+		array_multisort( $col, SORT_DESC, $col2, SORT_ASC, $mdarray );
+		return $mdarray;
+	}
+	function gethistorycuti(){
+		$kritper = $this->session->userdata('kritper');
+		$query = $this->db->query("select * from cuti a
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+		left join jeniscuti c on a.jncuti = c.kode
+	 	where a.disetujui ='".$kritper."' and a.approve > 0 ");
+		return $query->result_array();
+	}
+	function gethistoryizin(){
+		$kritper = $this->session->userdata('kritper');
+		$query = $this->db->query("select * from izin a
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+		left join jeniscuti c on a.jnizin = c.kode
+	 	where a.disetujui ='".$kritper."' and a.approve > 0 ");
+		return $query->result_array();
+	}
+	function gethistoryabsen(){
+		$kritper = $this->session->userdata('kritper');
+		$query = $this->db->query("select * from ketabsen a
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+		left join jeniscuti c on a.jnabsen = c.kode
+	 	where a.disetujui ='".$kritper."' and approve > 0 ");
+		return $query->result_array();
+	}
 	function gettaskcuti(){
 		$bag = $this->session->userdata('bagian');
 		$idjabat = $this->session->userdata('id_jabatan');
@@ -284,7 +353,7 @@ class M_cuti extends CI_Model {
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
-				$query = $this->db->query("update cuti set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+				$query = $this->db->query("update cuti set appcol = 1,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
 			}
 		}
 		return $query;
@@ -299,7 +368,7 @@ class M_cuti extends CI_Model {
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
-				$query = $this->db->query("update izin set appcol = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+				$query = $this->db->query("update izin set appcol = 1,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
 			}
 		}
 		return $query;
@@ -314,7 +383,7 @@ class M_cuti extends CI_Model {
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
-				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',appcol=3,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
 			}
 		}
 		return $query;
@@ -329,7 +398,7 @@ class M_cuti extends CI_Model {
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");	
 			}else{
-				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',appcol=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',appcol=3,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
 			}
 		}
 		return $query;
@@ -345,7 +414,7 @@ class M_cuti extends CI_Model {
 			if(!in_array($this->session->userdata('bagian'),$departemen)){
 				$query = $this->db->query("update cuti set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 			}else{
-				$query = $this->db->query("update cuti set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+				$query = $this->db->query("update cuti set appcol=1,cekshift='".$noinduk."',cekshift_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 			}
 		}
 		return $query;
@@ -361,7 +430,7 @@ class M_cuti extends CI_Model {
 			if(!in_array($this->session->userdata('bagian'),$departemen)){
 				$query = $this->db->query("update izin set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 			}else{
-				$query = $this->db->query("update izin set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+				$query = $this->db->query("update izin set appcol=1,cekshift='".$noinduk."',cekshift_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 			}
 		}
 		return $query;

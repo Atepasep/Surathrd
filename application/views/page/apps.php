@@ -36,7 +36,9 @@
 									</tr>
 								</table>
 								<div style="width: 100%; margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
-								<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
+								<?php //if($this->session->userdata('id_jabatan') >= 5){ ?>
+									<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
+								<?php //} ?>
 							</div>
 						</div>
 					</div>
@@ -88,7 +90,7 @@
 				<div class="col-sm-12" style="margin-top: 20px;">
 					<table class="table table-bordered table-striped table-hover responsive nowrap">
 						<tr>
-							<th colspan="6" class="bg-green text-center">Riwayat Permohonan Surat</th>
+							<th colspan="6" class="text-center">Riwayat Permohonan Surat</th>
 						</tr>
 						<?php if(sizeof($getriwayat)=='0'){ ?>
 							<tr>
@@ -123,11 +125,21 @@
 										}
 									?>
 									<td style="text-align: center;">
-										<?php if($data['approve']<=0){ ?>
-											<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
-											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
+										<?php $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
+										<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
+											<?php if($data['appcol']<=0){ ?>
+												<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
+												<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
+											<?php }else{ ?>
+												<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
+											<?php } ?>
 										<?php }else{ ?>
-											<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
+											<?php if($data['approve']<=0){ ?>
+												<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
+												<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
+											<?php }else{ ?>
+												<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
+											<?php } ?>
 										<?php } ?>
 									</td>
 								<td style="text-align: center;"><a href="<?= 'cuti/viewdata/'.$data['kunci'] ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>
