@@ -94,8 +94,8 @@ $("#batalcuti").click(function(){
 $("#kirimcuti").click(function(){
 	var jncuti = $("#jncuti").val();
 	if(jncuti=='2'){
-		if($("#masakerja").val()==''){
-			pesan('Isi masa kerja tahun ke berapa ?');
+		if($("#masakerja").val()=='' || $("#selama").val()==''){
+			pesan('Isi masa kerja tahun ke berapa dan selama berapa lama cuti diuangkan ?');
 		}else{
 			document.formcuti.submit();
 		}
