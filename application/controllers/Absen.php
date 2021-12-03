@@ -55,6 +55,13 @@ class Absen extends CI_Controller{
 		$this->load->view('page/footer',$footer);		
 	}
 
+	public function viewfoto($id){
+		$temp= $this->m_absen->getdatadetailabsen($id);
+		$data['id'] = $temp['id'];
+		$data['dok'] = $temp['dok'];
+		$this->load->view('page/viewfoto',$data);
+	}
+
 
 	public function setjnsurat(){
 		$jns = $_POST['jns'];

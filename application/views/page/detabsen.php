@@ -28,6 +28,7 @@
 											<th>Absen</th>
 											<th>Tgl Absen</th>
 											<th>Keterangan</th>
+											<th>Dok</th>
 											<th>Aksi</th>
 										</tr>
 									</thead>
@@ -40,9 +41,15 @@
 												<td><?= $data['keterangan'] ?></td>
 												<td><?= tglmysql($data['dari']).' s/d '.tglmysql($data['sampai']) ?></td>
 												<td><?= $data['ket'] ?></td>
+												<td><?php 
+													if($data['dok']!=''){ ?>
+														<a href="<?= base_url().'absen/viewfoto/'.$data['id'] ?>" class="btn btn-xs btn-danger btn-flat" data-remote="false" data-toggle="modal" data-title="View Dokumen" data-target="#modalBox" title="View Data" ><i class="fa fa-picture-o"></i> View</a>
+													<?php }else{
+														echo 'Kosong';
+													}
+												?></td>
 												<td>
 													<a href="<?= base_url().'absen/isiapproveabsen/'.$data['id'] ?>" class="btn btn-xs btn-success btn-flat" id="apprcuti" >Approve</a>
-													<!-- <a href="" class="btn btn-xs btn-danger btn-flat" id="tolakcuti" >Tolak</a> -->
 													<a href="<?= base_url().'absen/tolakabsen/'.$data['id'] ?>" class="btn btn-xs btn-danger btn-flat" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data" ><i class="fa fa-times"></i> Tolak</a>
 												</td>
 											</tr>

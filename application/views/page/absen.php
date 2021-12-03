@@ -103,7 +103,7 @@
 													<div class="col-md-8 text-center">
 														<div style="border: 2px dashed #adadad;" id="adddokumen">
 															<a href="" style="text-decoration: none;">
-																<img src="<?=LOK_PAGE ?>images/add-files.svg" style="width: 100%; height: 150px; min-height: 150px;" id="gbimage" >
+																<img src="<?= LOK_PAGE ?>images/add-files.svg" style="width: 100%; height: 150px; min-height: 150px;" id="gbimage" >
 																<div style="font-size: 10px; color:black;">Tarik gambar kesini atau <strong class="text-red"><u>Cari</u></strong></div>
 															</a>
 														</div>

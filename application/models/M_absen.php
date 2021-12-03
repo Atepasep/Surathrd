@@ -91,6 +91,12 @@ class M_absen extends CI_Model {
 	}
 
 	public function hapusdata($id){
+		$getdata = $this->db->query("select * from ketabsen where id ='".$id."' ")->row_array();
+		$foto_old = $getdata['dok'];
+		$fotodulu = FCPATH."assets/page/images/user/".$foto_old;
+		if(file_exists($fotodulu)){
+			unlink($fotodulu);
+		}
 		$query = $this->db->query("delete from ketabsen where id ='".$id."' ");
 		return $query;
 	}
