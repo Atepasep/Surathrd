@@ -204,6 +204,7 @@ class M_cuti extends CI_Model {
 		$cuti = $this->gethistorycuti();
 		$izin = $this->gethistoryizin();
 		$absen = $this->gethistoryabsen();
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		foreach($cuti as $datacuti){
 			$databaru = array(
 				'tanggal' => tglmysql(date('d-m-Y',strtotime($datacuti['disetujui_tgl']))),
@@ -211,7 +212,10 @@ class M_cuti extends CI_Model {
 				'nama' => $datacuti['nama'],
 				'jenis' => $datacuti['keterangan'],
 				'approve' =>$datacuti['approve'],
-				'tgl' => $datacuti['disetujui_tgl']
+				'appcol' =>$datacuti['appcol'],
+				'tgl' => $datacuti['disetujui_tgl'],
+				'tglcek' => tglmysql(date('d-m-Y',strtotime($datacuti['cekshift_tgl']))),
+				'jamcek' => date('H:i:s',strtotime($datacuti['cekshift_tgl']))
 			);
 			$mdarray[] = $databaru;
 		}
@@ -222,7 +226,10 @@ class M_cuti extends CI_Model {
 				'nama' => $dataizin['nama'],
 				'jenis' => $dataizin['keterangan'],
 				'approve' =>$dataizin['approve'],
-				'tgl' => $dataizin['disetujui_tgl']
+				'appcol' =>$dataizin['appcol'],
+				'tgl' => $dataizin['disetujui_tgl'],
+				'tglcek' => tglmysql(date('d-m-Y',strtotime($dataizin['cekshift_tgl']))),
+				'jamcek' => date('H:i:s',strtotime($dataizin['cekshift_tgl']))
 			);
 			$mdarray[] = $databaru;
 		}
@@ -233,37 +240,78 @@ class M_cuti extends CI_Model {
 				'nama' => $dataabsen['nama'],
 				'jenis' => $dataabsen['keterangan'],
 				'approve' =>$dataabsen['approve'],
-				'tgl' => $dataabsen['disetujui_tgl']
+				'appcol' =>$dataabsen['appcol'],
+				'tgl' => $dataabsen['disetujui_tgl'],
+				'tglcek' => tglmysql(date('d-m-Y',strtotime($dataabsen['cekshift_tgl']))),
+				'jamcek' => date('H:i:s',strtotime($dataabsen['cekshift_tgl']))
 			);
 			$mdarray[] = $databaru;
 		}
 		$col = array_column( $mdarray, "tanggal" );
-		$col2 = array_column( $mdarray, "jam" );
+		if(!in_array($this->session->userdata('bagian'),$departemen)){
+			$col2 = array_column( $mdarray, "jam" );
+		}else{
+			if($this->session->userdata('id_jabatan') > 4){
+				$col2 = array_column( $mdarray, "jam" );
+			}else{
+				$col2 = array_column( $mdarray, "jamcek" );
+			}
+		}
 		array_multisort( $col, SORT_DESC, $col2, SORT_ASC, $mdarray );
 		return $mdarray;
 	}
 	function gethistorycuti(){
 		$kritper = $this->session->userdata('kritper');
-		$query = $this->db->query("select * from cuti a
-		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
-		left join jeniscuti c on a.jncuti = c.kode
-	 	where a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
+		if(!in_array($this->session->userdata('bagian'),$departemen)){
+			$query = $this->db->query("select * from cuti a
+			left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+			left join jeniscuti c on a.jncuti = c.kode
+			where a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
+		}else{
+			$query = $this->db->query("select * from cuti a
+			left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+			left join jeniscuti c on a.jncuti = c.kode
+			where if(".$idjabat." > 4,a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY),a.cekshift ='".$kritper."' and a.appcol > 0 AND b.grp = '".$grp."' AND a.cekshift_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY)) ");
+		}
 		return $query->result_array();
 	}
 	function gethistoryizin(){
 		$kritper = $this->session->userdata('kritper');
-		$query = $this->db->query("select * from izin a
-		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
-		left join jeniscuti c on a.jnizin = c.kode
-	 	where a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
+		if(!in_array($this->session->userdata('bagian'),$departemen)){
+			$query = $this->db->query("select * from izin a
+			left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+			left join jeniscuti c on a.jnizin = c.kode
+			where a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
+		}else{
+			$query = $this->db->query("select * from izin a
+			left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+			left join jeniscuti c on a.jnizin = c.kode
+			where if(".$idjabat." > 4, a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY),a.cekshift ='".$kritper."' and a.appcol > 0 AND b.grp = '".$grp."' AND a.cekshift_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY)) ");
+		}
 		return $query->result_array();
 	}
 	function gethistoryabsen(){
 		$kritper = $this->session->userdata('kritper');
-		$query = $this->db->query("select * from ketabsen a
-		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
-		left join jeniscuti c on a.jnabsen = c.kode
-	 	where a.disetujui ='".$kritper."' and approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
+		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$idjabat = $this->session->userdata('id_jabatan');
+		$grp = $this->session->userdata('grp');
+		if(!in_array($this->session->userdata('bagian'),$departemen)){
+			$query = $this->db->query("select * from ketabsen a
+			left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+			left join jeniscuti c on a.jnabsen = c.kode
+			where a.disetujui ='".$kritper."' and approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY) ");
+		}else{
+			$query = $this->db->query("select * from ketabsen a
+			left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+			left join jeniscuti c on a.jnabsen = c.kode
+			where if(".$idjabat." > 4, a.disetujui ='".$kritper."' and a.approve > 0 AND disetujui_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY),a.cekshift ='".$kritper."' and a.appcol > 0 AND b.grp = '".$grp."' AND a.cekshift_tgl >= DATE_ADD(NOW(), INTERVAL -7 DAY)) ");
+		}
 		return $query->result_array();
 	}
 	function gettaskcuti(){

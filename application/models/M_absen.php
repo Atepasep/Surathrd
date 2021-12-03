@@ -111,7 +111,7 @@ class M_absen extends CI_Model {
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update ketabsen set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
 			}else{
-				$query = $this->db->query("update ketabsen set appcol = 1,cekshift='".$noinduk."',cekshift = now() where id = '".$id."' ");
+				$query = $this->db->query("update ketabsen set appcol = 1,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
 			}
 		}
 		return $query;
