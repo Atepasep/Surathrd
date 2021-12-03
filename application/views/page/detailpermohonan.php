@@ -110,11 +110,24 @@
 								<td>:</td>
 								<td><?= tglhariini(tglmysql($getdata['tgl_izin'])) ?></td>
 							</tr>
-							<tr>
-								<td><?php if($getdata['jnizin']=='IP'){ echo 'Pulang Pkl';}elseif($getdata['jnizin']=='IT'){ echo 'Masuk Pkl';}else{ echo 'Keluar Pkl'; } ?></td>
-								<td>:</td>
-								<td><?= $getdata['masuk'].$getdata['pulang'].$getdata['keluar'].$getdata['kembali'].' WIB' ?></td>
-							</tr>
+							<?php if($getdata['jnizin']=='IP'){ ?>
+								<tr>
+									<td>Masuk Pkl</td>
+									<td>:</td>
+									<td><?= $getdata['masuk'].' WIB' ?></td>
+								</tr>
+								<tr>
+									<td>Pulang Pkl</td>
+									<td>:</td>
+									<td><?= $getdata['pulang'].' WIB' ?></td>
+								</tr>
+							<?php }else{ ?>
+								<tr>
+									<td><?php if($getdata['jnizin']=='IP'){ echo 'Pulang Pkl';}elseif($getdata['jnizin']=='IT'){ echo 'Masuk Pkl';}else{ echo 'Keluar Pkl'; } ?></td>
+									<td>:</td>
+									<td><?= $getdata['masuk'].$getdata['pulang'].$getdata['keluar'].$getdata['kembali'].' WIB' ?></td>
+								</tr>
+							<?php } ?>
 							<tr>
 								<td>Keterangan</td>
 								<td>:</td>

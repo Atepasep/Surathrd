@@ -63,7 +63,11 @@
 									<tr>
 										<td>Bagian</td>
 										<td>:</td>
-										<td><?= $profileuser['bagian'].' - '.$profileuser['grp'] ?></td>
+										<?php if(trim($profileuser['bagian'])==trim($profileuser['grp'])){ ?>
+											<td><?= $profileuser['bagian'] ?></td>
+										<?php }else{ ?>
+											<td><?= $profileuser['bagian'].' - '.$profileuser['grp'] ?></td>
+										<?php } ?>
 									</tr>
 									<tr>
 										<td>Jabatan</td>

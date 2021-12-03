@@ -148,6 +148,8 @@
 	 			$m8 = 'ifn-active';
 	 		}elseif($act==9){
 	 			$m9 = 'ifn-active';
+			}elseif($act==10){
+				$m10 = 'ifn-active';
 	 		}else{
 	 			$m4 = 'ifn-active';
 	 		}
@@ -183,13 +185,10 @@
 					<?php } ?>
 					<?php if($this->session->userdata('hakdep') != "'X'"){ ?>
 						<li class="<?= $m5 ?>"><a href="<?= base_url().'spl' ?>" title="Surat Perintah Lembur">Overtime</a></li>
-						<li class="<?= $m7 ?>"><a href="<?= base_url().'kupmak' ?>" title="Input Kupon Makan">Kupon Makan</a></li>
-					<?php }else{ ?>
-					<br>
-					<br>
 					<?php } ?>
+					<li class="<?= $m7 ?>"><a href="<?= base_url().'kupmak' ?>" title="Input Kupon Makan">Kupon Makan</a></li>
+					<li class="<?= $m10 ?>"><a href="<?= base_url().'slip' ?>" title="View Slip GAji">Slip Gaji</a></li>
 					<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Ganti idKey</a></li>
-					<br>
 					<br>
 					<br>
 					<br>
