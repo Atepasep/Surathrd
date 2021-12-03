@@ -193,9 +193,9 @@
 					<br>
 					<br>
 					<br>
-					<?php if(trim($this->session->userdata('bagian')) == 'IT' || $this->session->userdata('id_jabatan') >= 5 ){ ?>
+					<?php if(trim($this->session->userdata('bagian')) == 'IT'){ ?>
 						<li class="<?= $m6 ?>"><a href="<?= base_url().'hakakses' ?>">Hak Akses Dep</a></li>
-					<?php } ?>
+					<?php }else{ echo '<br>'; }?>
 					<li><a href="<?= base_url().'Apps/logout' ?>">Log Out</a></li>
 				</ul>
 			</nav>

@@ -290,9 +290,16 @@
 		$hari = $jarak / 60 / 60 / 24;
 		return ceil($hari).' hari';
 	}
+	function namaapprover($kritper,$col){
+		$CI = & get_instance();
+		$userdata = $CI->m_user->getdatauserkrit($kritper)->row_array();
+		$getdata = $CI->m_user->getnamaapprover($userdata['bagian'],$col)->row_array();
+		$sebutan = $getdata['jenkel']=='P' ? 'Ibu.' : 'Bpk.';
+		return $sebutan.$getdata['nama'] ;
+	}
 	function prosedursurat($nomor,$nom2){
 		if($nom2==0){
-			$ket = 'Menunggu Approve Kepala Shift';
+			$ket = 'Menunggu Approve';
 		}else{
 			switch($nomor){
 				case 1:
@@ -308,7 +315,7 @@
 					$ket = 'Di CANCEL oleh YBS';
 					break;
 				default:
-					$ket = 'Menunggu Approve Kepala Departemen';
+					$ket = 'Menunggu Approve';
 			}
 		}
 		return $ket;

@@ -85,7 +85,7 @@ class M_cuti extends CI_Model {
 		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
-		if($this->session->userdata('hakdep') != "'X'" && $this->session->userdata('id_jabatan') <= 4){
+		if($this->session->userdata('hakdep') != "'X'"){
 			$data['appcol'] = 1;
 		}
 		unset($data['jnsuratx']);
@@ -128,7 +128,7 @@ class M_cuti extends CI_Model {
 		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
-		if($this->session->userdata('hakdep') != "'X'" && $this->session->userdata('id_jabatan') <= 4){
+		if($this->session->userdata('hakdep') != "'X'"){
 			$data['appcol'] = 1;
 		}
  		unset($data['jnizinx']);

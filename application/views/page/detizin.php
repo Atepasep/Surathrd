@@ -38,7 +38,11 @@
 												<td><?= tglhariini(date('d-m-Y', strtotime($data['dibuat']))); ?></td>
 												<td><?= $data['noinduk'].'/'.$data['nama'] ?></td>
 												<td><?= $data['keterangan'] ?></td>
-												<td><?= $data['masuk'].$data['pulang'].$data['keluar'].$data['kembali'] ?></td>
+												<?php if($data['jnizin']=='IP'){ ?>
+													<td><?= $data['pulang'] ?></td>
+												<?php }else{ ?>
+													<td><?= $data['masuk'].$data['pulang'].$data['keluar'].$data['kembali'] ?></td>
+												<?php } ?>
 												<td><?= $data['alasan'] ?></td>
 												<td>
 													<a href="<?= base_url().'izin/isiapproveizin/'.$data['id'] ?>" class="btn btn-xs btn-success btn-flat" id="apprcuti" >Approve</a>

@@ -10,33 +10,39 @@
 					    <div class="row">
 							<div class="col-sm-12">
 								<ul class="timeline font-kecil">
-									<?php $tg=''; $appr=0; $kata1=''; $kata2=''; foreach($dataada as $data): ?>	
-										<?php if($tg != $data['tanggal']){ $appr=0; ?>
-											<li class="time-label">
-												<span class="bg-red">
-													<?= tglpanjang($data['tanggal']) ?>
-												</span>
-											</li>
-											<?php } ?>
-											<?php 
-												$logo = $data['approve'] <= 2 ? 'fa-check bg-green' : 'fa-times bg-red';
-												$kete = $data['approve'] <= 2 ? 'Approve ' : 'Tolak ';
-											?>
-											<li>
-												<i class="fa <?= $logo ?>"></i>
-												<div class="timeline-item">
-													<span class="time"><i class="fa fa-clock-o"></i> <?= substr($data['tgl'],10,6) ?></span>
-													<!-- <h3 class="timeline-header">Approve</h3> -->
-													<div class="timeline-body">
-														<?= '<strong>'.$kete.$data['jenis'].'</strong> '.$data['nama'] ?>
+									<?php $tl=''; $t1=0; foreach($dataada as $datalog): ?>
+										<?php if($tl != $datalog['tanggal']){ ?>
+											<?php if($tl != ''){ ?>
 													</div>
 												</div>
 											</li>
-									<?php $tg = $data['tanggal']; ?>
-									<?php  endforeach; ?>
+											<?php } ?>
+											<li class="time-label">
+												<span class="bg-red">
+													<?= tglpanjang($datalog['tanggal']) ?>
+												</span>
+											</li>
+											<li>
+												<i style="color: black !important;" class="fa fa-file-text-o bg-primary"></i>
+													<div class="timeline-item">
+														<div class="timeline-body">
+										<?php } $tl = $datalog['tanggal']; $t1 = $datalog['approve']; ?>
+										<?php 
+											if($datalog['approve']<=2){
+												echo '<i class="fa fa-check text-green"></i> <i class="fa fa-clock-o text-gray"></i> '.substr($datalog['tgl'],10,6).' <strong>Approve ';
+											}else{
+												echo '<i class="fa fa-times text-red"></i> <i class="fa fa-clock-o text-gray"></i> '.substr($datalog['tgl'],10,6).' <strong>Menolak ';
+											}
+											echo $datalog['jenis'].'</strong> '.$datalog['nama'].'<br>' 
+										?>
+									<?php endforeach; ?>
 								</ul>
 							</div>
 					    </div>
+						<hr class="small">
+						<div style="text-align: center;">
+							<a href="<?= base_url() ?>" class="btn btn-sm btn-success btn-flat" ><i class="fa fa-arrow-left"></i> Kembali</a>
+						</div>
 					</div>
 				</div>
 			</div>

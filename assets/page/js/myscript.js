@@ -28,6 +28,11 @@ $(document).ready(function(){
       format : 'dd-mm-yyyy',
       endDate : '+1d'
     })
+	$(".tglpilih3").datepicker({
+		autoclose : true,
+		format : 'dd-mm-yyyy',
+		startDate : '-1d'
+	  })
     $(".datatableasli").DataTable();
 	$(".datatable").DataTable({
 		paging : false,

@@ -21,7 +21,7 @@ class M_absen extends CI_Model {
 		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 			$data['appcol'] = 1;
 		}
-		if($this->session->userdata('hakdep') != "'X'" && $this->session->userdata('id_jabatan') <= 4){
+		if($this->session->userdata('hakdep') != "'X'"){
 			$data['appcol'] = 1;
 		}
 		$data['dok'] = $this->uploadLogo();

@@ -35,10 +35,8 @@
 										<td class="bg-aqua"><a href="" style="color: black;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
 									</tr>
 								</table>
-								<div style="width: 100%; margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
-								<?php //if($this->session->userdata('id_jabatan') >= 5){ ?>
-									<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
-								<?php //} ?>
+								<div style="width: 100%;margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
+								<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
 							</div>
 						</div>
 					</div>
@@ -65,7 +63,7 @@
 									<tr>
 										<td>Bagian</td>
 										<td>:</td>
-										<td><?= $profileuser['bagian'] ?></td>
+										<td><?= $profileuser['bagian'].' - '.$profileuser['grp'] ?></td>
 									</tr>
 									<tr>
 										<td>Jabatan</td>
@@ -101,7 +99,14 @@
 								<td><?= $no+1 ?></td>
 								<td class="bold"><?= $data['keterangan']; ?></td>
 								<td>dibuat <?= tglhariini(date('d-m-Y', strtotime($data['dibuat']))); ?></td>
-								<td><?= prosedursurat($data['approve'],$data['appcol']) ?></td>
+								<?php
+									if($data['approve']==0){
+										$oknum = namaapprover($this->session->userdata('kritper'),$data['appcol']);
+									}else{
+										$oknum = '';
+									}
+								 ?>
+								<td><?= prosedursurat($data['approve'],$data['appcol']).' '.$oknum; ?></td>
 									<?php 
 										switch (substr($data['kunci'],0,4)) {
 											case 'cuti':
