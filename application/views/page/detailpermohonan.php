@@ -68,7 +68,7 @@
 								<?php } ?>
 							<?php } ?>
 							<?php if($getdata['appcol']!=0){ $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
-								<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
+								<?php if(in_array($this->session->userdata('bagian'),$departemen) && $this->session->userdata('hakdep') == "'X'"){ ?>
 									<tr>
 										<td><?php if($getdata['appcol']==3){ echo "Ditolak Ka Shift"; }else{ echo "Approve Ka Shift"; } ?></td>
 										<td>:</td>
@@ -134,7 +134,7 @@
 								<td><?= $getdata['alasan'] ?></td>
 							</tr>
 							<?php if($getdata['appcol']!=0){ $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
-								<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
+								<?php if(in_array($this->session->userdata('bagian'),$departemen) && $this->session->userdata('hakdep') == "'X'"){ ?>
 									<tr>
 										<td><?php if($getdata['appcol']==3){ echo "Ditolak Ka Shift"; }else{ echo "Approve Ka Shift"; } ?></td>
 										<td>:</td>
@@ -175,7 +175,7 @@
 								<td><?= $getdata['ket'] ?></td>
 							</tr>
 							<?php if($getdata['appcol']!=0){ $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
-								<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
+								<?php if(in_array($this->session->userdata('bagian'),$departemen) && $this->session->userdata('hakdep') == "'X'"){ ?>
 									<tr>
 										<td><?php if($getdata['appcol']==3){ echo "Ditolak Ka Shift"; }else{ echo "Approve Ka Shift"; } ?></td>
 										<td>:</td>
