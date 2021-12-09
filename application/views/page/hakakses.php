@@ -71,6 +71,18 @@
 										<div style="text-align: right; font-size:10px;">
 											<small>Klik pada Nama Bagian untuk Hak Akses, Warna merah <i class="fa fa-circle text-red"></i> Aktif</small>
 										</div>
+										<div class="formakses font-kecil" id="aksesgrp" style="border: 1px dashed #fc6e2d !important; padding: 5px; margin-top:10px;">
+											<div class="text-center" style="border-bottom: 1px solid black; margin: 5px;">Akses Group</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<?php foreach($group->result_array() as $datagrup): ?>
+														<a href="#" style="text-decoration: none;" class="text-black" id="cekgrp<?= $datagrup['id'] ?>" rel="<?= $datagrup['id'] ?>" onclick="Editaksesgrp(<?= $datagrup['id'] ?>)">
+															<i class="fa fa-circle-o text-info"></i> <?= $datagrup['nama_group'] ?> <br>
+														</a>
+													<?php endforeach; ?>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

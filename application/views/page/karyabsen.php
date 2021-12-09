@@ -23,7 +23,7 @@
 											for($x=0;$x<=7;$x++){
 										?>
 											<tr>
-												<td><?= tglpanjang(date('Y-m-d', strtotime($date. ' + '.$x.' days'))) ?></td>
+												<td><?= namahari(date('Y-m-d', strtotime($date. ' + '.$x.' days'))).', '.tglpanjang(date('Y-m-d', strtotime($date. ' + '.$x.' days'))) ?></td>
 												<td><?= carikaryabsen(date('Y-m-d', strtotime($date. ' + '.$x.' days'))) ?></td>
 												<td><a href="<?= base_url().'Apps/viewkaryabsen/'.date('Y-m-d', strtotime($date. ' + '.$x.' days')) ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>
 											</tr>

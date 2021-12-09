@@ -93,11 +93,12 @@ $("#batalcuti").click(function(){
 })
 $("#kirimcuti").click(function(){
 	var jncuti = $("#jncuti").val();
+	var jmlama = $("#selama").val().trim();
 	if(jncuti=='2'){
-		if($("#masakerja").val()=='' || $("#selama").val()==''){
+		if($("#masakerja").val()=='' || $("#selama").val()=='' || jmlama=='Hari'){
 			pesan('Isi masa kerja tahun ke berapa dan selama berapa lama cuti diuangkan ?');
 		}else{
-			document.formcuti.submit();
+				document.formcuti.submit();
 		}
 	}else{
 		var jnsurat = $("#jnsuratx").val();

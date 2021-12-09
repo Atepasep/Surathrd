@@ -16,6 +16,7 @@ class Hakakses extends CI_Controller{
 		$data['judul'] = 'Hak Akses Departemen';
 		$data['datauser'] = $this->m_user->getuser();
 		$data['bagian'] = $this->m_user->getbagian();
+		$data['group'] = $this->m_user->getgroup();
 		$this->load->view('page/header',$head);
 		$this->load->view('page/hakakses',$data);
 		$this->load->view('page/footer',$footer);
@@ -40,6 +41,12 @@ class Hakakses extends CI_Controller{
 		$noin = $_POST['noin'];
 		$ke = $_POST['ke'];
 		$hasil = $this->m_user->editakses2($noin,$ke);
+		echo $hasil;
+	}
+	public function editaksesgrp(){
+		$noin = $_POST['noin'];
+		$ke = $_POST['ke'];
+		$hasil = $this->m_user->editaksesgrp($noin,$ke);
 		echo $hasil;
 	}
 }

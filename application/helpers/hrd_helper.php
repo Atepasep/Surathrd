@@ -346,6 +346,32 @@
 		}
 		return $dp;
 	}
+	function gethakgrp($dep){
+		$dp = '';
+		//$CI = & get_instance();
+		//$kode = $CI->m_user->getnamadep($dep);
+		if(is_null($dep)){
+			$dp="'X'";
+		}else{
+			if($dep==''){
+				$dp='Error';
+			}else{
+				$CI = & get_instance();
+				for($x=0;$x<=30;$x++){
+					$pisah = substr($dep,$x,1);
+					if($pisah=='1'){
+						$departemen = $CI->m_login->getnamagrp($x+1);
+						$dp .= "'".$departemen['nama_group']."',";
+					}
+				}
+				$dp = substr($dp,0,strlen($dp)-1);
+			}
+		}
+		if($dp == ''){
+			$dp="'X'";
+		}
+		return $dp;
+	}
 	function ubahpagar($kata){
 		$hasil = '';
 		for($x=1;$x<=strlen($kata);$x++){

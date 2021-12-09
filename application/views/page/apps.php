@@ -29,7 +29,7 @@
 										<td><?= $data3 ?></td>
 									</tr>
 									<tr>
-										<td class="bg-yellow"><a href="<?= base_url().'cuti/detcuti' ?>" style="color: black;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
+										<td class="bg-yellow" style="height: 25px;"><a href="<?= base_url().'cuti/detcuti' ?>" style="color: black;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
 										<td class="bg-red"><a href="<?= base_url().'izin/detizin' ?>" style="color: white;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
 										<td class="bg-green"><a href="<?= base_url().'absen/detabsen' ?>" style="color: white;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
 										<td class="bg-aqua"><a href="" style="color: black;">Lihat <i class="fa fa-arrow-circle-right"></i></a></td>
@@ -38,12 +38,23 @@
 								<div style="width: 100%;margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
 								<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
 							</div>
+							<?php if($this->session->userdata('bagian') == 'IT' || $this->session->userdata('bagian') == 'SATPAM'){ ?>
+								<div style="width: 100%;"><a href="<?= base_url().'Konfirm' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-warning btn-flat text-black">Konfirmasi Surat Izin</a></div>
+							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-8" id="halaman-profile">
 						<div class="col-sm-12">
 							<div id="foto-profile" class="col-sm-3 text-center">
 								<img src="<?= base_url() ?>assets/images/noimageava.png">
+								<?php 
+									$tlahir = explode('-',$profileuser['tglahirp']);
+									$defidkey = $profileuser['noinduk'].$tlahir[2].$tlahir[1].$tlahir[0];
+									$iduser = $this->session->userdata('iduser');
+									if($defidkey==$iduser && $this->session->userdata('hakdep') != "'X'"){
+								?>
+								<div style="line-height:12px; font-style: italic;" class="text-red blinking">Untuk Keamanan Data, Ubah ID Key Anda<br><i class="fa fa-exclamation fa-2x text-info" style="margin: 5px 0;"></i></div>
+								<?php } ?>
 							</div>
 							<div id="ket-profile" class="col-sm-8">
 								<table class="table borderless">
@@ -92,7 +103,7 @@
 				<div class="col-sm-12" style="margin-top: 20px;">
 					<table class="table table-bordered table-striped table-hover responsive nowrap">
 						<tr>
-							<th colspan="6" class="text-center">Riwayat Permohonan Surat</th>
+							<th colspan="7" class="text-center">Riwayat Permohonan Surat</th>
 						</tr>
 						<?php if(sizeof($getriwayat)=='0'){ ?>
 							<tr>
@@ -133,24 +144,42 @@
 												break;
 										}
 									?>
-									<td style="text-align: center;">
-										<?php $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
-										<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
-											<?php if($data['appcol']<=0){ ?>
-												<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
-												<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
-											<?php }else{ ?>
-												<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
-											<?php } ?>
+									<?php $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
+									<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
+										<?php if($data['appcol']<=0){ ?>
+											<td style="text-align: center;">
+											<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
+											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
+											</td>
+											<td></td>
 										<?php }else{ ?>
-											<?php if($data['approve']<=0){ ?>
-												<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
-												<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
-											<?php }else{ ?>
+											<td style="text-align: center;">
 												<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
-											<?php } ?>
+											</td>
+											<td style="text-align: center;">
+												<?php if($upda == 'editizin'){ ?>
+													<a href="<?= 'apps/viewqr/'.$data['kunci'] ?>" class="text-black" data-remote="fale" data-toggle="modal" data-title="View Qr" data-target="#modalBox" title="View Qr"><i class="fa fa-qrcode"></i> QR</a>
+												<?php } ?>
+											</td>
 										<?php } ?>
-									</td>
+									<?php }else{ ?>
+										<?php if($data['approve']<=0){ ?>
+											<td style="text-align: center;">
+											<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
+											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>
+											</td>
+											<td></td>
+										<?php }else{ ?>
+											<td style="text-align: center;">
+											<a href="<?= base_url().$repo.$data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
+											</td>
+											<td style="text-align: center;">
+												<?php if($upda == 'editizin'){ ?>
+													<a href="<?= 'apps/viewqr/'.$data['kunci'] ?>" class="text-black" data-remote="fale" data-toggle="modal" data-title="View Qr" data-target="#modalBox" title="View Qr"><i class="fa fa-qrcode"></i> QR</a>
+												<?php } ?>
+											</td>
+										<?php } ?>
+									<?php } ?>									
 								<td style="text-align: center;"><a href="<?= 'cuti/viewdata/'.$data['kunci'] ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>
 							</tr>
 						<?php }} ?>

@@ -24,6 +24,10 @@ class M_user extends CI_Model {
 		$query = $this->db->query("select * from bagian order by id");
 		return $query;
 	}
+	public function getgroup(){
+		$query = $this->db->query("select * from grp order by id");
+		return $query;
+	}
 	public function editakses($nik){
 		$query = $this->db->query("select * from mperson where noinduk = '".$nik."' ");
 		return $query;
@@ -34,6 +38,14 @@ class M_user extends CI_Model {
 		$tampung = substr($hakdep,$ke-1,1)=='1' ? '0' : '1';
 		$hasil = substr_replace($hakdep,$tampung,$ke-1,1);
 		$queryfinal = $this->db->query("update akses_departemen set hakdep = '".$hasil."' where noinduk = '".$nik."' ");
+		return $queryfinal;
+	}
+	public function editaksesgrp($nik,$ke){
+		$query = $this->db->query("select * from akses_departemen where noinduk = '".$nik."' ")->row_array();
+		$hakgrp = $query['hakgrp'];
+		$tampung = substr($hakgrp,$ke-1,1)=='1' ? '0' : '1';
+		$hasil = substr_replace($hakgrp,$tampung,$ke-1,1);
+		$queryfinal = $this->db->query("update akses_departemen set hakgrp = '".$hasil."' where noinduk = '".$nik."' ");
 		return $queryfinal;
 	}
 	public function updateidkey($key){

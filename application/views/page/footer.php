@@ -8,6 +8,7 @@
 	<script src="<?= LOK_PAGE ?>js/jquery.countTo.js"></script>
 	<script src="<?= LOK_PAGE ?>vendor/nanoscroller/nanoscroller.js"></script>
 	<script src="<?= LOK_PAGE ?>vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="<?= LOK_PAGE ?>vendor/sweetalert/js/sweetalert.min.js"></script>
 
 	<!-- dataTablses -->
 	<script src="<?= LOK_PAGE ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
@@ -39,6 +40,15 @@
 	<?php if(isset($footer) and $footer=='busabsen'): ?>
 		<script src="<?= LOK_PAGE ?>js/busabsen.js"></script>
 	<?php endif; ?>
+	<?php if(isset($footer) and $footer=='konfirm'): ?>
+		<script src="<?= LOK_PAGE ?>js/webcam/qrcodelib.js"></script>
+		<script src="<?= LOK_PAGE ?>js/webcam/webcodecamjs.js"></script>
+		<script src="<?= LOK_PAGE ?>js/webcam/main.js"></script>
+		<script src="<?= LOK_PAGE ?>js/konfirm.js"></script>
+	<?php endif; ?>
+	<?php if($this->session->flashdata('pesan')=='qrcodeberhasil'){ ?>
+		<script>swal("Terima kasih!", "Scan barcode surat izin berhasil", "success"); </script>
+	<?php } $this->session->set_flashdata('pesan',''); ?>
 	<script type="text/javascript">
 		$(".nano").nanoScroller();
 		<?php if($this->session->flashdata('info') == 'tidakberhak'){ ?>

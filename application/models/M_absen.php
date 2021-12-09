@@ -70,12 +70,17 @@ class M_absen extends CI_Model {
 	public function getdataabsen(){
 		$hakdep = $this->session->userdata('hakdep');
 		$idjabat = $this->session->userdata('id_jabatan');
-		$grp = $this->session->userdata('grp');
+		// $grp = $this->session->userdata('grp');
+		if($this->session->userdata('hakgrp') == "'X'"){
+			$grp = "'".$this->session->userdata('grp')."'";
+		}else{
+			$grp = $this->session->userdata('hakgrp');
+		}
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from ketabsen a 
 		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp = '".$grp."',d.id < ".$idjabat.") order by a.dibuat asc");
+		where if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.") order by a.dibuat asc");
 		return $query->result_array();
 	}
 

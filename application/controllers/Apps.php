@@ -52,6 +52,16 @@ class Apps extends CI_Controller{
 		$this->load->view('page/footer',$footer);
 	}
 
+	public function konfirmizin(){
+		$head['act'] = 1;
+		$footer['footer'] = 'dash';
+		$data['judul'] = 'Konfirmasi Izin';
+		//$data['dataada'] = $this->m_cuti->gethistory();
+		$this->load->view('page/header',$head);
+		$this->load->view('page/konfirmizin',$data);
+		$this->load->view('page/footer',$footer);
+	}
+
 	public function cetakform($jenis,$id){
 		$data = $this->m_cuti->getdatadetailizin($id);
 		$file = 'Suratizin.pdf';
@@ -310,10 +320,36 @@ class Apps extends CI_Controller{
 		return $tempdir.$jenis.'-'.$id;
 	}
 
+	function cetakqr2($jenis,$id,$isi){
+		$tempdir = "temp/";
+		$namafile = $jenis.'-'.$id;
+		$codeContents = $isi;
+		QRcode::png($codeContents, $tempdir . $namafile. '.png', QR_ECLEVEL_L, 4);
+		return $tempdir.$namafile;
+	}
+
 	public function cekqr(){
 		$text = " PRODUCT ID 23456";
+		return QRcode::png($text);
+	}
 
-		QRcode::png($text);
+	public function viewqr($jenis,$id){
+		$temp = $this->m_cuti->getdatadetailizin($id);
+		$isi = $temp['jnizin'].$id;
+		$data['qr'] = $this->cetakqr2($jenis,$id,$isi);
+		$data['jenis'] = $temp['keterangan'];
+		$this->load->view('page/viewqr',$data);
+	}
+
+	public function hapusqr(){
+		$gambar = $_POST['gambar'];
+		$pesan = false;
+		$fotodulu = FCPATH.'temp/'.substr($gambar,5,100).'.png'; //base_url().$gambar.'.png';
+		if(file_exists($fotodulu)){
+			unlink($fotodulu);
+			$pesan = true;
+		}
+		echo $pesan;
 	}
 
 	public function logout(){

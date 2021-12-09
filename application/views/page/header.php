@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="<?= LOK_PAGE ?>vendor/nanoscroller/nanoscroller.css">
 	<link rel="stylesheet" href="<?= LOK_PAGE ?>vendor/font-awesome/css/font-awesome.css" />
 	<link rel="stylesheet" href="<?= LOK_PAGE ?>vendor/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="<?= LOK_PAGE ?>vendor/sweetalert/css/sweetalert.css" />
 	<link rel="stylesheet" type="text/css" href="<?= LOK_PAGE ?>vendor/toast/jquery.toast.min.css">
 	<!-- datatables -->
 	<link rel="stylesheet" href="<?= LOK_PAGE ?>vendor/datatables/css/dataTables.bootstrap.min.css">

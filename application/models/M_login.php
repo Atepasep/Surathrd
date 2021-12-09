@@ -3,7 +3,7 @@ class M_login extends CI_Model{
 	public function cek_login($u){
 		$user = encrypto($u);
 		// $pass = encrypto($p);
-		$query = 'SELECT a.*,b.id AS id_jabatan,c.hakdep FROM mperson a
+		$query = 'SELECT a.*,b.id AS id_jabatan,c.hakdep,c.hakgrp FROM mperson a
 		LEFT JOIN jabatan b ON a.jabatan = b.namajabatan 
 		left join akses_departemen c on a.noinduk = c.noinduk 
 		WHERE a.idkey ="'.$u.'" ';
@@ -19,6 +19,10 @@ class M_login extends CI_Model{
 	}
 	public function getnamadep($id){
 		$sql = $this->db->query("select * from bagian where id = '".$id."' ");
+		return $sql->row_array();
+	}
+	public function getnamagrp($id){
+		$sql = $this->db->query("select * from grp where id = '".$id."' ");
 		return $sql->row_array();
 	}
 }

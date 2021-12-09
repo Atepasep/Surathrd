@@ -80,7 +80,7 @@
         data : {idkey : ax },
         success : function(data){
               if(data.length > 0){
-				pesan('ID Key baru sudah digunakan, ganti ID Key baru');
+				pesan('ID Key baru sudah digunakan, ganti ID Key');
               }else{
 				  ubahidkey();
 			  }
