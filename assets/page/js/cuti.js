@@ -38,6 +38,10 @@ $("#selama").on('focus',function(){
 $("#jamik").on('blur',function(){
 	var kata = $(this).val();
 	if(kata != ''){
+		if(kata.includes('.')){
+			kata = kata.replace('.',':');
+			$(this).val(kata);
+		}
 		var panjang = kata.length;
 		if(panjang<5){
 			if(panjang>2){
