@@ -4,6 +4,7 @@
 	define('LOK_FOTO_USER',base_url().'assets/page/images/user/');
 	define('LOK_FOTO',base_url().'assets/page/images/');
 	define('LOK_UPLOAD_MESIN',"./assets/page/images/user/FOTO/");
+	define('LOK_FOTO_MESIN',base_url().'assets/page/images/user/FOTO/');
 
 	function querydep($data){
 		$CI = & get_instance();

@@ -83,4 +83,55 @@ class M_user extends CI_Model {
 		}
 		return $query2;
 	}
+	public function simpanfotoprofile(){
+		$data = $_POST;
+		$temp = $this->getdatauserkrit($this->session->userdata('kritper'))->row_array();
+		$fotodulu = FCPATH.'assets/page/images/user/FOTO/'.$temp['foto']; //base_url().$gambar.'.png';
+		if(file_exists($fotodulu)){
+			unlink($fotodulu);
+		}
+		$id = $this->session->userdata('kritper');
+		$data['foto'] = $this->uploadLogo();
+		unset($data['dokumen']);
+		$query = $this->db->query("update mperson set foto = '".$data['foto']."' where concat(kritkar,person_id) = '".$id."' ");
+		if($query){
+			$this->session->set_userdata('foto',$data['foto']);
+			$this->session->set_flashdata('simpanfoto','berhasil');
+		}
+		$url = base_url().'profile';
+		redirect($url);
+	}
+	public function uploadLogo(){
+		$this->load->library('upload');
+		$this->uploadConfig = array(
+			'upload_path' => LOK_UPLOAD_MESIN,
+			'allowed_types' => 'gif|jpg|jpeg|png',
+			'max_size' => max_upload() * 1024,
+		);
+		// Adakah berkas yang disertakan?
+		$adaBerkas = $_FILES['dokumen']['name'];
+		if (empty($adaBerkas))
+		{
+			return NULL;
+		}
+		$uploadData = NULL;
+		$this->upload->initialize($this->uploadConfig);
+		if ($this->upload->do_upload('dokumen'))
+		{
+			$uploadData = $this->upload->data();
+			$namaFileUnik = $uploadData['file_name'];
+			$fileRenamed = rename(
+				$this->uploadConfig['upload_path'].$uploadData['file_name'],
+				$this->uploadConfig['upload_path'].$namaFileUnik
+			);
+			$uploadData['file_name'] = $fileRenamed ? $namaFileUnik : $uploadData['file_name'];
+		}
+		else
+		{
+			$_SESSION['success'] = -1;
+			$tidakupload = $this->upload->display_errors(NULL, NULL);
+			$this->session->set_flashdata('msg',$tidakupload);
+		}
+		return (!empty($uploadData)) ? $uploadData['file_name'] : NULL;
+	}
 }

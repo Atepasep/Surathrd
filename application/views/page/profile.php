@@ -11,7 +11,8 @@
 						<div class="col-sm-12">
 							<div class="col-sm-7">
 								<div id="foto-profile-kecil" class="col-sm-2 text-center" style="padding-top: 12px;">
-									<img src="<?= base_url() ?>assets/images/noimageava.png">
+									<?php $fotoprofile = $this->session->userdata('foto')=='' ? base_url().'assets/images/noimageava.png' : LOK_FOTO_MESIN.$this->session->userdata('foto'); ?>
+									<img src="<?= $fotoprofile ?>">
 								</div>
 								<div id="ket-profile" class="col-sm-10 font-kecil">
 									<table class="table borderless">
@@ -72,22 +73,29 @@
 										</div>
 									</div>
 									<hr class="small">
-									Foto Profile (Under Construction)
+									Foto Profile
 									<div class="form-horizontal">
+										<form method="POST" id="formprofile" name="formprofile" action="<?= $formaction ?>" enctype="multipart/form-data">
 										<div class="row">
 											<div class="form-group">
 												<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault"></label>
 												<div class="col-md-8">
 													<div style="border: 2px dashed #adadad; text-align:center;" id="adddokumen">
-														<a href="" style="text-decoration: none;">
-															<img src="<?=LOK_PAGE ?>images/add-files.svg" style="width: 100%; height: 150px; min-height: 150px;" id="gbimage" >
+														<a href="#" style="text-decoration: none;">
+															<?php $fotoprofile = $this->session->userdata('foto')=='' ? LOK_PAGE.'images/add-files.svg' : LOK_FOTO_MESIN.$this->session->userdata('foto'); ?> 
+															<img src="<?= $fotoprofile ?>" style="width: auto; height: 150px; min-height: 150px;" id="gbimage" >
 															<div style="font-size: 10px; color:black;">Tarik gambar kesini atau <strong class="text-red"><u>Cari</u></strong></div>
 														</a>
 													</div>
 													<input type="file" class="hidden" accept="image/*" id="dokumen" name="dokumen" onchange="loadFile(event)">
+													<div style="margin-top: 5px;">
+														<a href="#" class="btn btn-xs btn-success" id="simpanfotoprofile"><i class="fa fa-check"></i> Simpan</a>
+														<a href="#" class="btn btn-xs btn-danger" id="batalfotoprofile"><i class="fa fa-times"></i> Batal</a>
+													</div>
 												</div>
 											</div>
 										</div>
+										</form>
 									</div>
 								</div>
 							</div>

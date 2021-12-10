@@ -27,7 +27,8 @@
 							<div class="col-sm-12 bg-abu" style="padding-top: 5px;">
 								<div class="col-sm-7">
 									<div id="foto-profile-kecil" class="col-sm-2 text-center" style="padding-top: 12px;">
-										<img src="<?= base_url() ?>assets/images/noimageava.png">
+										<?php $fotoprofile = $this->session->userdata('foto')=='' ? base_url().'assets/images/noimageava.png' : LOK_FOTO_MESIN.$this->session->userdata('foto'); ?>
+										<img src="<?= $fotoprofile ?>">
 									</div>
 									<div id="ket-profile" class="col-sm-10 font-kecil">
 										<table class="table borderless">

@@ -676,19 +676,21 @@ body .btn-dark[disabled] {
   margin-top: 20px !important;
 }
 #foto-profile {
-  border-color: red;
+  border-color: red !important;
 }
 #foto-profile img {
-  height: 120px;
-  width: auto;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
+  object-fit: cover;
   padding: 5px;
   border-color: 5px solid black !important;
 }
 #foto-profile-kecil img {
   height: 90px;
-  width: auto;
+  width: 90px;
   border-radius: 50%;
+  object-fit: cover;
   padding: 5px;
   border-color: 5px solid black !important;
 }

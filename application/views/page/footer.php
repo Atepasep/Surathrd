@@ -40,6 +40,9 @@
 	<?php if(isset($footer) and $footer=='busabsen'): ?>
 		<script src="<?= LOK_PAGE ?>js/busabsen.js"></script>
 	<?php endif; ?>
+	<?php if(isset($footer) and $footer=='user'): ?>
+		<script src="<?= LOK_PAGE ?>js/user.js"></script>
+	<?php endif; ?>
 	<?php if(isset($footer) and $footer=='konfirm'): ?>
 		<script src="<?= LOK_PAGE ?>js/webcam/qrcodelib.js"></script>
 		<script src="<?= LOK_PAGE ?>js/webcam/webcodecamjs.js"></script>
@@ -51,6 +54,9 @@
 	<?php } $this->session->set_flashdata('pesan',''); ?>
 	<script type="text/javascript">
 		$(".nano").nanoScroller();
+		<?php if($this->session->flashdata('simpanfoto')=='berhasil'){ ?>
+			pesan('Ubah foto profile berhasil','info');
+		<?php } $this->session->set_flashdata('simpanfoto','') ?>
 		<?php if($this->session->flashdata('info') == 'tidakberhak'){ ?>
 			pesan('Anda tidak berhak mengakses Menu Ini','info');
 		<?php }elseif($this->session->flashdata('info') == 'underconstruction'){ ?>

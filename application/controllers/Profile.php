@@ -14,6 +14,7 @@ class Profile extends CI_Controller{
 		$footer['footer'] = 'user';
 		$data['judul'] = 'Profile';
 		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$data['formaction'] = base_url().'Profile/simpanfoto';
 		$this->load->view('page/header',$head);
 		$this->load->view('page/profile',$data);
 		$this->load->view('page/footer',$footer);
@@ -32,4 +33,8 @@ class Profile extends CI_Controller{
 		echo json_encode($hasil);
 	}
 
+	public function simpanfoto(){
+		$this->m_user->simpanfotoprofile();
+		redirect('profile');
+	}
 }

@@ -46,7 +46,11 @@
 					<div class="col-sm-8" id="halaman-profile">
 						<div class="col-sm-12">
 							<div id="foto-profile" class="col-sm-3 text-center">
-								<img src="<?= base_url() ?>assets/images/noimageava.png">
+								<?php if($this->session->userdata('foto')!=''){ ?>
+									<img src="<?= LOK_FOTO_MESIN.$this->session->userdata('foto') ?>">
+								<?php }else{ ?>
+									<img src="<?= base_url() ?>assets/images/noimageava.png">
+								<?php } ?>
 								<?php 
 									$tlahir = explode('-',$profileuser['tglahirp']);
 									$defidkey = $profileuser['noinduk'].$tlahir[2].$tlahir[1].$tlahir[0];
