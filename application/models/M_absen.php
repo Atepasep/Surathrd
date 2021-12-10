@@ -176,12 +176,12 @@ class M_absen extends CI_Model {
 		$jabat = $this->session->userdata('id_jabatan');
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if($jabat >= 5){
-			$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+			$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and appcol = 1 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 		}else{
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
-				$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+				$query = $this->db->query("update ketabsen set approve=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and appcol = 1 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 			}else{
-				$query = $this->db->query("update ketabsen set appcol=1,disetujui='".$noinduk."',disetujui_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
+				$query = $this->db->query("update ketabsen set appcol=1,cekshift='".$noinduk."',cekshift_tgl = now() where approve = 0 and noinduk in (select noinduk from mperson where bagian in (".$hakdep."))");
 			}
 		}
 		return $query;
