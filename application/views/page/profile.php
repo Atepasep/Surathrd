@@ -64,7 +64,7 @@
 											<div class="form-group" id="formtgldari">
 												<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">ID Key</label>
 												<div class="col-md-8">
-													<input type="text" class="form-control input-sm" id="idkey" name="idkey" value="<?= ubahpagar($profileuser['idkey']) ?>" readonly>
+													<input type="text" class="form-control input-sm" id="idkey" name="idkey" value="<?= ubahpagar(trim($profileuser['idkey'])) ?>" readonly>
 													<div style="margin-top: 5px;">
 														<a href="<?= base_url().'profile/ubahidkey' ?>" class="btn btn-xs btn-success" id="ubahidkey" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data"><i class="fa fa-key"></i> Ubah ID Key</a>
 													</div>	

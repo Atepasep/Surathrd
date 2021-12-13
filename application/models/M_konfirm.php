@@ -20,4 +20,14 @@ class M_konfirm extends CI_Model{
 		}
 		return $hasil;
 	}
+
+	public function getdatakonfirm(){
+		$date = tglmysql($this->session->flashdata('tglizin'));
+		$query = $this->db->query("select a.*,b.nama as nama_satpam,c.nama as nama_karyawan,d.keterangan,c.bagian as xbagian from izin a 
+		left join mperson b on a.ceksatpam = concat(b.kritkar,b.person_id) 
+		left join mperson c on concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
+		left join jeniscuti d on a.jnizin = d.kode
+		where a.ceksatpam_tgl like '".$date."%' order by c.bagian ");
+		return $query;
+	}
 }

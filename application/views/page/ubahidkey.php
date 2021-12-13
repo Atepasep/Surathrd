@@ -48,7 +48,7 @@
 		}
 		var kod = $("#idkey").val();
 		var idu = "<?= $this->session->userdata('iduser') ?>";
-		if(kod.toUpperCase() != idu){
+		if(kod.toUpperCase() != idu.trim()){
 			pesan('ID key lama tidak sesuai');
 			return false;
 		}

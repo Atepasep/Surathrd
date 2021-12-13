@@ -16,6 +16,7 @@ class Konfirm extends CI_Controller{
 		$footer['footer'] = 'konfirm';
 		$data['judul'] = 'Konfirmasi Izin';
 		//$data['dataada'] = $this->m_cuti->gethistory();
+		$this->session->set_flashdata('tglizin','');
 		$this->load->view('page/header',$head);
 		$this->load->view('page/konfirmizin',$data);
 		$this->load->view('page/footer',$footer);
@@ -27,6 +28,28 @@ class Konfirm extends CI_Controller{
 		$temp = $this->m_cuti->getdatadetailizin($id);
 		$hasil = $this->m_konfirm->konfirmizin($temp['jnizin'],$id)->result_array();
 		echo json_encode($hasil);
+	}
+
+	public function repizin(){
+		$head['act'] = 1;
+		$footer['footer'] = 'repkonfirm';
+		$data['judul'] = 'Data Konfirmasi Surat Izin';
+		$data['urltujuan'] = base_url().'konfirm/ubahtgl';
+		if(!$this->session->flashdata('tglizin')){
+			$this->session->set_flashdata('tglizin',date('d-m-Y'));
+		}else{
+			$this->session->set_flashdata('tglizin',$this->session->flashdata('tglizin'));
+		}
+		$data['datakonfirm'] = $this->m_konfirm->getdatakonfirm();
+		$this->load->view('page/header',$head);
+		$this->load->view('page/konfirmizinrep',$data);
+		$this->load->view('page/footer',$footer);
+	}
+
+	public function ubahtgl(){
+		$tgl = $_POST['tgl'];
+		$this->session->set_flashdata('tglizin',$tgl);
+		echo true;
 	}
 
 	public function kembali(){

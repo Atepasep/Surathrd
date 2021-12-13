@@ -49,6 +49,9 @@
 		<script src="<?= LOK_PAGE ?>js/webcam/main.js"></script>
 		<script src="<?= LOK_PAGE ?>js/konfirm.js"></script>
 	<?php endif; ?>
+	<?php if(isset($footer) and $footer=='repkonfirm'): ?>
+		<script src="<?= LOK_PAGE ?>js/konfirmrep.js"></script>
+	<?php endif; ?>
 	<?php if($this->session->flashdata('pesan')=='qrcodeberhasil'){ ?>
 		<script>swal("Terima kasih!", "Scan barcode surat izin berhasil", "success"); </script>
 	<?php } $this->session->set_flashdata('pesan',''); ?>

@@ -72,6 +72,12 @@
 								</div>
 							</div>
 					    </div>
+						<div class="col-sm-12">
+							<hr class="small">
+							<div style="text-align: center;">
+								<a href="<?= base_url() ?>" class="btn btn-sm btn-success btn-flat" ><i class="fa fa-arrow-left"></i> Kembali</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
