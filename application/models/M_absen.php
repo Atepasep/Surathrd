@@ -25,12 +25,28 @@ class M_absen extends CI_Model {
 			$data['appcol'] = 1;
 		}
 		$data['dok'] = $this->uploadLogo();
-		unset($data['jnizinx']);
-		unset($data['dokumen']);
-		unset($data['idx']);
-		$this->db->insert('ketabsen',$data);
-		$url = base_url().'apps';
-		redirect($url);
+		if($data['dok']!=NULL){
+			if($data['dok']=='kosong'){
+				$data['dok'] = NULL;
+			}
+			unset($data['jnizinx']);
+			unset($data['dokumen']);
+			unset($data['idx']);
+			$this->db->insert('ketabsen',$data);
+			if($this->db->affected_rows() == 1){
+				$this->session->set_flashdata('pesanabsen','simpanabsenberhasil');
+				$url = base_url().'apps';
+				redirect($url);
+			}else{
+				$this->session->set_flashdata('pesanabsen','simpanabsengagal');
+				$url = base_url().'absen';
+				redirect($url);
+			}
+		}else{
+			$this->session->set_flashdata('ketlain','Error Upload Dok Absen '.$data['noinduk'].' ');
+			$url = base_url().'absen';
+			redirect($url);
+		}
 	}
 	public function updateabsen(){
 		$data= $_POST;
@@ -47,8 +63,15 @@ class M_absen extends CI_Model {
 		unset($data['idx']);
 		$this->db->where('id',$dataid);
 		$this->db->update('ketabsen',$data);
-		$url = base_url().'apps';
-		redirect($url);
+		if($this->db->affected_rows() == 1){
+			$this->session->set_flashdata('pesanabsen','simpanabsenberhasil');
+			$url = base_url().'apps';
+			redirect($url);
+		}else{
+			$this->session->set_flashdata('pesanabsen','simpanabsengagal');
+			$url = base_url().'absen';
+			redirect($url);
+		}
 	}
 	public function gettask(){
 		// $query = $this->db->query("Select count(jncuti) AS jmlcuti,b.gr AS gr from cuti a 
@@ -148,7 +171,7 @@ class M_absen extends CI_Model {
 		$adaBerkas = $_FILES['dokumen']['name'];
 		if (empty($adaBerkas))
 		{
-			return NULL;
+			return 'kosong';
 		}
 		$uploadData = NULL;
 		$this->upload->initialize($this->uploadConfig);
@@ -165,8 +188,10 @@ class M_absen extends CI_Model {
 		else
 		{
 			$_SESSION['success'] = -1;
+			$ext = pathinfo($adaBerkas, PATHINFO_EXTENSION);
+			$ukuran = $_FILES['dokumen']['size']/1000000;
 			$tidakupload = $this->upload->display_errors(NULL, NULL);
-			$this->session->set_flashdata('msg',$tidakupload);
+			$this->session->set_flashdata('msg',$tidakupload.' '.$ext.' ukuran '.round($ukuran,2).' MB');
 		}
 		return (!empty($uploadData)) ? $uploadData['file_name'] : NULL;
 	}

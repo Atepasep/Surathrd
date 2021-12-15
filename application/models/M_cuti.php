@@ -102,8 +102,15 @@ class M_cuti extends CI_Model {
 		unset($data['tglik']);
 		unset($data['idx']);
 		$this->db->insert('cuti',$data);
-		$url = base_url().'apps';
-		redirect($url);
+		if($this->db->affected_rows() == 1){
+			$this->session->set_flashdata('pesancuti','simpancutiberhasil');
+			$url = base_url().'apps';
+			redirect($url);
+		}else{
+			$this->session->set_flashdata('pesancuti','simpancutigagal');
+			$url = base_url().'cuti';
+			redirect($url);
+		}
 	}
 	public function updatecuti(){
 		$data= $_POST;
@@ -122,8 +129,15 @@ class M_cuti extends CI_Model {
 		unset($data['idx']);
 		$this->db->where('id',$dataid);
 		$this->db->update('cuti',$data);
-		$url = base_url().'apps';
-		redirect($url);
+		if($this->db->affected_rows() == 1){
+			$this->session->set_flashdata('pesancuti','simpancutiberhasil');
+			$url = base_url().'apps';
+			redirect($url);
+		}else{
+			$this->session->set_flashdata('pesancuti','simpancutigagal');
+			$url = base_url().'cuti';
+			redirect($url);
+		}
 	}
 	public function simpanizin(){
 		$data = $_POST;
@@ -144,8 +158,15 @@ class M_cuti extends CI_Model {
  		unset($data['jnizinx']);
 		 unset($data['idx']);
 		$this->db->insert('izin',$data);
-		$url = base_url().'apps';
-		redirect($url);
+		if($this->db->affected_rows() == 1){
+			$this->session->set_flashdata('pesanizin','simpanizinberhasil');
+			$url = base_url().'apps';
+			redirect($url);
+		}else{
+			$this->session->set_flashdata('pesanizin','simpanizingagal');
+			$url = base_url().'izin';
+			redirect($url);
+		}
 	}
 	public function updateizin(){
 		$data = $_POST;
@@ -160,8 +181,15 @@ class M_cuti extends CI_Model {
 		unset($data['idx']);
 		$this->db->where('id',$dataid);
 		$this->db->update('izin',$data);
-		$url = base_url().'apps';
-		redirect($url);
+		if($this->db->affected_rows() == 1){
+			$this->session->set_flashdata('pesanizin','simpanizinberhasil');
+			$url = base_url().'apps';
+			redirect($url);
+		}else{
+			$this->session->set_flashdata('pesanizin','simpanizingagal');
+			$url = base_url().'izin';
+			redirect($url);
+		}
 	}
 	public function gettask(){
 		$arrartask = array();

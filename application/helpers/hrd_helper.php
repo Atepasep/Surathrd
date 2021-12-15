@@ -398,4 +398,10 @@
 		$nan = $CI->m_user->getdatauserkrit($kritper)->row_array();
 		return $nan;
 	}
+
+	function isilogerror($apl,$ket){
+		$CI = & get_instance();
+		$nan = $CI->m_user->isilogerror($apl,$ket);
+		return $nan;
+	}
 ?>

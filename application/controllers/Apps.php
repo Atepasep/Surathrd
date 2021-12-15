@@ -42,6 +42,16 @@ class Apps extends CI_Controller{
 		$this->load->view('page/viewkaryabsen',$data);
 	}
 
+	public function viewfoto($namafoto=''){
+		if($namafoto==''){
+			$fotonya = base_url().'assets/images/noimageava.png';
+		}else{
+			$fotonya = LOK_FOTO_MESIN.$namafoto;
+		}
+		$data['dok'] = $fotonya;
+		$this->load->view('page/viewfoto',$data);
+	}
+
 	public function logapprove(){
 		$head['act'] = 1;
 		$footer['footer'] = 'dash';

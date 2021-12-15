@@ -84,7 +84,7 @@
 														<a href="#" style="text-decoration: none;">
 															<?php $fotoprofile = $this->session->userdata('foto')=='' ? LOK_PAGE.'images/add-files.svg' : LOK_FOTO_MESIN.$this->session->userdata('foto'); ?> 
 															<img src="<?= $fotoprofile ?>" style="width: auto; height: 150px; min-height: 150px;" id="gbimage" >
-															<div style="font-size: 10px; color:black;">Tarik gambar kesini atau <strong class="text-red"><u>Cari</u></strong></div>
+															<div style="font-size: 10px; color:black;">Tarik gambar kesini atau <strong class="text-red"><u>Cari</u></strong> (max 2MB)</div>
 														</a>
 													</div>
 													<input type="file" class="hidden" accept="image/*" id="dokumen" name="dokumen" onchange="loadFile(event)">

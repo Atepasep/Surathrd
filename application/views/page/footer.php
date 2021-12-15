@@ -55,6 +55,35 @@
 	<?php if($this->session->flashdata('pesan')=='qrcodeberhasil'){ ?>
 		<script>swal("Terima kasih!", "Scan barcode surat izin berhasil", "success"); </script>
 	<?php } $this->session->set_flashdata('pesan',''); ?>
+	<?php if($this->session->flashdata('msg')==''){ ?> <!-- Pesan Msg untuk tanda error upload dokumen -->
+		<?php if($this->session->flashdata('pesancuti')!=''){ ?> 
+			<?php if($this->session->flashdata('pesancuti')=='simpancutiberhasil'){ ?>  <!-- Pesan Pesancuti untuk tanda success simpan data cuti -->
+				<script>swal("Berhasil!", "Permohonan Surat Cuti berhasil dibuat, lihat di Riwayat", "success"); </script>
+			<?php } ?>
+			<?php if($this->session->flashdata('pesancuti')=='simpancutigagal'){ ?>  <!-- Pesan Pesancuti untuk tanda success simpan data cuti -->
+				<script>swal("Gagal!", "Permohonan Surat Cuti gagal dibuat, cek data di Riwayat apakah pernah dibuat", "error"); </script>
+			<?php } ?>
+		<?php } $this->session->set_flashdata('pesancuti',''); ?>
+		<?php if($this->session->flashdata('pesanizin')!=''){ ?>
+			<?php if($this->session->flashdata('pesanizin')=='simpanizinberhasil'){ ?>
+				<script>swal("Berhasil!", "Permohonan Surat Izin berhasil dibuat, lihat di Riwayat", "success"); </script>
+			<?php } ?>
+			<?php if($this->session->flashdata('pesanizin')=='simpanizingagal'){ ?>
+				<script>swal("Gagal!", "Permohonan Surat Izin gagal dibuat, cek data di Riwayat apakah pernah dibuat", "error"); </script>
+			<?php } ?>
+		<?php } $this->session->set_flashdata('pesanizin',''); ?>
+		<?php if($this->session->flashdata('pesanabsen')!=''){ ?>
+			<?php if($this->session->flashdata('pesanabsen')=='simpanabsenberhasil'){ ?>
+				<script>swal("Berhasil!", "Permohonan Surat Absen berhasil dibuat, lihat di Riwayat", "success"); </script>
+			<?php }  ?>
+			<?php if($this->session->flashdata('pesanabsen')=='simpanabsengagal'){ ?>
+				<script>swal("Gagal!", "Permohonan Surat Izin Absen dibuat, cek data di Riwayat apakah pernah dibuat", "error"); </script>
+			<?php } ?>
+		<?php } $this->session->set_flashdata('pesanabsen',''); ?>
+	<?php } $this->session->set_flashdata('pesanabsen',''); $this->session->set_flashdata('pesanizin',''); $this->session->set_flashdata('pesancuti','');?>
+	<?php if($this->session->flashdata('msg')!=''){ isilogerror('SuratHRD',$this->session->flashdata('ketlain').'Error -> '.$this->session->flashdata('msg')) ?>
+		<script>pesan("Ada masalah upload dokumen, pastikan ukuran foto max 2MB dan berformat JPG,JPEG,PNG atau GIF","error");</script>
+	<?php } $this->session->set_flashdata('msg','');$this->session->set_flashdata('ketlain',''); ?>
 	<script type="text/javascript">
 		$(".nano").nanoScroller();
 		<?php if($this->session->flashdata('simpanfoto')=='berhasil'){ ?>

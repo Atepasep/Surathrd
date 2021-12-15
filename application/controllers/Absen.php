@@ -58,7 +58,7 @@ class Absen extends CI_Controller{
 	public function viewfoto($id){
 		$temp= $this->m_absen->getdatadetailabsen($id);
 		$data['id'] = $temp['id'];
-		$data['dok'] = $temp['dok'];
+		$data['dok'] = LOK_FOTO_USER.$temp['dok'];
 		$this->load->view('page/viewfoto',$data);
 	}
 

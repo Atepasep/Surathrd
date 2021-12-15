@@ -78,7 +78,7 @@ class M_user extends CI_Model {
 			$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
 			left join mperson b ON a.noinduk = b.noinduk
 			LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-			where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id > 4, b.grp = '".$this->session->userdata('grp')."' AND c.id > ".$this->session->userdata('id_jabatan').") 
+			where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id > ".$this->session->userdata('id_jabatan').", b.grp = '".$this->session->userdata('grp')."' AND c.id > ".$this->session->userdata('id_jabatan').") 
 			ORDER BY c.id");
 		}
 		return $query2;
@@ -87,16 +87,23 @@ class M_user extends CI_Model {
 		$data = $_POST;
 		$temp = $this->getdatauserkrit($this->session->userdata('kritper'))->row_array();
 		$fotodulu = FCPATH.'assets/page/images/user/FOTO/'.$temp['foto']; //base_url().$gambar.'.png';
-		if(file_exists($fotodulu)){
-			unlink($fotodulu);
-		}
 		$id = $this->session->userdata('kritper');
 		$data['foto'] = $this->uploadLogo();
-		unset($data['dokumen']);
-		$query = $this->db->query("update mperson set foto = '".$data['foto']."' where concat(kritkar,person_id) = '".$id."' ");
-		if($query){
-			$this->session->set_userdata('foto',$data['foto']);
-			$this->session->set_flashdata('simpanfoto','berhasil');
+		if($data['foto']!=NULL){
+			if($data['foto']=='kosong'){
+				$data['foto'] = NULL;
+			}
+			if(file_exists($fotodulu)){
+				unlink($fotodulu);
+			}
+			unset($data['dokumen']);
+			$query = $this->db->query("update mperson set foto = '".$data['foto']."' where concat(kritkar,person_id) = '".$id."' ");
+			if($query){
+				$this->session->set_userdata('foto',$data['foto']);
+				$this->session->set_flashdata('simpanfoto','berhasil');
+			}
+		}else{
+			$this->session->set_flashdata('ketlain','Error Upload Foto Profile '.$temp['noinduk'].' ');
 		}
 		$url = base_url().'profile';
 		redirect($url);
@@ -112,7 +119,7 @@ class M_user extends CI_Model {
 		$adaBerkas = $_FILES['dokumen']['name'];
 		if (empty($adaBerkas))
 		{
-			return NULL;
+			return 'kosong';
 		}
 		$uploadData = NULL;
 		$this->upload->initialize($this->uploadConfig);
@@ -129,9 +136,16 @@ class M_user extends CI_Model {
 		else
 		{
 			$_SESSION['success'] = -1;
+			$ext = pathinfo($adaBerkas, PATHINFO_EXTENSION);
+			$ukuran = $_FILES['dokumen']['size']/1000000;
 			$tidakupload = $this->upload->display_errors(NULL, NULL);
-			$this->session->set_flashdata('msg',$tidakupload);
+			$this->session->set_flashdata('msg',$tidakupload.' '.$ext.' ukuran '.round($ukuran,2).' MB');
 		}
 		return (!empty($uploadData)) ? $uploadData['file_name'] : NULL;
+	}
+
+	function isilogerror($apl,$ket){
+		$query = $this->db->query("insert into logerror(aplikasi,keterangan,tgl) values ('".$apl."','".$ket."',now()) ");
+		return $query;
 	}
 }

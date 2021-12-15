@@ -189,8 +189,7 @@
 					<?php } ?>
 					<li class="<?= $m7 ?>"><a href="<?= base_url().'kupmak' ?>" title="Input Kupon Makan">Kupon Makan</a></li>
 					<li class="<?= $m10 ?>"><a href="<?= base_url().'slip' ?>" title="View Slip GAji">Slip Gaji</a></li>
-					<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Ganti idKey</a></li>
-					<br>
+					<li class="<?= $m8 ?>"><a href="<?= base_url().'profile' ?>" title="Ubah ID Key">Profile</a></li>
 					<br>
 					<br>
 					<?php if(trim($this->session->userdata('bagian')) == 'IT'){ ?>

@@ -38,7 +38,7 @@
 								<div style="width: 100%;margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
 								<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
 							</div>
-							<?php if($this->session->userdata('bagian') == 'IT' || $this->session->userdata('bagian') == 'SATPAM'){ ?>
+							<?php if(($this->session->userdata('bagian') == 'IT' || $this->session->userdata('bagian') == 'SATPAM' || $this->session->userdata('bagian') == 'PERSONALIA') && $this->session->userdata('hakdep') != "'X'"){ ?>
 								<div class="row">
 									<div class="col-sm-6">
 										<div style="width: 100%;">
@@ -58,9 +58,9 @@
 						<div class="col-sm-12">
 							<div id="foto-profile" class="col-sm-3 text-center">
 								<?php if($this->session->userdata('foto')!=''){ ?>
-									<img src="<?= LOK_FOTO_MESIN.$this->session->userdata('foto') ?>">
+									<img src="<?= LOK_FOTO_MESIN.$this->session->userdata('foto') ?>" id="fotoprofiledepan">
 								<?php }else{ ?>
-									<img src="<?= base_url() ?>assets/images/noimageava.png">
+									<img src="<?= base_url() ?>assets/images/noimageava.png" id="fotoprofiledepan" >
 								<?php } ?>
 								<?php 
 									$tlahir = explode('-',$profileuser['tglahirp']);
@@ -70,6 +70,7 @@
 								?>
 								<div style="line-height:12px; font-style: italic;" class="text-red blinking">Untuk Keamanan Data, Ubah ID Key Anda<br><i class="fa fa-exclamation fa-2x text-info" style="margin: 5px 0;"></i></div>
 								<?php } ?>
+								<a href="<?= base_url().'apps/viewfoto/'.$this->session->userdata('foto') ?>" id="viewprofiledepan" class="hilang" data-remote="false" data-toggle="modal" data-title="View Foto" data-target="#modalBox" title="View Data" >View</a>
 							</div>
 							<div id="ket-profile" class="col-sm-8">
 								<table class="table borderless">
@@ -118,11 +119,11 @@
 				<div class="col-sm-12" style="margin-top: 20px;">
 					<table class="table table-bordered table-striped table-hover responsive nowrap">
 						<tr>
-							<th colspan="7" class="text-center">Riwayat Permohonan Surat</th>
+							<th colspan="8" class="text-center">Riwayat Permohonan Surat</th>
 						</tr>
 						<?php if(sizeof($getriwayat)=='0'){ ?>
 							<tr>
-								<td colspan="6" class="text-center">Data kosong</td>
+								<td colspan="8" class="text-center">Data kosong</td>
 							</tr>
 						<?php }else{$no=-1; foreach($getriwayat as $data){ $no++; ?>
 							<tr>
@@ -194,7 +195,12 @@
 												<?php } ?>
 											</td>
 										<?php } ?>
-									<?php } ?>									
+									<?php } ?>		
+									<?php if($upda == 'editabsen'){ ?>			
+										<td style="text-align: center;"><a href="<?= 'absen/viewfoto/'.$kunci2 ?>" data-remote="false" data-toggle="modal" data-title="View Dokumen" data-target="#modalBox" title="View Dokumen"><i class="fa fa-image text-success"></i></a></td>				
+									<?php }else{ ?>
+										<td></td>
+									<?php } ?>
 								<td style="text-align: center;"><a href="<?= 'cuti/viewdata/'.$data['kunci'] ?>" data-remote="false" data-toggle="modal" data-title="View Data" data-target="#modalBox" title="View Data">detail <i class="fa fa-arrow-circle-right"></i></a></td>
 							</tr>
 						<?php }} ?>

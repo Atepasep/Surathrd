@@ -5,7 +5,7 @@
 			<div class="panel-body pan">
 				<div class="col-sm-12">
 					<div style="text-align: center;">
-						<img src="<?= LOK_FOTO_USER.$dok ?>" alt="Image Not Found" style="height: auto; width: 100%;" >
+						<img src="<?= $dok ?>" alt="Image Not Found" style="height: auto; width: 100%;" >
 					</div>
 				</div>
 			</div>

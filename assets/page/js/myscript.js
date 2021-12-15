@@ -179,16 +179,23 @@ function angkaJam(evt) {
 //	return false;
 //}
 function pesan(pesan,jenis){
-	if(jenis = 'info'){
+	if(jenis == 'info'){
 		var head = 'Information';
+		var bek = '#17A2B8';
+		var teksColor = 'white';
+	}else {
+		var head = 'Error';
+		var bek = '#ff6f69';
+		var teksColor = 'black';
 	}
 	$.toast({
 			heading: head,
 			text: pesan,
 			showHideTransition: 'slide',
 			icon: jenis,
-			hideAfter: 5000,
+			hideAfter: 4000,
 			position: 'bottom-right',
-			bgColor: ' 	#17A2B8'
+			bgColor: bek,
+			textColor: teksColor
 		});
 }
