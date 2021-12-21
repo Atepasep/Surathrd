@@ -17,6 +17,18 @@ $("#adddokumen").click(function(e){
     e.preventDefault();
     $("#dokumen").click();
 });
+$("#tgldari").on('change',function(){
+    // var a = $(this).val();
+    // var b = $("#tglsampai").val();
+    // var c = ceklamahari(a,b,1,'#tgldari','#tglsampai');
+})
+$("#tglsampai").on('change',function(){
+    if($("#jnabsen").val()=='SD'){
+        var a = $("#tgldari").val();
+        var b = $(this).val();
+        ceklamahari(a,b,1,'#tgldari','#tglsampai');
+    }
+})
 function kosongkanform(){
     $("#jnabsen").val('');
     $("#tgldari").val('');

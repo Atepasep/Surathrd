@@ -4,9 +4,9 @@
 			<div class="panel panel-dark-ifn">
 				<div class="panel-body pan modalket">
 					<?php if($getdata['approve']!=0){ ?>
-						<div class="<?php if($getdata['approve']==3){ echo 'pitaketx'; }else{ echo 'pitaket'; } ?>"><span><?php if($getdata['approve']==3){ echo 'Ditolak'; }elseif($getdata['approve']==1){ echo 'On Progress'; }else{ echo 'Done'; } ?></span></div>
+						<div class="<?php if($getdata['approve']==3){ echo 'pitaketx'; }else{ echo 'pitaket'; } ?>"><span><?php if($getdata['approve']==3){ echo 'Ditolak'; }elseif($getdata['approve']==1){ echo 'Approve'; }else{ echo 'Done'; } ?></span></div>
 					<?php }else{ if($getdata['appcol']!=0){ ?>
-						<div class="<?php if($getdata['appcol']==1){ echo 'pitaket'; }else{ echo 'pitaketx'; } ?>"><span><?php if($getdata['appcol']==1){ echo 'Approve Shift'; }else{ echo 'Ditolak'; } ?></span></div>
+						<div class="<?php if($getdata['appcol']==1){ echo 'pitaket'; }else{ echo 'pitaketx'; } ?>"><span><?php if($getdata['appcol']==1){ echo 'On Progress'; }else{ echo 'Ditolak'; } ?></span></div>
 					<?php }} ?>
 					<?php if($mode=='cuti'){ ?>
 						<table class="table borderless">

@@ -39,7 +39,7 @@
 												<td><?= tglhariini(date('d-m-Y', strtotime($data['dibuat']))); ?></td>
 												<td><?= $data['noinduk'].'/'.$data['nama'] ?></td>
 												<td><?= $data['keterangan'] ?></td>
-												<td><?= tglmysql($data['dari']).' s/d '.tglmysql($data['sampai']) ?></td>
+												<td><?= tglmysql($data['dari']).' s/d '.tglmysql($data['sampai']) ?><strong class="text-green"><?=' ('.selisihhari($data['dari'],$data['sampai']).')' ?></strong></td>
 												<td><?= $data['ket'] ?></td>
 												<td><?php 
 													if($data['dok']!=''){ ?>

@@ -84,13 +84,13 @@
 												<div class="form-group" id="formtgldari">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Dari Tanggal</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm tglpilih3" id="tgldari" name="dari" value="<?= $dari ?>">
+														<input type="text" class="form-control input-sm tglpilih3" id="tgldari" name="dari" value="<?= $dari ?>" autocomplete="off">
 													</div>
 												</div>
 												<div class="form-group" id="formtglsampai">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Sampai dengan</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm tglpilih3" id="tglsampai" name="sampai" value="<?= $sampai ?>">
+														<input type="text" class="form-control input-sm tglpilih3" id="tglsampai" name="sampai" value="<?= $sampai ?>" autocomplete="off">
 													</div>
 												</div>
 												<div class="form-group" id="formketerangan">

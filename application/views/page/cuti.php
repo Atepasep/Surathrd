@@ -142,7 +142,7 @@
 												<div class="form-group" id="formjamik">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Jam</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="jamik" name="jam" value="<?= $jamik ?>">
+														<input type="tel" class="form-control input-sm" id="jamik" name="jam" value="<?= $jamik ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formtempatik">

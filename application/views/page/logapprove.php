@@ -22,9 +22,11 @@
 												$rep = $datalog['approve'];
 												$gll = substr($datalog['tgl'],10,6);
 											}else{
-												$per = $datalog['tglcek'];
+												// $per = $datalog['tglcek'];
+												$per = $datalog['tanggal'];
 												$rep = $datalog['appcol'];
-												$gll = substr($datalog['jamcek'],0,5);
+												// $gll = substr($datalog['jamcek'],0,5);
+												$gll = substr($datalog['tgl'],10,6);
 											}
 										}
 									?>

@@ -93,25 +93,25 @@
 												<div class="form-group" id="formmasuk">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Masuk</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="masuk" name="masuk" maxlength="5" value="<?= $masuk ?>"> 
+														<input type="tel" class="form-control input-sm" id="masuk" name="masuk" maxlength="5" value="<?= $masuk ?>"> 
 													</div>
 												</div>
 												<div class="form-group" id="formpulang">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Pulang</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="pulang" name="pulang" maxlength="5" value="<?= $pulang ?>">
+														<input type="tel" class="form-control input-sm" id="pulang" name="pulang" maxlength="5" value="<?= $pulang ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formkeluar">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Keluar</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="keluar" name="keluar" maxlength="5" value="<?= $keluar ?>">
+														<input type="tel" class="form-control input-sm" id="keluar" name="keluar" maxlength="5" value="<?= $keluar ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formkembali">
 													<label class="col-md-4 control-label" style="text-align: left;" for="inputDefault">Kembali</label>
 													<div class="col-md-8">
-														<input type="text" class="form-control input-sm" id="kembali" name="kembali" maxlength="5" value="<?= $kembali ?>">
+														<input type="tel" class="form-control input-sm" id="kembali" name="kembali" maxlength="5" value="<?= $kembali ?>">
 													</div>
 												</div>
 												<div class="form-group" id="formketerangan">

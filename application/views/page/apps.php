@@ -38,7 +38,7 @@
 								<div style="width: 100%;margin-top:5px;"><a href="<?= base_url().'Apps/karyabsen' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-danger btn-flat">Data Karyawan Cuti / Absen</a></div>
 								<div style="width: 100%;"><a href="<?= base_url().'Apps/logapprove' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-success btn-flat">Log History</a></div>
 							</div>
-							<?php if(($this->session->userdata('bagian') == 'IT' || $this->session->userdata('bagian') == 'SATPAM' || $this->session->userdata('bagian') == 'PERSONALIA') && $this->session->userdata('hakdep') != "'X'"){ ?>
+							<?php if(($this->session->userdata('bagian') == 'IT' || $this->session->userdata('bagian') == 'SATPAM' || $this->session->userdata('bagian') == 'PERSONALIA')){ ?>
 								<div class="row">
 									<div class="col-sm-6">
 										<div style="width: 100%;">

@@ -199,3 +199,31 @@ function pesan(pesan,jenis){
 			textColor: teksColor
 		});
 }
+function ceklamahari(tglawal,tglakhir,angka,elm1,elm2){
+	var jmhari = 0;
+	var hasilnya = '';
+	if(tglawal=='' || tglakhir==''){
+		var jmhari = 0;
+	}else{
+		var satuhari = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+		var pisah1 = tglawal.split('-');
+		var pisah2 = tglakhir.split('-');
+		var tgl1 = new Date(pisah1[2],pisah1[1],pisah1[0]);
+		var tgl2 = new Date(pisah2[2],pisah2[1],pisah2[0]);
+		var diffDays = Math.round(Math.round((tgl1.getTime() - tgl2.getTime()) / (satuhari))-1);
+		if(diffDays >= 0){
+			// var x = $(elm1).val();
+			$(elm1).val('');
+			$(elm2).val('');
+			alert('Tgl dari harus lebih kecil dari tgl sampai');
+		}else{
+			var hasil = diffDays*-1;
+			if(hasil > 7){
+				$(elm2).val('');
+				alert('Maksimal Izin Dokter adalah 7 Hari');
+			}
+			var hasilnya = hasil;
+		}
+	}
+	return hasilnya;
+}

@@ -29,6 +29,9 @@
 											<input type="text" id="urltujuan" value="<?= $urltujuan ?>" class="hilang">
 										</div>
 										<div class="col-sm-4" style="text-align: right; padding-top:6px;">
+											<!-- <div style="text-align: center;"> -->
+												<a href="<?= base_url() ?>" class="btn btn-sm btn-success btn-flat" ><i class="fa fa-arrow-left"></i> Kembali</a>
+											<!-- </div> -->
 										</div>
 									</div>
 								</div>	
