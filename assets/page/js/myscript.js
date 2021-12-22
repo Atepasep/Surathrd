@@ -196,7 +196,8 @@ function pesan(pesan,jenis){
 			hideAfter: 4000,
 			position: 'bottom-right',
 			bgColor: bek,
-			textColor: teksColor
+			textColor: teksColor,
+			loader: false
 		});
 }
 function ceklamahari(tglawal,tglakhir,angka,elm1,elm2){
@@ -226,4 +227,14 @@ function ceklamahari(tglawal,tglakhir,angka,elm1,elm2){
 		}
 	}
 	return hasilnya;
+}
+function validasitgl(tgl,elm,ket){
+	var pattern =/^([0-9]{2})\-([0-9]{2})\-([0-9]{4})$/;
+	if(pattern.test(tgl)){
+		return true;
+	}else{
+		pesan(ket+' bukan format tanggal, format harus (dd-mm-yyyy)');
+		$(elm).val('');
+		return false;
+	}
 }

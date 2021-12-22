@@ -10,7 +10,9 @@ $("#kirimabsen").on('click',function(){
     if($("#jnabsen").val()=='' || $("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#ket").val()==''){
         pesan('Isi data dengan lengkap !');
     }else{
-        document.formabsen.submit();
+        if(validasitgl($("#tgldari").val(),"#tgldari","Tanggal dari") && validasitgl($("#tglsampai").val(),"#tglsampai","Tanggal sampai")){
+            document.formabsen.submit();
+        }
     }
 })
 $("#adddokumen").click(function(e){
@@ -28,6 +30,9 @@ $("#tglsampai").on('change',function(){
         var b = $(this).val();
         ceklamahari(a,b,1,'#tgldari','#tglsampai');
     }
+})
+$("#tgldari").on('blur',function(){
+
 })
 function kosongkanform(){
     $("#jnabsen").val('');

@@ -115,7 +115,9 @@ $("#kirimcuti").click(function(){
 			if($("#tgldari").val()=='' || $("#tglsampai").val()==''){
 				pesan('Isi data demgan lengkap');
 			}else{
-				document.formcuti.submit();
+				if(validasitgl($("#tgldari").val(),"#tgldari","Tanggal dari") && validasitgl($("#tglsampai").val(),"#tglsampai","Tanggal sampai")){
+					document.formcuti.submit();
+				}
 			}
 		}else{
 			if(jnsurat!='IK'){
