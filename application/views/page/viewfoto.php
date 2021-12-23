@@ -4,8 +4,9 @@
 			<div class="panel panel-dark-ifn">
 			<div class="panel-body pan">
 				<div class="col-sm-12">
-					<div style="text-align: center;">
-						<img src="<?= $dok ?>" alt="Image Not Found" style="height: auto; width: 100%;" >
+					<div style="text-align: center; overflow : hidden;">
+						<img id="fotodok" src="<?= $dok ?>" onclick="rotate(this)" alt="Image Not Found" style="height: auto !important; width: 100%; object-fit : cover;" >
+						<div class="font-kecil">Klik gambar untuk memutar</div>
 					</div>
 				</div>
 			</div>
@@ -15,4 +16,3 @@
 		</div>
 	</div>
 </div>
-

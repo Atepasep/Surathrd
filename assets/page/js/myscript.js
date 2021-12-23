@@ -238,3 +238,11 @@ function validasitgl(tgl,elm,ket){
 		return false;
 	}
 }
+
+let rotateAngle = 90;
+function rotate(image) {
+  image.setAttribute("style", "transform: rotate(" + rotateAngle + "deg)");
+  rotateAngle = rotateAngle + 90;
+  $("#fotodok").css('height','auto');
+  $("#fotodok").css('width','100%');
+}

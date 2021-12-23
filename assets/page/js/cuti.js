@@ -124,13 +124,17 @@ $("#kirimcuti").click(function(){
 				if($("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#masakerja").val()=='' || $("#alasan").val()==''){
 					pesan('Isi data demgan lengkap');
 				}else{
-					document.formcuti.submit();
+					if(validasitgl($("#tgldari").val(),"#tgldari","Tanggal dari") && validasitgl($("#tglsampai").val(),"#tglsampai","Tanggal sampai")){
+						document.formcuti.submit();
+					}
 				}
 			}else{
 				if($("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#masakerja").val()=='' || $("#alasan").val()=='' || $("#tglik").val()=='' || $("#hariik").val()=='' || $("#jamik").val()=='' || $("#tempatik").val()==''){
 					pesan('Isi data dengan lengkap');
 				}else{
-					document.formcuti.submit();
+					if(validasitgl($("#tgldari").val(),"#tgldari","Tanggal dari") && validasitgl($("#tglsampai").val(),"#tglsampai","Tanggal sampai") && validasitgl($("#tglik").val(),"#tglik","Tanggal izin")){
+						document.formcuti.submit();
+					}
 				}
 			}
 		}
