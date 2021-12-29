@@ -116,7 +116,8 @@
 						</div>
 					</div>
 				<!-- </div> -->
-				<div class="col-sm-12" style="margin-top: 20px;">
+				<div class="col-sm-12" style="margin: 20px 0;">
+					<!-- <div class="card"> -->
 					<table class="table table-bordered table-striped table-hover responsive nowrap">
 						<tr>
 							<th colspan="8" class="text-center">Riwayat Permohonan Surat</th>
@@ -205,6 +206,7 @@
 							</tr>
 						<?php }} ?>
 					</table>
+					<!-- </div> -->
 				</div>
 			</div>
 		</div>

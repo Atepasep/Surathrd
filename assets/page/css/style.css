@@ -674,6 +674,23 @@ body .btn-dark[disabled] {
 }
 #halaman-profile {
   margin-top: 20px !important;
+  border-color: 2px solid red !important;
+}
+#halaman-profilex {
+  /* border: 1px solid darkgray !important; */
+  padding: 15px 5px;
+  border-radius: 7px !important;
+  box-shadow: 3px 4px 10px 0px rgba(186,186,186,1);
+  -webkit-box-shadow: 3px 4px 10px 0px rgba(186,186,186,1);
+  -moz-box-shadow: 3px 4px 10px 0px rgba(186,186,186,1);
+}
+.card {
+    /* border: 1px solid darkgray !important; */
+    padding: 15px 5px;
+    border-radius: 7px !important;
+    box-shadow: 3px 4px 10px 0px rgba(186,186,186,1);
+    -webkit-box-shadow: 3px 4px 10px 0px rgba(186,186,186,1);
+    -moz-box-shadow: 3px 4px 10px 0px rgba(186,186,186,1);
 }
 #foto-profile {
   border-color: red !important;
