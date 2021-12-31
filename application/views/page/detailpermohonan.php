@@ -90,7 +90,7 @@
 									<td><?= $getdata['nama_terima'] ?><?php if($getdata['approve']==4){ echo '<i>'.prosedursurat(4,1).'</i>'; } ?><br><?=date('d-m-Y', strtotime($getdata['diterima_tgl'])) ?></td>
 								</tr>
 							<?php } ?>
-							<?php if($getdata['approve']==3){ ?>
+							<?php if($getdata['approve']==3 || $getdata['appcol']==3){ ?>
 								<tr>
 									<td>Alasan Tolak</td>
 									<td>:</td>
@@ -149,7 +149,7 @@
 									<td><?= $getdata['nama_setuju'] ?><br><?= date('d-m-Y', strtotime($getdata['disetujui_tgl'])) ?></td>
 								</tr>
 							<?php } ?>
-							<?php if($getdata['approve']==3){ ?>
+							<?php if($getdata['approve']==3 | $getdata['appcol']==3 ){ ?>
 								<tr>
 									<td>Alasan Tolak</td>
 									<td>:</td>
@@ -190,7 +190,7 @@
 									<td><?= $getdata['nama_setuju'] ?><br><?= date('d-m-Y', strtotime($getdata['disetujui_tgl'])) ?></td>
 								</tr>
 							<?php } ?>
-							<?php if($getdata['approve']==3){ ?>
+							<?php if($getdata['approve']==3 || $getdata['appcol']==3){ ?>
 								<tr>
 									<td>Alasan Tolak</td>
 									<td>:</td>

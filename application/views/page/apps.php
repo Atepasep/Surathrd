@@ -133,12 +133,20 @@
 								<td>dibuat <?= tglhariini(date('d-m-Y', strtotime($data['dibuat']))); ?></td>
 								<?php
 									if($data['approve']==0){
-										$oknum = namaapprover($this->session->userdata('kritper'),$data['appcol']);
+										if($data['appcol']==3){
+											$oknum = '('.$data['alasan_tolak'].')';
+										}else{
+											$oknum = namaapprover($this->session->userdata('kritper'),$data['appcol']);
+										}
 									}else{
-										$oknum = '';
+										if($data['approve']==3){
+											$oknum = '('.$data['alasan_tolak'].')';
+										}else{
+											$oknum = '';
+										}
 									}
 								 ?>
-								<td><?= prosedursurat($data['approve'],$data['appcol']).' '.$oknum; ?></td>
+								<td class="<?php if($data['approve']==3 || $data['appcol']==3){ echo "text-merah"; } ?>"><?= prosedursurat($data['approve'],$data['appcol']).' '.$oknum; ?></td>
 									<?php 
 										switch (substr($data['kunci'],0,4)) {
 											case 'cuti':

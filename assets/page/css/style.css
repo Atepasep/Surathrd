@@ -2006,6 +2006,9 @@ select.input-sml {
 .text-red {
   color: #DD4B39 !important;
 }
+.text-merah {
+  color: red !important;
+}
 .text-light-blue {
   color: #3c8dbc !important;
 }

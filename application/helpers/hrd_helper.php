@@ -301,6 +301,8 @@
 	function prosedursurat($nomor,$nom2){
 		if($nom2==0){
 			$ket = 'Menunggu Approve';
+		}else if($nom2==3){
+			$ket = 'Ditolak';
 		}else{
 			switch($nomor){
 				case 1:

@@ -209,7 +209,8 @@ class M_cuti extends CI_Model {
 				'dibuat'=>$datacuti['dibuat'],
 				'approve'=>$datacuti['approve'],
 				'appcol'=>$datacuti['appcol'],
-				'kunci'=>'cuti/'.$datacuti['id']
+				'kunci'=>'cuti/'.$datacuti['id'],
+				'alasan_tolak' => $datacuti['alasan_tolak']
 			);
 			$mdarray[] = $databaru;
 		}
@@ -219,7 +220,8 @@ class M_cuti extends CI_Model {
 				'dibuat'=>$dataizin['dibuat'],
 				'approve'=>$dataizin['approve'],
 				'appcol'=>$dataizin['appcol'],
-				'kunci'=>'izin/'.$dataizin['id']
+				'kunci'=>'izin/'.$dataizin['id'],
+				'alasan_tolak' => $dataizin['alasan_tolak']
 			);
 			$mdarray[] = $databaru;
 		}
@@ -229,7 +231,8 @@ class M_cuti extends CI_Model {
 				'dibuat'=>$dataabsen['dibuat'],
 				'approve'=>$dataabsen['approve'],
 				'appcol'=>$dataabsen['appcol'],
-				'kunci'=>'absen/'.$dataabsen['id']
+				'kunci'=>'absen/'.$dataabsen['id'],
+				'alasan_tolak' => $dataabsen['alasan_tolak']
 			);
 			$mdarray[] = $databaru;
 		}
