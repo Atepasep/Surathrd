@@ -7,6 +7,12 @@ $("#batalabsen").click(function(){
     }
 })
 $("#kirimabsen").on('click',function(){
+    if($("#jnabsen").val()=='SD'){
+        if($("#isidokumen").val()==''){
+            pesan('Isi dokumen dahulu');
+            return false;
+        }
+    }
     if($("#jnabsen").val()=='' || $("#tgldari").val()=='' || $("#tglsampai").val()=='' || $("#ket").val()==''){
         pesan('Isi data dengan lengkap !');
     }else{
@@ -40,6 +46,7 @@ function kosongkanform(){
     $("#tglsampai").val('');
     $("#ket").val('');
     $("#dokumen").val('');
+    $("#isidokumen").val('');
     $("#dokumen").change();
 }
 var loadFile = function(event) {
@@ -47,10 +54,12 @@ var loadFile = function(event) {
     var isifile = event.target.files[0];
     if(!isifile){
         output.src = 'assets/page/images/add-files.svg';
+        $("#isidokumen").val('');
     }else{
         output.src = URL.createObjectURL(isifile);
         output.onload = function() {
         URL.revokeObjectURL(output.src) // free memory
+        $("#isidokumen").val('ADA');
         }
     }
   };

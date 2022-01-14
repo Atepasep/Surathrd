@@ -245,4 +245,5 @@ function rotate(image) {
   rotateAngle = rotateAngle + 90;
   $("#fotodok").css('height','auto');
   $("#fotodok").css('width','100%');
+  $("#fotodok").css('object-fit','cover');
 }

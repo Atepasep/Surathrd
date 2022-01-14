@@ -104,11 +104,16 @@
 													<div class="col-md-8 text-center">
 														<div style="border: 2px dashed #adadad;" id="adddokumen">
 															<a href="" style="text-decoration: none;">
-																<img src="<?= LOK_PAGE ?>images/add-files.svg" style="width: 100%; height: 150px; min-height: 150px;" id="gbimage" >
+																<?php if($dok=='kosong' || $dok==NULL ){ ?>
+																	<img src="<?= LOK_PAGE ?>images/add-files.svg" style="width: 100%; height: 150px; min-height: 150px;" id="gbimage" >
+																<?php }else{ ?>
+																	<img src="<?= LOK_PAGE."images/user/".$dok ?>" style="width: 100%; height: 150px; min-height: 150px;" id="gbimage" >
+																<?php } ?>
 																<div style="font-size: 10px; color:black;">Tarik gambar kesini atau <strong class="text-red"><u>Cari</u></strong> (max 2MB)</div>
 															</a>
 														</div>
 														<input type="file" class="hidden" accept="image/*" id="dokumen" name="dokumen" onchange="loadFile(event)">
+														<input type="text" id="isidokumen" class="hilang" value="<?= $dok ?>">
 													</div>
 												</div>
 											</div>

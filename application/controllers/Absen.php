@@ -21,6 +21,7 @@ class Absen extends CI_Controller{
 		$data['dari'] = null;
 		$data['sampai'] = null;
 		$data['ket'] = null;
+		$data['dok'] = null;
 		$data['idx'] = null;
 		$this->load->view('page/header',$head);
 		$this->load->view('page/absen',$data);
@@ -38,6 +39,7 @@ class Absen extends CI_Controller{
 		$data['dari'] = tglmysql($temp['dari']);
 		$data['sampai'] = tglmysql($temp['sampai']);
 		$data['ket'] = $temp['ket'];
+		$data['dok'] = $temp['dok'];
 		$data['idx']= $temp['id'];
 		$this->load->view('page/header',$head);
 		$this->load->view('page/absen',$data);

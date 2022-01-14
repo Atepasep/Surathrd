@@ -31,6 +31,7 @@ class M_absen extends CI_Model {
 			}
 			unset($data['jnizinx']);
 			unset($data['dokumen']);
+			unset($data['isidokumen']);
 			unset($data['idx']);
 			$this->db->insert('ketabsen',$data);
 			if($this->db->affected_rows() == 1){
@@ -57,8 +58,12 @@ class M_absen extends CI_Model {
 		$data['kritkar'] = substr($this->session->userdata('kritper'),0,1);
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
 		$data['dok'] = $this->uploadLogo();
+		if($data['dok']=='kosong'){
+			unset($data['dok']);
+		}
 		unset($data['jnizinx']);
 		unset($data['dokumen']);
+		unset($data['isidokumen']);
 		$dataid = $data['idx'];
 		unset($data['idx']);
 		$this->db->where('id',$dataid);
