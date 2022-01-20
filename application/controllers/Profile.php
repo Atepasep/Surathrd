@@ -19,6 +19,16 @@ class Profile extends CI_Controller{
 		$this->load->view('page/profile',$data);
 		$this->load->view('page/footer',$footer);
 	}
+	public function keluarga(){
+		$head['act'] = 8;
+		$footer['footer'] = 'user';
+		$data['judul'] = '<a href="'.base_url('profile').'">Profile</a> - Data Keluarga';
+		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
+		$data['formaction'] = base_url().'Profile/simpanfoto';
+		$this->load->view('page/header',$head);
+		$this->load->view('page/keluarga',$data);
+		$this->load->view('page/footer',$footer);
+	}
 	public function ubahidkey(){
 		$this->load->view('page/ubahidkey');
 	}

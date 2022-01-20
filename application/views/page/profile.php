@@ -97,6 +97,10 @@
 										</div>
 										</form>
 									</div>
+									<hr class="small">
+									<div>
+										<a href="<?= base_url().'profile/keluarga' ?>" class="btn btn-sm btn-success" id="datakeluarga" style="width: 100%;"><i class="fa fa-users text-black"></i> Data Keluarga</a>
+									</div>
 								</div>
 							</div>
 						</div>

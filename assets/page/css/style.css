@@ -31,7 +31,8 @@ a {
   -o-transition: 0.5s;
   transition: 0.5s; }
   a:hover, a:active, a:focus {
-    color: #FFC300;
+    /* color: #FFC300; */
+    color: #1eb4cc;
     outline: none;
     text-decoration: none !important; }
 
@@ -1026,10 +1027,10 @@ body.offcanvas {
 .fancy-collapse-panel .panel-default > .panel-heading {
   padding: 0; }
 
-.panel-heading a {
-  padding: 15px 25px;
-  display: block;
-  width: 100%;
+/* .panel-heading a { */
+  /* padding: 15px 25px;
+  display: block; */
+  /* width: 100%;
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 1px;
@@ -1041,7 +1042,8 @@ body.offcanvas {
   -moz-box-shadow: none !important;
   -ms-box-shadow: none !important;
   -o-box-shadow: none !important;
-  box-shadow: none !important; }
+  box-shadow: none !important; */
+ /* } */
 
 .panel {
   -webkit-box-shadow: none !important;
@@ -1051,8 +1053,8 @@ body.offcanvas {
   box-shadow: none !important;
   border: none; }
 
-.panel-heading a:after {
-  font-family: "icomoon";
+/* .panel-heading a:after { */
+  /* font-family: "icomoon";
   content: "\ea0e";
   position: absolute;
   right: 20px;
@@ -1060,10 +1062,12 @@ body.offcanvas {
   font-weight: 400;
   top: 50%;
   line-height: 1;
-  margin-top: -10px; }
+  margin-top: -10px;  */
+/* } */
 
-.panel-heading a.collapsed:after {
-  content: "\ea1c"; }
+/* .panel-heading a.collapsed:after { */
+  /* content: "\ea1c"; */
+ /* } */
 
 .panel-heading a.collapsed {
   background: #fafafa;
