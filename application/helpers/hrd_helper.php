@@ -291,10 +291,10 @@
 		$hari = $jarak / 60 / 60 / 24;
 		return ceil($hari).' hari';
 	}
-	function namaapprover($kritper,$col){
+	function namaapprover($kritper,$col,$jnsurat){
 		$CI = & get_instance();
 		$userdata = $CI->m_user->getdatauserkrit($kritper)->row_array();
-		$getdata = $CI->m_user->getnamaapprover($userdata['bagian'],$col)->row_array();
+		$getdata = $CI->m_user->getnamaapprover($userdata['bagian'],$col,$jnsurat)->row_array();
 		$sebutan = $getdata['jenkel']=='P' ? 'Ibu.' : 'Bpk.';
 		return $sebutan.$getdata['nama'] ;
 	}

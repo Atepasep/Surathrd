@@ -65,21 +65,30 @@ class M_user extends CI_Model {
 		$query2 = $this->db->query("select * from mperson where concat(kritkar,person_id) = '".$kritper."' ");
 		return $query2;
 	}
-	public function getnamaapprover($bagian,$col){
+	public function getnamaapprover($bagian,$col,$jn){
 		$query = $this->db->query("select * from bagian where bagian = '".$bagian."' ")->row_array();
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
-		if(!in_array($this->session->userdata('bagian'),$departemen)){
+		$jnsurat = array("cuti","abse");
+		if($this->session->userdata('id_jabatan') >= 5 && in_array($jn,$jnsurat)){
 			$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
 			left join mperson b ON a.noinduk = b.noinduk
 			LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-			where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND c.id > ".$this->session->userdata('id_jabatan')."
+			where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 0,c.id > ".$this->session->userdata('id_jabatan').",c.id = 10)
 			ORDER BY c.id");
 		}else{
-			$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
-			left join mperson b ON a.noinduk = b.noinduk
-			LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-			where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id >= 5, b.grp = '".$this->session->userdata('grp')."' AND c.id > ".$this->session->userdata('id_jabatan').") 
-			ORDER BY c.id");
+			if(!in_array($this->session->userdata('bagian'),$departemen)){
+				$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
+				left join mperson b ON a.noinduk = b.noinduk
+				LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
+				where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND c.id > ".$this->session->userdata('id_jabatan')."
+				ORDER BY c.id");
+			}else{
+				$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
+				left join mperson b ON a.noinduk = b.noinduk
+				LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
+				where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id > ".$this->session->userdata('id_jabatan').", b.grp = '".$this->session->userdata('grp')."' AND c.id > ".$this->session->userdata('id_jabatan').") 
+				ORDER BY c.id");
+			}
 		}
 		return $query2;
 	}

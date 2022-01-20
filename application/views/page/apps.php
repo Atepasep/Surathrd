@@ -136,7 +136,7 @@
 										if($data['appcol']==3){
 											$oknum = '('.$data['alasan_tolak'].')';
 										}else{
-											$oknum = namaapprover($this->session->userdata('kritper'),$data['appcol']);
+											$oknum = namaapprover($this->session->userdata('kritper'),$data['appcol'],substr($data['kunci'],0,4));
 										}
 									}else{
 										if($data['approve']==3){
@@ -170,7 +170,7 @@
 										}
 									?>
 									<?php $departemen = array("SPINNING","NETTING","FINISHING","RING"); ?>
-									<?php if(in_array($this->session->userdata('bagian'),$departemen)){ ?>
+									<?php if(in_array($this->session->userdata('bagian'),$departemen) && $this->session->userdata('id_jabatan') < 5){ ?>
 										<?php if($data['appcol']<=0){ ?>
 											<td style="text-align: center;">
 											<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 

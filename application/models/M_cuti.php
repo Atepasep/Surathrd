@@ -22,7 +22,9 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.")  order by a.dibuat asc");
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) 
+		and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))  order by a.dibuat asc");
 		return $query->result_array();
 	}
 	public function getdepcuti(){
@@ -63,7 +65,8 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.") order by a.dibuat asc");
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.")) order by a.dibuat asc");
 		return $query->result_array();
 	}
 	public function getdatadetailizin($id){
@@ -93,10 +96,18 @@ class M_cuti extends CI_Model {
 		$data['person_id'] = substr($this->session->userdata('kritper'),1,8);
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
-			$data['appcol'] = 1;
+			if($this->session->userdata('id_jabatan') >= 5){
+				$data['appcol'] = 0;
+			}else{
+				$data['appcol'] = 1;
+			}
 		}
 		if($this->session->userdata('hakdep') != "'X'"){
-			$data['appcol'] = 1;
+			if($this->session->userdata('id_jabatan') >= 5){
+				$data['appcol'] = 0;
+			}else{
+				$data['appcol'] = 1;
+			}
 		}
 		unset($data['jnsuratx']);
 		unset($data['tglik']);
@@ -368,7 +379,9 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian IN (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and c.grp IN (".$grp."),d.id < ".$idjabat.") ");
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		IF(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND 
+		c.bagian IN (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and c.grp IN (".$grp."),d.id < ".$idjabat.")) ");
 		if($query->num_rows() == 0){
 			return array('cuti'=>'0');
 		}else{
@@ -400,7 +413,8 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.")");
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))");
 		if($query->num_rows() == 0){
 			return array('izin'=>'0');
 		}else{
@@ -432,7 +446,9 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.") ");
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) 
+		AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.")) ");
 		if($query->num_rows() == 0){
 			return array('absen'=>'0');
 		}else{
@@ -454,8 +470,13 @@ class M_cuti extends CI_Model {
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$temp = $this->db->query("select * from cuti where id = '".$id."' ")->row_array();
 		if($jabat >= 5){
-			$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			if($temp['appcol']==0){
+				$query = $this->db->query("update cuti set appcol = 1,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
 		}else{
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update cuti set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
@@ -469,8 +490,13 @@ class M_cuti extends CI_Model {
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$temp = $this->db->query("select * from izin where id = '".$id."' ")->row_array();
 		if($jabat >= 5){
-			$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			if($temp['appcol']==0){
+				$query = $this->db->query("update izin set appcol = 1,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
 		}else{
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update izin set approve = 1,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
@@ -484,8 +510,13 @@ class M_cuti extends CI_Model {
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$temp = $this->db->query("select * from cuti where id = '".$id."' ")->row_array();
 		if($jabat >= 5){
-			$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			if($temp['appcol']==0){
+				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',appcol=3,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}	
 		}else{
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update cuti set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
@@ -499,8 +530,13 @@ class M_cuti extends CI_Model {
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
+		$temp = $this->db->query("select * from izin where id = '".$id."' ")->row_array();
 		if($jabat >= 5){
-			$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			if($temp['appcol']==0){
+				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',appcol=3,cekshift='".$noinduk."',cekshift_tgl = now() where id = '".$id."' ");
+			}else{
+				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");
+			}
 		}else{
 			if(!in_array(trim($this->session->userdata('bagian')),$departemen)){
 				$query = $this->db->query("update izin set alasan_tolak = '".$alasan."',approve=3,disetujui='".$noinduk."',disetujui_tgl = now() where id = '".$id."' ");	

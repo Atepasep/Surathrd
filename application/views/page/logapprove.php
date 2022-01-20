@@ -9,6 +9,9 @@
 					  <div class="panel-body pan">
 					    <div class="row">
 							<div class="col-sm-12">
+							<div>
+								<a href="<?= base_url() ?>" class="btn btn-sm btn-success btn-flat" ><i class="fa fa-arrow-left"></i> Kembali</a>
+							</div>
 								<ul class="timeline font-kecil">
 									<?php $tl=''; $t1=0; $departemen = array("SPINNING","NETTING","FINISHING","RING"); 
 									foreach($dataada as $datalog):  

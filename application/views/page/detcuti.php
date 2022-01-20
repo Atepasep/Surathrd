@@ -16,7 +16,7 @@
 								<option>-- Pilih Bagian --</option>
 							</select> -->
 						</div>
-						<div class="col-sm-4" style="text-align: right;">
+						<div class="col-sm-4 hilang" style="text-align: right;">
 							<a href="#" class="btn btn-xs btn-danger" id="isisemuaapprove" data-href="<?= base_url().'cuti/approvesemuadata' ?>" data-news="Yakin anda akan menyetujui semua data ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Approve Data"><i class="fa fa-check"></i> Approve Semua</a>
 						</div>
 					</div>
