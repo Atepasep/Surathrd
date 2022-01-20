@@ -188,7 +188,7 @@
 											</td>
 										<?php } ?>
 									<?php }else{ ?>
-										<?php if($data['approve']<=0){ ?>
+										<?php if($data['approve']<=0 && $data['appcol']<=0){ ?>
 											<td style="text-align: center;">
 											<a href="<?= base_url().$kunci1.'/'.$upda.'/'.$kunci2 ?>" data-title="Edit Data" class="text-aqua"><i class="fa fa-pencil"></i> edit</a> | 
 											<a href="#" data-href="<?= 'cuti/hapusdata/'.$data['kunci'] ?>" data-news="Yakin anda akan menghapus data ini ?" data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Hapus Data"><i class="fa fa-trash-o"></i> hapus</a>

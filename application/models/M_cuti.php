@@ -22,7 +22,7 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) 
 		and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))  order by a.dibuat asc");
 		return $query->result_array();
@@ -65,7 +65,7 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.")) order by a.dibuat asc");
 		return $query->result_array();
 	}
@@ -379,7 +379,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		IF(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND 
 		c.bagian IN (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and c.grp IN (".$grp."),d.id < ".$idjabat.")) ");
 		if($query->num_rows() == 0){
@@ -413,7 +413,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))");
 		if($query->num_rows() == 0){
 			return array('izin'=>'0');
@@ -446,7 +446,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat."),
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) 
 		AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.")) ");
 		if($query->num_rows() == 0){
