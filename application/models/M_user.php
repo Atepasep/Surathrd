@@ -28,9 +28,41 @@ class M_user extends CI_Model {
 		$query = $this->db->query("select * from grp order by id");
 		return $query;
 	}
+	public function getpendidikan(){
+		$query = $this->db->query("select * from tb_pendidikan order by id");
+		return $query;
+	}
+	public function getstatusnikah(){
+		$query = $this->db->query("select * from tb_statusnikah order by id");
+		return $query;
+	}
+	public function gethubkeluarga(){
+		$query = $this->db->query("select * from tb_hubkeluarga order by id");
+		return $query;
+	}
 	public function editakses($nik){
 		$query = $this->db->query("select * from mperson where noinduk = '".$nik."' ");
 		return $query;
+	}
+	public function getdatakeluarga(){
+		$person = $this->session->userdata('kritper');
+		$periode = $this->session->flashdata('periodekk');
+		$hasil = $this->db->query("select a.*,b.pendidikan,c.status,d.hubungan from keluarga a 
+		left join tb_pendidikan b on b.id = a.id_pendidikan
+		left join tb_statusnikah c on c.id = a.id_statuskawin
+		left join tb_hubkeluarga d on d.id = a.id_hubkeluarga
+		where a.id_mperson = '".$person."' and a.periode = '".$periode."' ");
+		return $hasil;
+	}
+	public function getkkkeluarga(){
+		$person = $this->session->userdata('kritper');
+		$periode = $this->session->flashdata('periodekk');
+		$hasil= $this->db->query("select nokk from keluarga where id_mperson = '".$person."' and periode = '".$periode."'");
+		return $hasil;
+	}
+	public function getdatakeluarga_detail($id){
+		$hasil = $this->db->query("select * from keluarga where id= ".$id);
+		return $hasil;
 	}
 	public function editakses2($nik,$ke){
 		$query = $this->db->query("select * from akses_departemen where noinduk = '".$nik."' ")->row_array();
@@ -116,6 +148,54 @@ class M_user extends CI_Model {
 		}
 		$url = base_url().'profile';
 		redirect($url);
+	}
+	public function simpankeluarga(){
+		$data = $_POST;
+		$data['id_mperson'] = $this->session->userdata('kritper');
+		$data['tgllahir'] = tglmysql($data['tglahir']);
+		$data['tmplahir'] = ucwords($data['tmplahir']);
+		$data['nama'] = ucwords($data['nama']);
+		$data['pekerjaan'] = ucwords($data['pekerjaan']);
+		$data['noinduk'] = strtoupper($data['noinduk']);
+		unset($data['tglahir']);
+		unset($data['id']);
+		$data['periode'] = $this->session->flashdata('periodekk');
+		$this->db->insert('keluarga',$data);
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
+		// $url = base_url().'profile/keluarga';
+		// redirect($url);
+	}
+	public function updatekeluarga(){
+		$data = $_POST;
+		$data['id_mperson'] = $this->session->userdata('kritper');
+		$data['tgllahir'] = tglmysql($data['tglahir']);
+		$data['tmplahir'] = ucwords($data['tmplahir']);
+		$data['nama'] = ucwords($data['nama']);
+		$data['pekerjaan'] = ucwords($data['pekerjaan']);
+		$data['noinduk'] = strtoupper($data['noinduk']);
+		unset($data['tglahir']);
+		$data['periode'] = $this->session->flashdata('periodekk');
+		$this->db->where('id',$data['id']);
+		$this->db->update('keluarga',$data);
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
+		// $url = base_url().'profile/keluarga';
+		// redirect($url);
+	}
+	public function hapuskeluarga($id){
+		$query = $this->db->query("delete from keluarga where id =".$id);
+		return $query;
+	}
+	public function validasikeluarga(){
+		$periode = $this->session->flashdata('periodekk');
+		$person = $this->session->userdata('kritper');
+		$query = $this->db->query("update keluarga set valid = 1 where id_mperson = '".$person."' and periode = ".$periode);
+		return $query;
+	}
+	public function updatekk($kk){
+		$periode = $this->session->flashdata('periodekk');
+		$person = $this->session->userdata('kritper');
+		$query = $this->db->query("update keluarga set nokk = '".$kk."' where id_mperson = '".$person."' and periode = ".$periode);
+		return $query;
 	}
 	public function uploadLogo(){
 		$this->load->library('upload');

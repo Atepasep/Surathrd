@@ -37,7 +37,9 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+	<script type="text/javascript">
+    	base_url = '<?=base_url()?>';
+	</script>
 	</head>
 	<body>
 	<div class="modal fade" id="modalBox" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">

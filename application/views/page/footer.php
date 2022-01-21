@@ -42,6 +42,7 @@
 	<?php endif; ?>
 	<?php if(isset($footer) and $footer=='user'): ?>
 		<script src="<?= LOK_PAGE ?>js/user.js"></script>
+		<script src="<?= LOK_PAGE ?>js/keluarga.js"></script>
 	<?php endif; ?>
 	<?php if(isset($footer) and $footer=='konfirm'): ?>
 		<script src="<?= LOK_PAGE ?>js/webcam/qrcodelib.js"></script>

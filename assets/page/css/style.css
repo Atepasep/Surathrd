@@ -2320,3 +2320,7 @@ select.input-sml {
   border-right : solid red 5px;
   opacity: 0.6;
 }
+.small-desc {
+  font-size: 10px;
+  color: gray;
+}
