@@ -207,10 +207,10 @@ class Apps extends CI_Controller{
 		$pdf->Cell(5,2,'6.');
 		$pdf->Cell(62,2,'Permohonan untuk mengambil / tidak');
 		$pdf->Cell(3,2,'6.');
-		$pdf->Cell(65,2,'Diambil Cuti');
+		$pdf->Cell(65,2,$ambil);
 		$pdf->Cell(10,4,'',0,1);
 		$pdf->Cell(5,2,'');
-		$pdf->Cell(62,2,$ambil);
+		$pdf->Cell(62,2,'diambil cuti');
 		$pdf->Cell(65,2,'');
 		$pdf->Cell(10,7,'',0,1);
 		$pdf->Cell(5,2,'7.');
