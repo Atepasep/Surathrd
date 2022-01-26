@@ -25,6 +25,7 @@ class Izin extends CI_Controller{
 		$data['alasan'] = null;
 		$data['idx'] = null;
 		$data['kode'] = 'Simpan';
+		$data['jeniscuti'] = $this->m_user->getjeniscuti(1);
 		$this->load->view('page/header',$head);
 		$this->load->view('page/izin',$data);
 		$this->load->view('page/footer',$footer);
@@ -46,6 +47,7 @@ class Izin extends CI_Controller{
 		$data['alasan'] = $temp['alasan'];
 		$data['idx'] = $temp['id'];
 		$data['kode'] = 'Update';
+		$data['jeniscuti'] = $this->m_user->getjeniscuti(1);
 		$this->load->view('page/header',$head);
 		$this->load->view('page/izin',$data);
 		$this->load->view('page/footer',$footer);

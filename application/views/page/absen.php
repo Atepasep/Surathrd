@@ -74,10 +74,9 @@
 													<div class="col-md-8">
 														<select class="form-control input-sm" name="jnabsen" id="jnabsen" >
 															<option value="">--Pilih--</option>
-															<option value="SD" <?php if($jnabsen=='SD'){ echo 'selected'; } ?>>Surat Dokter</option>
-															<option value="OP" <?php if($jnabsen=='OP'){ echo 'selected'; } ?>>Opname</option>
-															<option value="DS" <?php if($jnabsen=='DS'){ echo 'selected'; } ?>>Dispensasi</option>
-															<option value="I" <?php if($jnabsen=='I'){ echo 'selected'; } ?>>Izin</option>
+															<?php foreach($jeniscuti->result_array() as $jencut): ?>
+																<option value="<?= $jencut['kode'] ?>" <?php if($jencut['kode']==$jnabsen){ echo "selected"; } ?>><?= $jencut['keterangan'] ?></option>
+															<?php endforeach; ?>
 														</select>
 													</div>
 												</div>

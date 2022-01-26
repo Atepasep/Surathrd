@@ -57,6 +57,7 @@ class Profile extends CI_Controller{
 		$data['status'] = $this->m_user->getstatusnikah();
 		$data['pendidikan'] = $this->m_user->getpendidikan();
 		$data['hubkeluarga'] = $this->m_user->gethubkeluarga();
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
 		$data['formAction'] = base_url().'Profile/simpankeluarga';
 		$this->load->view('page/addkeluarga',$data);
 	}
@@ -76,6 +77,7 @@ class Profile extends CI_Controller{
 		$data['status'] = $this->m_user->getstatusnikah();
 		$data['pendidikan'] = $this->m_user->getpendidikan();
 		$data['hubkeluarga'] = $this->m_user->gethubkeluarga();
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
 		$data['formAction'] = base_url().'Profile/updatekeluarga';
 		$this->load->view('page/addkeluarga',$data);
 	}

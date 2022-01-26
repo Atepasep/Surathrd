@@ -12,9 +12,9 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" style="text-align: left; padding-top: 5px;" for="inputDefault">Periode</label>
+                                        <label class="col-md-4 control-label" style="text-align: left; padding-top: 5px; font-size: 16px;" for="inputDefault">Periode</label>
                                         <div class="col-md-8">
-                                            <select class="form-control input-sm" name="periodekk" id="periodekk" name="periodekk" >
+                                            <select class="form-control input-sm" style="font-size: 16px;" name="periodekk" id="periodekk" name="periodekk" >
                                                 <?php for($xe = date('Y')-2;$xe<=date('Y')+1;$xe++){ ?>
                                                 <option value="<?= $xe ?>" <?php if($xe==$this->session->flashdata('periodekk')){ echo "selected";} ?>><?= $xe ?></option>
                                                 <?php } ?>
@@ -25,9 +25,9 @@
                                 <div class="col-sm-4"></div>
                                 <div class="col-sm-5">
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" style="text-align: left; padding-top: 5px;" for="inputDefault">No KK</label>
+                                        <label class="col-md-4 control-label" style="text-align: left; padding-top: 5px; font-size: 16px;" for="inputDefault">No KK</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control input-sm" style="font-weight: bold;" id="nokk" name="nokk" value="<?php if($kk==null){echo ''; }else{ echo $kk['nokk']; } ?>">
+                                            <input type="text" class="form-control input-sm" style="font-weight: bold; font-size: 16px;" id="nokk" name="nokk" value="<?php if($kk==null){echo ''; }else{ echo $kk['nokk']; } ?>">
                                             <a href="#" id="updatekk" class="btn btn-sm flat hilang"></a>
                                         </div>
                                     </div>

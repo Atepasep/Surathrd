@@ -17,12 +17,11 @@
 											<div class="col-md-7">
 												<select class="form-control input-sm" name="jnsurat" id="jnsurat" >
 													<option value="">--Pilih--</option>
-													<option value="C" <?php if($jncuti=='C'){ echo 'selected'; } ?>>Cuti Tahunan</option>
-													<option value="CP" <?php if($jncuti=='CP'){ echo 'selected'; } ?>>Cuti Panjang</option>
-													<?php if($this->session->userdata('kel')=='P'){ ?>
-														<option value="CH" <?php if($jncuti=='CH'){ echo 'selected'; } ?>>Cuti Haid</option>
-													<?php } ?>
-													<option value="IK" <?php if($jncuti=='IK'){ echo 'selected'; } ?>>Izin Khusus</option>
+													<?php foreach($jeniscuti->result_array() as $jencut): if($this->session->userdata('kel')=='L' && $jencut['kode']=='CH') {?>
+														<option value="<?= $jencut['kode'] ?>" <?php if($jencut['kode']==$jncuti){ echo "selected"; } ?> style="display: none;"><?= $jencut['keterangan'] ?></option>
+													<?php }else{ ?>
+														<option value="<?= $jencut['kode'] ?>" <?php if($jencut['kode']==$jncuti){ echo "selected"; } ?>><?= $jencut['keterangan'] ?></option>
+													<?php } endforeach; ?>
 												</select>
 											</div>
 										</div>

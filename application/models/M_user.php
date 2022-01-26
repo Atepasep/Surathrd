@@ -40,6 +40,10 @@ class M_user extends CI_Model {
 		$query = $this->db->query("select * from tb_hubkeluarga order by id");
 		return $query;
 	}
+	public function getjeniscuti($cu){
+		$query = $this->db->query("select * from jeniscuti where gr = ".$cu." order by keterangan ");
+		return $query;
+	}
 	public function editakses($nik){
 		$query = $this->db->query("select * from mperson where noinduk = '".$nik."' ");
 		return $query;

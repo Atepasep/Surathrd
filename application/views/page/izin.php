@@ -17,9 +17,9 @@
 											<div class="col-md-7">
 												<select class="form-control input-sm" name="jnizin" id="jnizin" >
 													<option value="">--Pilih--</option>
-													<option value="IT" <?php if($jnizin=='IT'){ echo 'selected'; } ?>>Terlambat</option>
-													<option value="IP" <?php if($jnizin=='IP'){ echo 'selected'; } ?>>Pulang</option>
-													<option value="IE" <?php if($jnizin=='IE'){ echo 'selected'; } ?>>Keluar</option>
+													<?php foreach($jeniscuti->result_array() as $jencut): ?>
+														<option value="<?= $jencut['kode'] ?>" <?php if($jencut['kode']==$jnizin){ echo "selected"; } ?>><?= $jencut['keterangan'] ?></option>
+													<?php endforeach; ?>
 												</select>
 											</div>
 										</div>

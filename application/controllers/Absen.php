@@ -23,6 +23,7 @@ class Absen extends CI_Controller{
 		$data['ket'] = null;
 		$data['dok'] = null;
 		$data['idx'] = null;
+		$data['jeniscuti'] = $this->m_user->getjeniscuti(3);
 		$this->load->view('page/header',$head);
 		$this->load->view('page/absen',$data);
 		$this->load->view('page/footer',$footer);
@@ -41,6 +42,7 @@ class Absen extends CI_Controller{
 		$data['ket'] = $temp['ket'];
 		$data['dok'] = $temp['dok'];
 		$data['idx']= $temp['id'];
+		$data['jeniscuti'] = $this->m_user->getjeniscuti(3);
 		$this->load->view('page/header',$head);
 		$this->load->view('page/absen',$data);
 		$this->load->view('page/footer',$footer);

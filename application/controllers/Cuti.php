@@ -32,6 +32,7 @@ class Cuti extends CI_Controller{
 		$data['tempatik'] = null;
 		$data['idx'] = null;
 		$data['kode'] = 'Simpan';
+		$data['jeniscuti'] = $this->m_user->getjeniscuti(0);
 		$this->load->view('page/header',$head);
 		$this->load->view('page/cuti',$data);
 		$this->load->view('page/footer',$footer);
@@ -58,6 +59,7 @@ class Cuti extends CI_Controller{
 		$data['tempatik'] = $temp['tempat'];
 		$data['idx'] = $temp['id'];
 		$data['kode'] = 'Update';
+		$data['jeniscuti'] = $this->m_user->getjeniscuti(0);
 		$this->load->view('page/header',$head);
 		$this->load->view('page/cuti',$data);
 		$this->load->view('page/footer',$footer);

@@ -99,7 +99,9 @@
 									</div>
 									<hr class="small">
 									<div>
-										<a href="<?= base_url().'profile/keluarga' ?>" class="btn btn-sm btn-success" id="datakeluarga" style="width: 100%;"><i class="fa fa-users text-black"></i> Data Keluarga</a>
+										<?php $krit = array('0','3','4','5'); if(in_array(substr($this->session->userdata('kritper'),0,1),$krit)){ ?>
+											<a href="<?= base_url().'profile/keluarga' ?>" class="btn btn-sm btn-success" id="datakeluarga" style="width: 100%;"><i class="fa fa-users text-black"></i> Data Keluarga</a>
+										<?php } ?>
 									</div>
 								</div>
 							</div>

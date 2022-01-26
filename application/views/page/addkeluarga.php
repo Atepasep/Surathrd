@@ -2,11 +2,13 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-dark-ifn">
+			<div style="margin-left: 10px;"><?= 'Periode : '.$this->session->flashdata('periodekk') ?></div>
 			<div class="panel-body pan">
 				<div class="col-sm-12">
 					<div class="form-horizontal">
 						<form method="POST" action="<?= $formAction ?>" name="formkeluarga">
 						<input type="hidden" id="id" name="id" value="<?= $id ?>">
+						<input type="hidden" id="periode" name="periode" value="<?= $this->session->flashdata('periodekk') ?>">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
