@@ -93,6 +93,14 @@ class M_user extends CI_Model {
 		}
 		return $query2;
 	}
+	public function updatenohp($key){
+		$krit = $this->session->userdata('kritper');
+		$query = $this->db->query("update mperson set nohp = '".$key."' where concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
+		if($query){
+			$query2 = $this->db->query("select * from mperson where nohp = '".$key."' and concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
+		}
+		return $query2;
+	}
 	public function cekidkey($key){
 		$query2 = $this->db->query("select * from mperson where idkey = '".$key."' ");
 		return $query2;
@@ -191,14 +199,14 @@ class M_user extends CI_Model {
 	}
 	public function validasikeluarga(){
 		$periode = $this->session->flashdata('periodekk');
-		$person = $this->session->userdata('kritper');
-		$query = $this->db->query("update keluarga set valid = 1 where id_mperson = '".$person."' and periode = ".$periode);
+		$person = trim($this->session->userdata('kritper'));
+		$query = $this->db->query("update keluarga set valid = 1 where trim(id_mperson) = '".$person."' and periode = 2022");
 		return $query;
 	}
 	public function updatekk($kk){
 		$periode = $this->session->flashdata('periodekk');
-		$person = $this->session->userdata('kritper');
-		$query = $this->db->query("update keluarga set nokk = '".$kk."' where id_mperson = '".$person."' and periode = ".$periode);
+		$person = trim($this->session->userdata('kritper'));
+		$query = $this->db->query("update keluarga set nokk = '".$kk."' where trim(id_mperson) = '".$person."' and periode = 2022");
 		return $query;
 	}
 	public function uploadLogo(){

@@ -82,12 +82,14 @@ class Profile extends CI_Controller{
 		$this->load->view('page/addkeluarga',$data);
 	}
 	public function hapuskeluarga($id){
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
 		$hasil = $this->m_user->hapuskeluarga($id);
 		if($hasil){
 			redirect('profile/keluarga');
 		}
 	}
 	public function validasikeluarga(){
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
 		$hasil = $this->m_user->validasikeluarga();
 		if($hasil){
 			redirect('profile/keluarga');
@@ -101,9 +103,17 @@ class Profile extends CI_Controller{
 	public function ubahidkey(){
 		$this->load->view('page/ubahidkey');
 	}
+	public function ubahnohp(){
+		$this->load->view('page/ubahnohp');
+	}
 	public function updateidkey(){
 		$key = strtoupper($_POST['idkey']);
 		$hasil = $this->m_user->updateidkey($key)->result();
+		echo json_encode($hasil);
+	}
+	public function updatenohp(){
+		$key = strtoupper($_POST['idkey']);
+		$hasil = $this->m_user->updatenohp($key)->result();
 		echo json_encode($hasil);
 	}
 	public function cekidkey(){
@@ -126,6 +136,7 @@ class Profile extends CI_Controller{
 		redirect('profile/keluarga');
 	}
 	public function updatekk(){
+		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
 		$nokk = $_POST['nokk'];
 		$this->m_user->updatekk($nokk);
 		echo 1;

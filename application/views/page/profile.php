@@ -72,6 +72,19 @@
 											</div>
 										</div>
 									</div>
+									<div class="form-horizontal">
+										<div class="row">
+											<div class="form-group" id="formtgldari2">
+												<label class="col-md-4 control-label" style="text-align: left; line-height: 15px;" for="inputDefault">No Handphone<div class="small-desc">(kontak Whatsapp)</div></label>
+												<div class="col-md-8">
+													<input type="text" class="form-control input-sm" id="nohp" name="nohp" value="<?= $profileuser['nohp'] ?>" readonly>
+													<div style="margin-top: 5px;">
+														<a href="<?= base_url().'profile/ubahnohp' ?>" class="btn btn-xs btn-success" id="ubahnohp" data-remote="false" data-toggle="modal" data-title="Update Data handphone" data-target="#modalBox" title="View Data"><i class="fa fa-mobile-phone"></i> Ubah No Handphone</a>
+													</div>	
+												</div>
+											</div>
+										</div>
+									</div>
 									<hr class="small">
 									Foto Profile
 									<div class="form-horizontal">

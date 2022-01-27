@@ -64,7 +64,7 @@
         data : {idkey : ax },
         success : function(data){
               if(data.length > 0){
-				pesan('Berhasil Simpan data');
+				pesan('Berhasil Simpan data','info');
 				$("#tutupform").click();
               }
         }
