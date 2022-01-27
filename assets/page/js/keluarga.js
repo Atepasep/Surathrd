@@ -35,3 +35,10 @@ $("#nokk").on("blur",function(){
           })
     }
 })
+$("#validasidata").on('click',function(){
+    $("#nokk").blur();
+    if($("#nokk").val()==''){
+        pesan('Isi dahulu nomor KK','info');
+        return false;
+    }
+})
