@@ -91,7 +91,7 @@
 									</div>
 								</div>
 								<div class="form-group mt-2">
-									<label class="col-md-4 control-label" style="text-align: left; padding-top: 3px; line-height: 15px;" for="inputDefault">NIK Indoneptune<div class="small-desc">apabila bekerja di IFN</div></label>
+									<label class="col-md-4 control-label" style="text-align: left; padding-top: 3px; line-height: 15px;" for="inputDefault">Noinduk Karyawan<div class="small-desc">(suami/istri bekerja di IFN)</div></label>
 									<div class="col-md-8">
 										<input type="text" class="form-control input-sm tglpilih3" id="noinduk" name="noinduk" value="<?= $noinduk ?>">
 									</div>
