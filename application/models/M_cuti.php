@@ -11,7 +11,7 @@ class M_cuti extends CI_Model {
 	}
 	public function getdatacuti(){
 		$hakdep = $this->session->userdata('hakdep');
-		$idjabat = $this->session->userdata('id_jabatan');
+		$idjabat = $this->session->userdata('id_jabatan')==6 ? 5 : $this->session->userdata('id_jabatan');
 		// $grp = $this->session->userdata('grp');
 		if($this->session->userdata('hakgrp') == "'X'"){
 			$grp = "'".$this->session->userdata('grp')."'";
@@ -22,7 +22,7 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4),
 		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) 
 		and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))  order by a.dibuat asc");
 		return $query->result_array();
@@ -54,7 +54,7 @@ class M_cuti extends CI_Model {
 	}
 	public function getdataizin(){
 		$hakdep = $this->session->userdata('hakdep');
-		$idjabat = $this->session->userdata('id_jabatan');
+		$idjabat = $this->session->userdata('id_jabatan')==6 ? 5 : $this->session->userdata('id_jabatan');
 		// $grp = $this->session->userdata('grp');
 		if($this->session->userdata('hakgrp') == "'X'"){
 			$grp = "'".$this->session->userdata('grp')."'";
@@ -65,7 +65,7 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4),
 		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.")) order by a.dibuat asc");
 		return $query->result_array();
 	}
@@ -367,7 +367,7 @@ class M_cuti extends CI_Model {
 		return $query->result_array();
 	}
 	function gettaskcuti(){
-		$idjabat = $this->session->userdata('id_jabatan');
+		$idjabat = $this->session->userdata('id_jabatan')==6 ? 5 : $this->session->userdata('id_jabatan');
 		$hakdep = $this->session->userdata('hakdep');
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		if($this->session->userdata('hakgrp') == "'X'"){
@@ -379,7 +379,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4),
 		IF(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND 
 		c.bagian IN (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and c.grp IN (".$grp."),d.id < ".$idjabat.")) ");
 		if($query->num_rows() == 0){
@@ -401,7 +401,7 @@ class M_cuti extends CI_Model {
 	}
 	function gettaskizin(){
 		$bag = $this->session->userdata('bagian');
-		$idjabat = $this->session->userdata('id_jabatan');
+		$idjabat = $this->session->userdata('id_jabatan')==6 ? 5 : $this->session->userdata('id_jabatan');
 		// $grp = $this->session->userdata('grp');
 		if($this->session->userdata('hakgrp') == "'X'"){
 			$grp = "'".$this->session->userdata('grp')."'";
@@ -413,7 +413,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4),
 		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))");
 		if($query->num_rows() == 0){
 			return array('izin'=>'0');
@@ -435,7 +435,7 @@ class M_cuti extends CI_Model {
 	function gettaskabsen(){
 		$hakdep = $this->session->userdata('hakdep');
 		$bag = $this->session->userdata('bagian');
-		$idjabat = $this->session->userdata('id_jabatan');
+		$idjabat = $this->session->userdata('id_jabatan')==6 ? 5 : $this->session->userdata('id_jabatan');
 		// $grp = $this->session->userdata('grp');
 		if($this->session->userdata('hakgrp') == "'X'"){
 			$grp = "'".$this->session->userdata('grp')."'";
@@ -446,7 +446,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
+		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4),
 		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) 
 		AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id < ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.")) ");
 		if($query->num_rows() == 0){

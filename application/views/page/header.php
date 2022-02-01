@@ -125,7 +125,7 @@
         		</div>
         		<div class='modal-footer'>
         			<a class='btn-oke'>
-        				<button type="button" class="btn btn-social btn-flat btn-danger btn-sm" id="ok-delete"><i class='fa fa-trash-o'></i> Ya</button>
+        				<button type="button" class="btn btn-social btn-flat btn-danger btn-sm" id="ok-delete"><i class='fa fa-check'></i> Ya</button>
         			</a>
 						<button type="button" class="btn btn-social btn-flat btn-warning btn-sm" data-dismiss="modal"><i class='fa fa-sign-out'></i> Tidak</button>
         		</div>
