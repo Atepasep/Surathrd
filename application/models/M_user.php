@@ -111,6 +111,13 @@ class M_user extends CI_Model {
 	}
 	public function getnamaapprover($bagian,$col,$jn){
 		$query = $this->db->query("select * from bagian where bagian = '".$bagian."' ")->row_array();
+		$datagrp = $this->db->query("select * from grp where trim(nama_group) = '".$this->session->userdata('grp')."' ")->row_array();
+		$word1 = '(';
+		if(strpos($this->session->userdata('grp'),$word1) !== false){
+			$kode = "SUBSTR(a.hakgrp,".$datagrp['id'].",1)='1'";
+		}else {
+			$kode = "b.grp = '".$this->session->userdata('grp')."'";
+		}
 		$departemen = array("SPINNING","NETTING","FINISHING","RING");
 		$jnsurat = array("cuti","abse");
 		if($this->session->userdata('id_jabatan') >= 5 && in_array($jn,$jnsurat)){
@@ -130,7 +137,7 @@ class M_user extends CI_Model {
 				$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
 				left join mperson b ON a.noinduk = b.noinduk
 				LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-				where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id > ".$this->session->userdata('id_jabatan').", b.grp = '".$this->session->userdata('grp')."' AND c.id > ".$this->session->userdata('id_jabatan').") 
+				where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id >= 5, ".$kode." AND c.id >= ".$this->session->userdata('id_jabatan').") 
 				ORDER BY c.id");
 			}
 		}

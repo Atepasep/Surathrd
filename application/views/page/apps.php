@@ -5,7 +5,7 @@
 						<div class="info-user">
 							Selamat Datang,<br>
 							<div style="font-weight: normal;">
-								Login terakhir <?= tglhariini($this->session->userdata('lastlogin')); ?>
+								Login terakhir <?= tglhariini($this->session->userdata('lastlogin')); ?> 
 							</div>
 							<div class="tasklist font-kecil <?php if($this->session->userdata('hakdep') == "'X'"){ echo 'hilang'; } ?>">
 								<?php 
