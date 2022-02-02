@@ -61,7 +61,7 @@ class M_user extends CI_Model {
 	public function getkkkeluarga(){
 		$person = $this->session->userdata('kritper');
 		$periode = $this->session->flashdata('periodekk');
-		$hasil= $this->db->query("select nokk from keluarga where id_mperson = '".$person."' and periode = '".$periode."'");
+		$hasil= $this->db->query("select nokk,valid from keluarga where id_mperson = '".$person."' and periode = '".$periode."'");
 		return $hasil;
 	}
 	public function getdatakeluarga_detail($id){
