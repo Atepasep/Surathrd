@@ -32,7 +32,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php $no=0; foreach($dataizin as $data): $no++; ?>
+										<?php $no=0; foreach($dataizin as $data): $no++; $kel=''; ?>
 											<tr>
 												<td><?= $no ?></td>
 												<td><?= tglhariini(date('d-m-Y', strtotime($data['dibuat']))); ?></td>
@@ -40,8 +40,8 @@
 												<td><?= $data['keterangan'] ?></td>
 												<?php if($data['jnizin']=='IP'){ ?>
 													<td><?= $data['pulang'] ?></td>
-												<?php }else{ ?>
-													<td><?= $data['masuk'].$data['pulang'].$data['keluar'].$data['kembali'] ?></td>
+												<?php }else{ $kel = !empty($data['kembali']) ? ' s/d '.$data['kembali'] : ''; ?>
+													<td><?= $data['masuk'].$data['pulang'].$data['keluar'].$kel ?></td>
 												<?php } ?>
 												<td><?= $data['alasan'] ?></td>
 												<td>

@@ -52,6 +52,9 @@
 									</div>
 								</div>
 							<?php } ?>
+							<div class="font-kecil">
+								<div style="width: 100%;"><a href="<?= base_url().'pengumuman/cleardata' ?>" style="width: 100% !important; font-size : 11px; min-height:30px; padding-top:3px;" class="btn btn-xs btn-success btn-flat">Pengumuman <span style="color: red; background-color: white; min-width: 15px; border-radius:50%; display: inline-block;"><?= $jmlpengumuman ?></span></a></div>
+							</div>
 						</div>
 					</div>
 					<div class="col-sm-8" id="halaman-profile">

@@ -10,6 +10,7 @@ class Apps extends CI_Controller{
 		$this->load->model('m_cuti');
 		$this->load->model('m_absen');
 		$this->load->model('m_user');
+		$this->load->model('m_pengumuman');
 		$this->load->library('pdf');
 		$this->load->library('Qr');
 	}
@@ -20,6 +21,7 @@ class Apps extends CI_Controller{
 		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$data['gettask'] = $this->m_cuti->gettask();
 		$data['getriwayat'] = $this->m_cuti->getriwayat();
+		$data['jmlpengumuman'] = $this->m_pengumuman->getjmldok(date('Y'))==0 ? null : $this->m_pengumuman->getjmldok(date('Y'));
 		$this->load->view('page/header',$head);
 		$this->load->view('page/apps',$data);
 		$this->load->view('page/footer',$footer);

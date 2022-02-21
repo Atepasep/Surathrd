@@ -285,11 +285,16 @@
 		return $y." tahun, ".$m." bulan, ".$d." hari";
 	}
 	function selisihhari($awal,$tglakhir){
-		$tgl1 = strtotime($awal); 
-		$tgl2 = strtotime($tglakhir); 
-		$jarak = ($tgl2 - $tgl1) +1;
-		$hari = $jarak / 60 / 60 / 24;
-		return ceil($hari).' hari';
+		if($awal=='0000-00-00' && $tglakhir=='0000-00-00'){
+			$jadi = '~ hari';
+		}else{
+			$tgl1 = strtotime($awal); 
+			$tgl2 = strtotime($tglakhir); 
+			$jarak = ($tgl2 - $tgl1) +1;
+			$hari = $jarak / 60 / 60 / 24;
+			$jadi = ceil($hari).' hari';
+		}
+		return $jadi;
 	}
 	function namaapprover($kritper,$col,$jnsurat){
 		$CI = & get_instance();
@@ -405,5 +410,20 @@
 		$CI = & get_instance();
 		$nan = $CI->m_user->isilogerror($apl,$ket);
 		return $nan;
+	}
+
+	function sudahbacapengumuman($id){
+		$jadi = 'aktiv';
+		$CI = & get_instance();
+		$dok = $CI->m_pengumuman->getnamadok($id);
+		if($dok->num_rows() > 0){
+			$jadi =  'text-gray';
+		}
+		return $jadi;
+	}
+	function getdokrevisi($id){
+		$CI = & get_instance();
+		$dok = $CI->m_pengumuman->getdokrevisi($id);
+		return $dok;
 	}
 ?>

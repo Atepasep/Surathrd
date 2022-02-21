@@ -44,6 +44,9 @@
 		<script src="<?= LOK_PAGE ?>js/user.js"></script>
 		<script src="<?= LOK_PAGE ?>js/keluarga.js"></script>
 	<?php endif; ?>
+	<?php if(isset($footer) and $footer=='pengumuman'): ?>
+		<script src="<?= LOK_PAGE ?>js/pengumuman.js"></script>
+	<?php endif; ?>
 	<?php if(isset($footer) and $footer=='konfirm'): ?>
 		<script src="<?= LOK_PAGE ?>js/webcam/qrcodelib.js"></script>
 		<script src="<?= LOK_PAGE ?>js/webcam/webcodecamjs.js"></script>

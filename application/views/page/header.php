@@ -33,6 +33,8 @@
 	<link rel="stylesheet" href="<?= LOK_PAGE ?>vendor/Ionicons/css/ionicons.min.css">
 	<link rel="stylesheet" href="<?= LOK_PAGE ?>css/style.css">
 	<script src="<?= LOK_PAGE ?>js/modernizr-2.6.2.min.js"></script>
+	<!-- PDF OBJECT -->
+	<script src="<?= LOK_PAGE ?>js/pdfobject.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>

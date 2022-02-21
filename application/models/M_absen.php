@@ -111,7 +111,7 @@ class M_absen extends CI_Model {
 
 	public function getdataabsen(){
 		$hakdep = $this->session->userdata('hakdep');
-		$idjabat = $this->session->userdata('id_jabatan')==6 ? 5 : $this->session->userdata('id_jabatan');
+		$idjabat = $this->session->userdata('id_jabatan')==6 && $this->session->userdata('bagian')=='MARKETING' ? 5 : $this->session->userdata('id_jabatan');
 		// $grp = $this->session->userdata('grp');
 		if($this->session->userdata('hakgrp') == "'X'"){
 			$grp = "'".$this->session->userdata('grp')."'";

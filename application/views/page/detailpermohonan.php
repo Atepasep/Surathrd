@@ -121,11 +121,11 @@
 									<td>:</td>
 									<td><?= $getdata['pulang'].' WIB' ?></td>
 								</tr>
-							<?php }else{ ?>
+							<?php }else{ $kel = !empty($getdata['kembali']) ? ' s/d '.$getdata['kembali'] : ''; ?>
 								<tr>
 									<td><?php if($getdata['jnizin']=='IP'){ echo 'Pulang Pkl';}elseif($getdata['jnizin']=='IT'){ echo 'Masuk Pkl';}else{ echo 'Keluar Pkl'; } ?></td>
 									<td>:</td>
-									<td><?= $getdata['masuk'].$getdata['pulang'].$getdata['keluar'].$getdata['kembali'].' WIB' ?></td>
+									<td><?= $getdata['masuk'].$getdata['pulang'].$getdata['keluar'].$kel.' WIB' ?></td>
 								</tr>
 							<?php } ?>
 							<tr>
