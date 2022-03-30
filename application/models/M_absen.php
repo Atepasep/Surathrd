@@ -122,8 +122,8 @@ class M_absen extends CI_Model {
 		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4),
-		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id < ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.")) order by a.dibuat asc");
+		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
+		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id <= ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.")) order by a.dibuat asc");
 		return $query->result_array();
 	}
 

@@ -9,7 +9,8 @@ class M_Pengumuman extends CI_Model{
 		$query = $this->db->query("Select * from pengumuman where id =".$id);
 		if($query && $oke=='aktiv'){
 			$kritper = $this->session->userdata('kritper');
-			$this->db->query("update read_pengumuman set nodok = concat(trim(nodok),'t','".$id."',',') where kritper ='".$kritper."' ");
+			$th = $this->session->flashdata('tahsurat');
+			$this->db->query("update read_pengumuman set nodok = concat(trim(nodok),'t','".$id."',',') where kritper ='".$kritper."' and tahun = ".$th);
 		}
 		return $query;
 	}
