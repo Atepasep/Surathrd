@@ -18,6 +18,14 @@ class M_cuti extends CI_Model {
 		}else{
 			$grp = $this->session->userdata('hakgrp');
 		}
+		if($this->session->userdata('id_jabatan')==7 && $this->session->userdata('bagian')=='FACTORY'){
+			// Khusus untuk manager Gudang
+		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from cuti a 
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+		left join jeniscuti c on a.jncuti = c.kode
+		left join jabatan d on b.jabatan = d.namajabatan
+		where a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		}else{
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from cuti a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
@@ -33,6 +41,7 @@ class M_cuti extends CI_Model {
 					)
 				)  
 				order by a.dibuat asc");
+		}
 		return $query->result_array();
 	}
 	public function getdepcuti(){
@@ -69,12 +78,21 @@ class M_cuti extends CI_Model {
 		}else{
 			$grp = $this->session->userdata('hakgrp');
 		}
+		if($this->session->userdata('id_jabatan')==7 && $this->session->userdata('bagian')=='FACTORY'){
+			// Khusus untuk manager Gudang
+		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from izin a 
+		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
+		left join jeniscuti c on a.jnizin = c.kode
+		left join jabatan d on b.jabatan = d.namajabatan
+		where a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		}else{
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from izin a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
 		where if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <= 4 and b.bagian IN ('SPINNING','NETTING','FINISHING','RING'),a.appcol=0 and a.approve=0,a.appcol=1 and a.approve=0) and b.bagian in (".$hakdep.") and if(".$idjabat." <= 4, d.id <= ".$idjabat." and b.grp IN (".$grp."),d.id < ".$idjabat.")) order by a.dibuat asc");
+		}
 		return $query->result_array();
 	}
 	public function getdatadetailizin($id){
@@ -175,7 +193,7 @@ class M_cuti extends CI_Model {
 			$data['appcol'] = 1;
 		}
  		unset($data['jnizinx']);
-		 unset($data['idx']);
+		unset($data['idx']);
 		$this->db->insert('izin',$data);
 		if($this->db->affected_rows() == 1){
 			$this->session->set_flashdata('pesanizin','simpanizinberhasil');
@@ -383,6 +401,13 @@ class M_cuti extends CI_Model {
 		}else{
 			$grp = $this->session->userdata('hakgrp');
 		}
+		if($this->session->userdata('id_jabatan')==7 && $this->session->userdata('bagian')=='FACTORY'){
+		$query = $this->db->query("SELECT COUNT(a.jncuti) as cuti FROM cuti a
+		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
+		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
+		where a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		}else{
 		$query = $this->db->query("SELECT COUNT(a.jncuti) as cuti FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
@@ -390,6 +415,7 @@ class M_cuti extends CI_Model {
 		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		IF(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND 
 		c.bagian IN (".$hakdep.") AND if(".$idjabat." <= 4, d.id <= ".$idjabat." and c.grp IN (".$grp."),d.id < ".$idjabat.")) ");
+		}
 		if($query->num_rows() == 0){
 			return array('cuti'=>'0');
 		}else{
@@ -417,12 +443,20 @@ class M_cuti extends CI_Model {
 			$grp = $this->session->userdata('hakgrp');
 		}
 		$hakdep = $this->session->userdata('hakdep');
+		if($this->session->userdata('id_jabatan')==7 && $this->session->userdata('bagian')=='FACTORY'){
+		$query = $this->db->query("SELECT COUNT(a.jnizin) as izin FROM izin a
+		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
+		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
+		where a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		}else{
 		$query = $this->db->query("SELECT COUNT(a.jnizin) as izin FROM izin a
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
 		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id <= ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat."))");
+		}
 		if($query->num_rows() == 0){
 			return array('izin'=>'0');
 		}else{
@@ -450,6 +484,13 @@ class M_cuti extends CI_Model {
 		}else{
 			$grp = $this->session->userdata('hakgrp');
 		}
+		if($this->session->userdata('id_jabatan')==7 && $this->session->userdata('bagian')=='FACTORY'){
+		$query = $this->db->query("SELECT COUNT(a.jnabsen) as absen FROM ketabsen a
+		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
+		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
+		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
+		where a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		}else{
 		$query = $this->db->query("SELECT COUNT(a.jnabsen) as absen FROM ketabsen a
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
@@ -457,6 +498,7 @@ class M_cuti extends CI_Model {
 		WHERE if(".$idjabat." > 5,if(".$idjabat." < 10,a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5,a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 5),
 		if(".$idjabat." <=4 and c.bagian IN ('SPINNING','NETTING','FINISHING','RING') ,a.appcol=0 AND a.approve=0,a.appcol=1 AND a.approve=0) 
 		AND c.bagian in (".$hakdep.") AND if(".$idjabat." <= 4, d.id <= ".$idjabat." and grp IN (".$grp."),d.id < ".$idjabat.")) ");
+		}
 		if($query->num_rows() == 0){
 			return array('absen'=>'0');
 		}else{
