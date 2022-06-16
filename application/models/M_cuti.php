@@ -24,7 +24,7 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jncuti = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		where a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
 		}else{
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from cuti a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
@@ -84,7 +84,7 @@ class M_cuti extends CI_Model {
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
 		left join jeniscuti c on a.jnizin = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		where a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
 		}else{
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from izin a 
 		left join mperson b on concat(b.kritkar,b.person_id) = concat(a.kritkar,a.person_id)
@@ -406,7 +406,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		where a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		where a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
 		}else{
 		$query = $this->db->query("SELECT COUNT(a.jncuti) as cuti FROM cuti a
 		LEFT JOIN jeniscuti b ON a.jncuti = b.kode
@@ -448,7 +448,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id) 
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		where a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		where a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
 		}else{
 		$query = $this->db->query("SELECT COUNT(a.jnizin) as izin FROM izin a
 		LEFT JOIN jeniscuti b ON a.jnizin = b.kode
@@ -489,7 +489,7 @@ class M_cuti extends CI_Model {
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode
 		LEFT JOIN mperson c ON concat(a.kritkar,a.person_id) = concat(c.kritkar,c.person_id)
 		LEFT JOIN jabatan d on c.jabatan = d.namajabatan
-		where a.appcol=1 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		where a.appcol=0 and a.approve=0 and c.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
 		}else{
 		$query = $this->db->query("SELECT COUNT(a.jnabsen) as absen FROM ketabsen a
 		LEFT JOIN jeniscuti b ON a.jnabsen = b.kode

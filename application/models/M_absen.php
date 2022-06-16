@@ -124,7 +124,7 @@ class M_absen extends CI_Model {
 		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
 		left join jeniscuti c on a.jnabsen = c.kode
 		left join jabatan d on b.jabatan = d.namajabatan
-		where a.appcol=1 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
+		where a.appcol=0 and a.approve=0 and b.bagian in (".$hakdep.") and d.id < ".$idjabat." and d.id >= 4 order by a.dibuat asc");
 		}else{
 		$query = $this->db->query("select a.*,b.nama,c.keterangan,d.id as id_jabat from ketabsen a 
 		left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id)
