@@ -1,174 +1,199 @@
 <?php
-class M_user extends CI_Model {
-	public function getuser(){
+class M_user extends CI_Model
+{
+	public function getuser()
+	{
 		$sql = "SELECT a.*,b.nama,b.jabatan,b.idkey FROM akses_departemen a
 				LEFT JOIN mperson b ON a.noinduk = b.noinduk ";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 
-	public function getdetailuser($id,$cek=0){
+	public function getdetailuser($id, $cek = 0)
+	{
 		// $sql = $this->db->where('idkey',$id)->get('mperson');
-		$sql = $this->db->query("SELECT a.*,b.id AS id_jabat FROM mperson a 
+		$sql = $this->db->query("SELECT a.*,b.id AS id_jabat,c.kritkar AS krit1,c.person_id AS per1,d.kritkar AS krit2,d.person_id AS per2 FROM mperson a 
 		left join jabatan b ON a.jabatan = b.namajabatan  
-		where a.idkey='".$id."' ");
+		LEFT JOIN validator c ON c.id = a.valid 
+		LEFT JOIN validator d ON d.id = a.rilis
+		where a.idkey='" . $id . "' ");
 		return $sql;
 	}
-	public function getdatauser($id,$cek=0){
+	public function getdatauser($id, $cek = 0)
+	{
 		$sql = "SELECT a.*,b.nama,b.jabatan,b.idkey FROM akses_departemen a
-				LEFT JOIN mperson b ON a.noinduk = b.noinduk WHERE b.idkey = '".$id."'  ";
+				LEFT JOIN mperson b ON a.noinduk = b.noinduk WHERE b.idkey = '" . $id . "'  ";
 		$query = $this->db->query($sql);
 		return $query;
 	}
-	public function getbagian(){
+	public function getbagian()
+	{
 		$query = $this->db->query("select * from bagian order by id");
 		return $query;
 	}
-	public function getgroup(){
+	public function getgroup()
+	{
 		$query = $this->db->query("select * from grp order by id");
 		return $query;
 	}
-	public function getpendidikan(){
+	public function getpendidikan()
+	{
 		$query = $this->db->query("select * from tb_pendidikan order by id");
 		return $query;
 	}
-	public function getstatusnikah(){
+	public function getstatusnikah()
+	{
 		$query = $this->db->query("select * from tb_statusnikah order by id");
 		return $query;
 	}
-	public function gethubkeluarga(){
+	public function gethubkeluarga()
+	{
 		$query = $this->db->query("select * from tb_hubkeluarga order by id");
 		return $query;
 	}
-	public function getjeniscuti($cu){
-		$query = $this->db->query("select * from jeniscuti where gr = ".$cu." order by keterangan ");
+	public function getjeniscuti($cu)
+	{
+		$query = $this->db->query("select * from jeniscuti where gr = " . $cu . " order by keterangan ");
 		return $query;
 	}
-	public function editakses($nik){
-		$query = $this->db->query("select * from mperson where noinduk = '".$nik."' ");
+	public function editakses($nik)
+	{
+		$query = $this->db->query("select * from mperson where noinduk = '" . $nik . "' ");
 		return $query;
 	}
-	public function getdatakeluarga(){
+	public function getdatakeluarga()
+	{
 		$person = $this->session->userdata('kritper');
 		$periode = $this->session->flashdata('periodekk');
 		$hasil = $this->db->query("select a.*,b.pendidikan,c.status,d.hubungan from keluarga a 
 		left join tb_pendidikan b on b.id = a.id_pendidikan
 		left join tb_statusnikah c on c.id = a.id_statuskawin
 		left join tb_hubkeluarga d on d.id = a.id_hubkeluarga
-		where a.id_mperson = '".$person."' and a.periode = '".$periode."' ");
+		where a.id_mperson = '" . $person . "' and a.periode = '" . $periode . "' ");
 		return $hasil;
 	}
-	public function getkkkeluarga(){
+	public function getkkkeluarga()
+	{
 		$person = $this->session->userdata('kritper');
 		$periode = $this->session->flashdata('periodekk');
-		$hasil= $this->db->query("select nokk,valid from keluarga where id_mperson = '".$person."' and periode = '".$periode."'");
+		$hasil = $this->db->query("select nokk,valid from keluarga where id_mperson = '" . $person . "' and periode = '" . $periode . "'");
 		return $hasil;
 	}
-	public function getdatakeluarga_detail($id){
-		$hasil = $this->db->query("select * from keluarga where id= ".$id);
+	public function getdatakeluarga_detail($id)
+	{
+		$hasil = $this->db->query("select * from keluarga where id= " . $id);
 		return $hasil;
 	}
-	public function editakses2($nik,$ke){
-		$query = $this->db->query("select * from akses_departemen where noinduk = '".$nik."' ")->row_array();
+	public function editakses2($nik, $ke)
+	{
+		$query = $this->db->query("select * from akses_departemen where noinduk = '" . $nik . "' ")->row_array();
 		$hakdep = $query['hakdep'];
-		$tampung = substr($hakdep,$ke-1,1)=='1' ? '0' : '1';
-		$hasil = substr_replace($hakdep,$tampung,$ke-1,1);
-		$queryfinal = $this->db->query("update akses_departemen set hakdep = '".$hasil."' where noinduk = '".$nik."' ");
+		$tampung = substr($hakdep, $ke - 1, 1) == '1' ? '0' : '1';
+		$hasil = substr_replace($hakdep, $tampung, $ke - 1, 1);
+		$queryfinal = $this->db->query("update akses_departemen set hakdep = '" . $hasil . "' where noinduk = '" . $nik . "' ");
 		return $queryfinal;
 	}
-	public function editaksesgrp($nik,$ke){
-		$query = $this->db->query("select * from akses_departemen where noinduk = '".$nik."' ")->row_array();
+	public function editaksesgrp($nik, $ke)
+	{
+		$query = $this->db->query("select * from akses_departemen where noinduk = '" . $nik . "' ")->row_array();
 		$hakgrp = $query['hakgrp'];
-		$tampung = substr($hakgrp,$ke-1,1)=='1' ? '0' : '1';
-		$hasil = substr_replace($hakgrp,$tampung,$ke-1,1);
-		$queryfinal = $this->db->query("update akses_departemen set hakgrp = '".$hasil."' where noinduk = '".$nik."' ");
+		$tampung = substr($hakgrp, $ke - 1, 1) == '1' ? '0' : '1';
+		$hasil = substr_replace($hakgrp, $tampung, $ke - 1, 1);
+		$queryfinal = $this->db->query("update akses_departemen set hakgrp = '" . $hasil . "' where noinduk = '" . $nik . "' ");
 		return $queryfinal;
 	}
-	public function updateidkey($key){
+	public function updateidkey($key)
+	{
 		$krit = $this->session->userdata('kritper');
-		$query = $this->db->query("update mperson set idkey = '".$key."' where concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
-		if($query){
-			$this->session->set_userdata('iduser',$key);
-			$query2 = $this->db->query("select * from mperson where idkey = '".$key."' and concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
+		$query = $this->db->query("update mperson set idkey = '" . $key . "' where concat(trim(kritkar),trim(person_id)) = '" . $krit . "' ");
+		if ($query) {
+			$this->session->set_userdata('iduser', $key);
+			$query2 = $this->db->query("select * from mperson where idkey = '" . $key . "' and concat(trim(kritkar),trim(person_id)) = '" . $krit . "' ");
 		}
 		return $query2;
 	}
-	public function updatenohp($key){
+	public function updatenohp($key)
+	{
 		$krit = $this->session->userdata('kritper');
-		$query = $this->db->query("update mperson set nohp = '".$key."' where concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
-		if($query){
-			$query2 = $this->db->query("select * from mperson where nohp = '".$key."' and concat(trim(kritkar),trim(person_id)) = '".$krit."' ");
+		$query = $this->db->query("update mperson set nohp = '" . $key . "' where concat(trim(kritkar),trim(person_id)) = '" . $krit . "' ");
+		if ($query) {
+			$query2 = $this->db->query("select * from mperson where nohp = '" . $key . "' and concat(trim(kritkar),trim(person_id)) = '" . $krit . "' ");
 		}
 		return $query2;
 	}
-	public function cekidkey($key){
-		$query2 = $this->db->query("select * from mperson where idkey = '".$key."' ");
+	public function cekidkey($key)
+	{
+		$query2 = $this->db->query("select * from mperson where idkey = '" . $key . "' ");
 		return $query2;
 	}
-	public function getdatauserkrit($kritper){
-		$query2 = $this->db->query("select * from mperson where concat(kritkar,person_id) = '".$kritper."' ");
+	public function getdatauserkrit($kritper)
+	{
+		$query2 = $this->db->query("select * from mperson where concat(kritkar,person_id) = '" . $kritper . "' ");
 		return $query2;
 	}
-	public function getnamaapprover($bagian,$col,$jn){
-		$query = $this->db->query("select * from bagian where bagian = '".$bagian."' ")->row_array();
-		$datagrp = $this->db->query("select * from grp where trim(nama_group) = '".$this->session->userdata('grp')."' ")->row_array();
+	public function getnamaapprover($bagian, $col, $jn)
+	{
+		$query = $this->db->query("select * from bagian where bagian = '" . $bagian . "' ")->row_array();
+		$datagrp = $this->db->query("select * from grp where trim(nama_group) = '" . $this->session->userdata('grp') . "' ")->row_array();
 		$word1 = '(';
-		if(strpos($this->session->userdata('grp'),$word1) !== false){
-			$kode = "SUBSTR(a.hakgrp,".$datagrp['id'].",1)='1'";
-		}else {
-			$kode = "b.grp = '".$this->session->userdata('grp')."'";
+		if (strpos($this->session->userdata('grp'), $word1) !== false) {
+			$kode = "SUBSTR(a.hakgrp," . $datagrp['id'] . ",1)='1'";
+		} else {
+			$kode = "b.grp = '" . $this->session->userdata('grp') . "'";
 		}
-		$departemen = array("SPINNING","NETTING","FINISHING","RING");
-		$jnsurat = array("cuti","abse");
-		if($this->session->userdata('id_jabatan') >= 5 && in_array($jn,$jnsurat)){
+		$departemen = array("SPINNING", "NETTING", "FINISHING", "RING");
+		$jnsurat = array("cuti", "abse");
+		if ($this->session->userdata('id_jabatan') >= 5 && in_array($jn, $jnsurat)) {
 			$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
 			left join mperson b ON a.noinduk = b.noinduk
 			LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-			where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 0,c.id > ".$this->session->userdata('id_jabatan').",c.id = 10)
+			where SUBSTR(a.hakdep," . $query['id'] . ",1)='1' AND IF(" . $col . " = 0,c.id > " . $this->session->userdata('id_jabatan') . ",c.id = 10)
 			ORDER BY c.id");
-		}else{
-			if(!in_array($this->session->userdata('bagian'),$departemen)){
+		} else {
+			if (!in_array($this->session->userdata('bagian'), $departemen)) {
 				$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
 				left join mperson b ON a.noinduk = b.noinduk
 				LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-				where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND c.id > ".$this->session->userdata('id_jabatan')."
+				where SUBSTR(a.hakdep," . $query['id'] . ",1)='1' AND c.id > " . $this->session->userdata('id_jabatan') . "
 				ORDER BY c.id");
-			}else{
+			} else {
 				$query2 = $this->db->query("SELECT a.*,b.nama,b.noinduk,c.namajabatan,c.id AS idjabatan,b.jenkel FROM akses_departemen a
 				left join mperson b ON a.noinduk = b.noinduk
 				LEFT JOIN jabatan c ON b.jabatan = c.namajabatan
-				where SUBSTR(a.hakdep,".$query['id'].",1)='1' AND IF(".$col." = 1,c.id >= 5, ".$kode." AND c.id >= ".$this->session->userdata('id_jabatan').") 
+				where SUBSTR(a.hakdep," . $query['id'] . ",1)='1' AND IF(" . $col . " = 1,c.id >= 5, " . $kode . " AND c.id >= " . $this->session->userdata('id_jabatan') . ") 
 				ORDER BY c.id");
 			}
 		}
 		return $query2;
 	}
-	public function simpanfotoprofile(){
+	public function simpanfotoprofile()
+	{
 		$data = $_POST;
 		$temp = $this->getdatauserkrit($this->session->userdata('kritper'))->row_array();
-		$fotodulu = FCPATH.'assets/page/images/user/FOTO/'.$temp['foto']; //base_url().$gambar.'.png';
+		$fotodulu = FCPATH . 'assets/page/images/user/FOTO/' . $temp['foto']; //base_url().$gambar.'.png';
 		$id = $this->session->userdata('kritper');
 		$data['foto'] = $this->uploadLogo();
-		if($data['foto']!=NULL){
-			if($data['foto']=='kosong'){
+		if ($data['foto'] != NULL) {
+			if ($data['foto'] == 'kosong') {
 				$data['foto'] = NULL;
 			}
-			if(file_exists($fotodulu)){
+			if (file_exists($fotodulu)) {
 				unlink($fotodulu);
 			}
 			unset($data['dokumen']);
-			$query = $this->db->query("update mperson set foto = '".$data['foto']."' where concat(kritkar,person_id) = '".$id."' ");
-			if($query){
-				$this->session->set_userdata('foto',$data['foto']);
-				$this->session->set_flashdata('simpanfoto','berhasil');
+			$query = $this->db->query("update mperson set foto = '" . $data['foto'] . "' where concat(kritkar,person_id) = '" . $id . "' ");
+			if ($query) {
+				$this->session->set_userdata('foto', $data['foto']);
+				$this->session->set_flashdata('simpanfoto', 'berhasil');
 			}
-		}else{
-			$this->session->set_flashdata('ketlain','Error Upload Foto Profile '.$temp['noinduk'].' ');
+		} else {
+			$this->session->set_flashdata('ketlain', 'Error Upload Foto Profile ' . $temp['noinduk'] . ' ');
 		}
-		$url = base_url().'profile';
+		$url = base_url() . 'profile';
 		redirect($url);
 	}
-	public function simpankeluarga(){
+	public function simpankeluarga()
+	{
 		$data = $_POST;
 		$data['id_mperson'] = $this->session->userdata('kritper');
 		$data['tgllahir'] = tglmysql($data['tglahir']);
@@ -179,12 +204,13 @@ class M_user extends CI_Model {
 		unset($data['tglahir']);
 		unset($data['id']);
 		$data['periode'] = $this->session->flashdata('periodekk');
-		$this->db->insert('keluarga',$data);
-		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
+		$this->db->insert('keluarga', $data);
+		$this->session->set_flashdata('periodekk', $this->session->flashdata('periodekk'));
 		// $url = base_url().'profile/keluarga';
 		// redirect($url);
 	}
-	public function updatekeluarga(){
+	public function updatekeluarga()
+	{
 		$data = $_POST;
 		$data['id_mperson'] = $this->session->userdata('kritper');
 		$data['tgllahir'] = tglmysql($data['tglahir']);
@@ -194,29 +220,33 @@ class M_user extends CI_Model {
 		$data['noinduk'] = strtoupper($data['noinduk']);
 		unset($data['tglahir']);
 		$data['periode'] = $this->session->flashdata('periodekk');
-		$this->db->where('id',$data['id']);
-		$this->db->update('keluarga',$data);
-		$this->session->set_flashdata('periodekk',$this->session->flashdata('periodekk'));
+		$this->db->where('id', $data['id']);
+		$this->db->update('keluarga', $data);
+		$this->session->set_flashdata('periodekk', $this->session->flashdata('periodekk'));
 		// $url = base_url().'profile/keluarga';
 		// redirect($url);
 	}
-	public function hapuskeluarga($id){
-		$query = $this->db->query("delete from keluarga where id =".$id);
+	public function hapuskeluarga($id)
+	{
+		$query = $this->db->query("delete from keluarga where id =" . $id);
 		return $query;
 	}
-	public function validasikeluarga(){
+	public function validasikeluarga()
+	{
 		$periode = $this->session->flashdata('periodekk');
 		$person = trim($this->session->userdata('kritper'));
-		$query = $this->db->query("update keluarga set valid = 1 where trim(id_mperson) = '".$person."' and periode = 2022");
+		$query = $this->db->query("update keluarga set valid = 1 where trim(id_mperson) = '" . $person . "' and periode = 2022");
 		return $query;
 	}
-	public function updatekk($kk){
+	public function updatekk($kk)
+	{
 		$periode = $this->session->flashdata('periodekk');
 		$person = trim($this->session->userdata('kritper'));
-		$query = $this->db->query("update keluarga set nokk = '".$kk."' where trim(id_mperson) = '".$person."' and periode = 2022");
+		$query = $this->db->query("update keluarga set nokk = '" . $kk . "' where trim(id_mperson) = '" . $person . "' and periode = 2022");
 		return $query;
 	}
-	public function uploadLogo(){
+	public function uploadLogo()
+	{
 		$this->load->library('upload');
 		$this->uploadConfig = array(
 			'upload_path' => LOK_UPLOAD_MESIN,
@@ -225,35 +255,53 @@ class M_user extends CI_Model {
 		);
 		// Adakah berkas yang disertakan?
 		$adaBerkas = $_FILES['dokumen']['name'];
-		if (empty($adaBerkas))
-		{
+		if (empty($adaBerkas)) {
 			return 'kosong';
 		}
 		$uploadData = NULL;
 		$this->upload->initialize($this->uploadConfig);
-		if ($this->upload->do_upload('dokumen'))
-		{
+		if ($this->upload->do_upload('dokumen')) {
 			$uploadData = $this->upload->data();
 			$namaFileUnik = $uploadData['file_name'];
 			$fileRenamed = rename(
-				$this->uploadConfig['upload_path'].$uploadData['file_name'],
-				$this->uploadConfig['upload_path'].$namaFileUnik
+				$this->uploadConfig['upload_path'] . $uploadData['file_name'],
+				$this->uploadConfig['upload_path'] . $namaFileUnik
 			);
 			$uploadData['file_name'] = $fileRenamed ? $namaFileUnik : $uploadData['file_name'];
-		}
-		else
-		{
+		} else {
 			$_SESSION['success'] = -1;
 			$ext = pathinfo($adaBerkas, PATHINFO_EXTENSION);
-			$ukuran = $_FILES['dokumen']['size']/1000000;
+			$ukuran = $_FILES['dokumen']['size'] / 1000000;
 			$tidakupload = $this->upload->display_errors(NULL, NULL);
-			$this->session->set_flashdata('msg',$tidakupload.' '.$ext.' ukuran '.round($ukuran,2).' MB');
+			$this->session->set_flashdata('msg', $tidakupload . ' ' . $ext . ' ukuran ' . round($ukuran, 2) . ' MB');
 		}
 		return (!empty($uploadData)) ? $uploadData['file_name'] : NULL;
 	}
 
-	function isilogerror($apl,$ket){
-		$query = $this->db->query("insert into logerror(aplikasi,keterangan,tgl) values ('".$apl."','".$ket."',now()) ");
+	function isilogerror($apl, $ket)
+	{
+		$query = $this->db->query("insert into logerror(aplikasi,keterangan,tgl) values ('" . $apl . "','" . $ket . "',now()) ");
+		return $query;
+	}
+	function getvalidator()
+	{
+		$kali = $this->session->userdata('modespv') == '1' ? " Where Spv = 1" : "";
+		$query = $this->db->query("SELECT validator.*,bagian.bagian,grp.nama_group FROM validator
+		LEFT JOIN bagian ON bagian.id = validator.id_bagian
+		LEFT JOIN grp ON grp.id = validator.id_grp" . $kali);
+		return $query;
+	}
+	function getnikvalidator($a, $b, $c)
+	{
+		$kali = $this->session->userdata('modespv') == '1' ? " and Spv = 1" : "";
+		$query = $this->db->query("SELECT * FROM validator
+		LEFT JOIN mperson ON mperson.noinduk = validator.noinduk
+		WHERE id_bagian = " . $a . " and id_grp = " . $b . " and xvalid = " . $c . $kali);
+		return $query;
+	}
+	public function getspc($a)
+	{
+		$query = $this->db->query("select spc from mperson where concat(kritkar,person_id) = '" . $a . "' ");
 		return $query;
 	}
 }
