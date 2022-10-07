@@ -209,9 +209,7 @@
 											<td></td>
 										<?php } else { ?>
 											<td style="text-align: center;">
-												<?php if ($data['appcol'] == 1 and $data['approve'] == 1) { ?>
-													<a href="<?= base_url() . $repo . $data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
-												<?php } ?>
+												<a href="<?= base_url() . $repo . $data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
 											</td>
 											<td style="text-align: center;">
 												<?php if ($upda == 'editizin') { ?>
@@ -228,9 +226,7 @@
 											<td></td>
 										<?php } else { ?>
 											<td style="text-align: center;">
-												<?php if ($data['appcol'] == 1 and $data['approve'] == 1) { ?>
-													<a href="<?= base_url() . $repo . $data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
-												<?php } ?>
+												<a href="<?= base_url() . $repo . $data['kunci'] ?>" class="text-black"><i class="fa fa-file-pdf-o" title="View PDF"></i> doc</a>
 											</td>
 											<td style="text-align: center;">
 												<?php if ($upda == 'editizin') { ?>

@@ -211,8 +211,7 @@
 					<br>
 					<br>
 					<?php if (trim($this->session->userdata('bagian')) == 'IT') { ?>
-						<li class="<?= $m6 ?>"><a href="<?= base_url() . 'hakakses' ?>">Hak Akses Dep</a></li>
-						<li class="<?= $m11 ?>"><a href="<?= base_url() . 'validator' ?>">Validator Dep</a></li>
+						<li class="<?= $m11 ?>"><a href="<?= base_url() . 'validator/clear' ?>">Validator</a></li>
 					<?php } else {
 						echo '<br>';
 					} ?>
