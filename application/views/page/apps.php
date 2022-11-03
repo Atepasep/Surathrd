@@ -164,6 +164,7 @@
 										if ($data['appcol'] == 3) {
 											$oknum = '(' . $data['alasan_tolak'] . ')';
 										} else {
+											// $oknum = namaapprover($this->session->userdata('kritper'), $data['appcol'], substr($data['kunci'], 0, 4));
 											$oknum = namaapprover($this->session->userdata('kritper'), $data['appcol'], substr($data['kunci'], 0, 4));
 										}
 									} else {

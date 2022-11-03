@@ -210,7 +210,7 @@
 					<li class="<?= $m8 ?>"><a href="<?= base_url() . 'profile' ?>" title="Ubah ID Key">Profile</a></li>
 					<br>
 					<br>
-					<?php if (trim($this->session->userdata('bagian')) == 'IT') { ?>
+					<?php if (trim($this->session->userdata('bagian')) == 'IT' || trim($this->session->userdata('bagian')) == 'PERSONALIA') { ?>
 						<li class="<?= $m11 ?>"><a href="<?= base_url() . 'validator/clear' ?>">Validator</a></li>
 					<?php } else {
 						echo '<br>';

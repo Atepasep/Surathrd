@@ -325,7 +325,9 @@ function namaapprover($kritper, $col, $jnsurat)
 {
 	$CI = &get_instance();
 	$userdata = $CI->m_user->getdatauserkrit($kritper)->row_array();
-	$getdata = $CI->m_user->getnamaapprover($userdata['bagian'], $col, $jnsurat)->row_array();
+	$kolom = $col == 1 ? $userdata['rilis'] : $userdata['valid'];
+	//$getdata = $CI->m_user->getnamaapprover($userdata['bagian'], $col, $jnsurat)->row_array();
+	$getdata = $CI->m_user->getnamaapproverx($kolom)->row_array();
 	$sebutan = $getdata['jenkel'] == 'P' ? 'Ibu.' : 'Bpk.';
 	return $sebutan . $getdata['nama'];
 }
@@ -478,5 +480,10 @@ function getspc($kritper)
 {
 	$CI = &get_instance();
 	$getdata = $CI->m_user->getspc($kritper)->row_array();
-	return $getdata['spc'];
+	if ($getdata['valid'] == 0) {
+		return 1;
+	} else {
+		return 0;
+	}
+	// return $getdata['spc'];
 }

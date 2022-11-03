@@ -166,6 +166,11 @@ class M_user extends CI_Model
 		}
 		return $query2;
 	}
+	public function getnamaapproverx($id)
+	{
+		$query = $this->db->query("select a.id,a.nama,b.jenkel from validator a left join mperson b on concat(a.kritkar,a.person_id) = concat(b.kritkar,b.person_id) where a.id = " . $id);
+		return $query;
+	}
 	public function simpanfotoprofile()
 	{
 		$data = $_POST;
