@@ -5,6 +5,9 @@
 					<div class="panel panel-dark-ifn">
 					  <div class="panel-heading">
 					    <h3 class="panel-title"><?= $judul ?></h3>
+                        <span style="float:right;font-size:10px;color:transparent;">
+                            <?= $this->session->flashdata('periodekk'); ?>
+                        </span>
 					  </div>
 					  <div class="panel-body pan">
 					  <div class="row">

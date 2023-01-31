@@ -240,14 +240,14 @@ class M_user extends CI_Model
 	{
 		$periode = $this->session->flashdata('periodekk');
 		$person = trim($this->session->userdata('kritper'));
-		$query = $this->db->query("update keluarga set valid = 1 where trim(id_mperson) = '" . $person . "' and periode = 2022");
+		$query = $this->db->query("update keluarga set valid = 1 where trim(id_mperson) = '" . $person . "' and periode = ".$periode);
 		return $query;
 	}
 	public function updatekk($kk)
 	{
 		$periode = $this->session->flashdata('periodekk');
 		$person = trim($this->session->userdata('kritper'));
-		$query = $this->db->query("update keluarga set nokk = '" . $kk . "' where trim(id_mperson) = '" . $person . "' and periode = 2022");
+		$query = $this->db->query("update keluarga set nokk = '" . $kk . "' where trim(id_mperson) = '" . $person . "' and periode = ".$periode);
 		return $query;
 	}
 	public function uploadLogo()
