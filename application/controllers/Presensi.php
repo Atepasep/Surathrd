@@ -21,6 +21,8 @@ class Presensi extends CI_Controller{
 		$data['formaction'] = base_url() . 'cuti/simpancuti';
 		$data['profileuser'] = $this->m_user->getdetailuser($this->session->userdata('iduser'))->row_array();
 		$data['data'] = $this->presensimodel->getdatapresensi();
+		$data['gps'] = $this->presensimodel->getgps()->row_array();
+		$data['bagian'] = $this->presensimodel->getbagianuser()->row_array();
 		if($this->session->userdata('blpresensi')==''){
 			$this->session->set_userdata('blpresensi',date('m'));
 			$this->session->set_userdata('thpresensi',date('Y'));
@@ -40,10 +42,11 @@ class Presensi extends CI_Controller{
 			'jarak' => $_POST['jarak']
 		];
 		$hasil = $this->presensimodel->tambahpresensi($data);
-		if($hasil){
+		if($hasil==1){
 			$this->session->set_flashdata('pesanpresensi','berhasilpresensi');
-			echo $hasil;
+			// echo $hasil;
 		}
+		echo $hasil;
 	}
 	public function clear(){
 		$this->session->unset_userdata('blpresensi');
@@ -56,5 +59,17 @@ class Presensi extends CI_Controller{
 		$this->session->set_userdata('thpresensi',$_POST['thpresensi']);
 		$url = base_url().'presensi';
 		redirect($url);
+	}
+	public function setlatitude(){
+		$data['data'] = $this->presensimodel->setlatitude()->row_array();
+		$data['formAction'] = base_url().'presensi/simpanlatitude';
+		$this->load->view('page/setlatitude', $data);
+	}
+	public function simpanlatitude(){
+		$hasil = $this->presensimodel->simpanlatitude();
+		if($hasil){
+			$url = base_url().'presensi';
+			redirect($url);
+		}
 	}
 }

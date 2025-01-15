@@ -2761,5 +2761,5 @@ select.input-sml {
 	color: blue !important;
 	font-family: "Digital", "Arial";
 	font-size: 50px;
-	border: 2px dashed rgba(14, 230, 241, 0.426);
+	/* border: 2px dashed rgba(14, 230, 241, 0.426); */
 }

@@ -18,49 +18,50 @@
 <script src="<?= LOK_PAGE ?>vendor/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 <script src="<?= LOK_PAGE ?>vendor/toast/jquery.toast.min.js"></script>
 
+<?php $waktu = '1736911854'; ?>
 <!-- MAIN JS -->
-<script src="<?= LOK_PAGE ?>js/main.js"></script>
-<script src="<?= LOK_PAGE ?>js/myscript.js"></script>
+<script src="<?= LOK_PAGE ?>js/main.js?<?= $waktu ?>"></script>
+<script src="<?= LOK_PAGE ?>js/myscript.js?<?= $waktu ?>"></script>
 <?php if (isset($footer) and $footer == 'valid') : ?>
-	<script src="<?= LOK_PAGE ?>js/validator.js"></script>
+	<script src="<?= LOK_PAGE ?>js/validator.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'cuti') : ?>
-	<script src="<?= LOK_PAGE ?>js/cuti.js"></script>
+	<script src="<?= LOK_PAGE ?>js/cuti.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'dash') : ?>
-	<script src="<?= LOK_PAGE ?>js/apps.js"></script>
+	<script src="<?= LOK_PAGE ?>js/apps.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'izin') : ?>
-	<script src="<?= LOK_PAGE ?>js/izin.js"></script>
+	<script src="<?= LOK_PAGE ?>js/izin.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'absen') : ?>
-	<script src="<?= LOK_PAGE ?>js/absen.js"></script>
+	<script src="<?= LOK_PAGE ?>js/absen.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'akses') : ?>
-	<script src="<?= LOK_PAGE ?>js/akses.js"></script>
+	<script src="<?= LOK_PAGE ?>js/akses.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'busabsen') : ?>
-	<script src="<?= LOK_PAGE ?>js/busabsen.js"></script>
+	<script src="<?= LOK_PAGE ?>js/busabsen.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'user') : ?>
-	<script src="<?= LOK_PAGE ?>js/user.js"></script>
-	<script src="<?= LOK_PAGE ?>js/keluarga.js"></script>
+	<script src="<?= LOK_PAGE ?>js/user.js?<?= $waktu ?>"></script>
+	<script src="<?= LOK_PAGE ?>js/keluarga.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'pengumuman') : ?>
-	<script src="<?= LOK_PAGE ?>js/pengumuman.js"></script>
+	<script src="<?= LOK_PAGE ?>js/pengumuman.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'konfirm') : ?>
-	<script src="<?= LOK_PAGE ?>js/webcam/qrcodelib.js"></script>
-	<script src="<?= LOK_PAGE ?>js/webcam/webcodecamjs.js"></script>
-	<script src="<?= LOK_PAGE ?>js/webcam/main.js"></script>
-	<script src="<?= LOK_PAGE ?>js/konfirm.js"></script>
+	<script src="<?= LOK_PAGE ?>js/webcam/qrcodelib.js?<?= $waktu ?>"></script>
+	<script src="<?= LOK_PAGE ?>js/webcam/webcodecamjs.js?<?= $waktu ?>"></script>
+	<script src="<?= LOK_PAGE ?>js/webcam/main.js?<?= $waktu ?>"></script>
+	<script src="<?= LOK_PAGE ?>js/konfirm.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'repkonfirm') : ?>
-	<script src="<?= LOK_PAGE ?>js/konfirmrep.js"></script>
+	<script src="<?= LOK_PAGE ?>js/konfirmrep.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if (isset($footer) and $footer == 'presensi') : ?>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script src="<?= LOK_PAGE ?>js/presensi.js"></script>
+	<script src="<?= LOK_PAGE ?>js/presensi.js?<?= $waktu ?>"></script>
 <?php endif; ?>
 <?php if ($this->session->flashdata('pesan') == 'qrcodeberhasil') { ?>
 	<script>

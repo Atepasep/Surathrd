@@ -49,26 +49,29 @@ function waktu() {
 }
 
 $("#synclokasi").click(function () {
-	$("#button").click();
+	// $("#button").click();
+	window.location.reload();
 });
 
 $("#statusjarak").on("dblclick", function () {
-	$("#button").click();
+	// $("#button").click();
+	window.location.reload();
 });
 
 $("#button").click(function () {
 	document.querySelector("#jarakanda").innerHTML = "Cek Jarak (Loading ...)";
 	document.querySelector("#statusjarak").innerHTML = "Not Allowed";
+	$("#kirimpresensi").addClass("disabled");
 	function success(position) {
 		var s = document.querySelector("#status");
 		var i = document.querySelector("#jarakanda");
 		var k = document.querySelector("#statusjarak");
+		var nilaijarak = $("#jarak").val();
 
 		if (s.className == "success") {
 			// not sure why we're hitting this twice in FF, I think it's to do with a cached result coming back
 			return;
 		}
-
 		i.innerHTML =
 			"Jarak Anda adalah : <span class='text-primary'><b>" +
 			jarak(position.coords.latitude, position.coords.longitude).toFixed(2) +
@@ -88,11 +91,12 @@ $("#button").click(function () {
 		);
 		if (
 			jarak(position.coords.latitude, position.coords.longitude).toFixed(2) <
-			300
+			parseFloat(nilaijarak)
 		) {
 			k.innerHTML = "Allowed";
 			k.removeClass = "text-danger";
 			k.addClass = "text-primary";
+			$("#kirimpresensi").removeClass("disabled");
 		} else {
 			k.innerHTML = "Not Allowed";
 			k.removeClass = "text-primary";
@@ -151,8 +155,8 @@ $("#button").click(function () {
 });
 
 function jarak(lat2, lon2) {
-	var lat1 = "-6.966254537214371"; //point tengah pabrik
-	var lon1 = "107.8058826228893"; //point tengah pabrik
+	var lat1 = $("#latitude").val(); //"-6.966254537214371"; //point tengah pabrik
+	var lon1 = $("#longitude").val(); //"107.8058826228893"; //point tengah pabrik
 	var unit = "K";
 	if (lat1 == lat2 && lon1 == lon2) {
 		return 0;
@@ -227,7 +231,11 @@ $("#kirimpresensi").click(function () {
 		},
 		success: function (data) {
 			// alert(data);
-			window.location.reload();
+			if (data == 2) {
+				pesan("Presensi sudah pernah diterima !", "error");
+			} else {
+				window.location.reload();
+			}
 		},
 	});
 });

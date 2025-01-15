@@ -141,7 +141,7 @@
 					</div>
 				</div>
 				<!-- </div> -->
-				<div class="col-sm-12" style="margin: 20px 0;">
+				<div class="col-sm-12 table-responsive" style="margin: 20px 0;">
 					<!-- <div class="card"> -->
 					<table class="table table-bordered table-striped table-hover responsive nowrap">
 						<tr>

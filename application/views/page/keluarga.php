@@ -39,6 +39,7 @@
                                     <hr class="small">
                                         <a href="<?= base_url().'profile/addkeluarga' ?>" class="btn btn-xs btn-success flat <?php if($kk==null){echo ''; }else{ if($kk['valid']==1){ echo 'hilang'; } } ?>" data-remote="false" data-toggle="modal" data-title="Add Anggota Keluarga" data-target="#modalBox" title="Add Anggota Keluarga"><i class="fa fa-plus"></i> Tambah data</a>
                                         <a href="#" class="btn btn-xs btn-warning flat text-black <?php if($kk==null){echo ''; }else{ if($kk['valid']==1){ echo 'hilang'; } } ?>" style="float: right;" id="validasidata" data-href="<?= base_url().'profile/validasikeluarga' ?>" data-news="Yakin anda akan memvalidasi data ini ?, data tidak bisa di edit kembali." data-target="#confirm-task" data-remote="false" data-toggle="modal" data-title="Validasi data"><i class="fa fa-save"></i> Validasi Data</a> 
+                                        <a href="<?= base_url().'profile' ?>" class="btn btn-xs btn-success flat <?php if($kk==null){echo ''; }else{ if($kk['valid']==1){ echo 'hilang'; } } ?>" style="float: right;"><i class="fa fa-arrow-left"></i> Kembali</a>
                                     <hr class="small">
                                     <div class="table-responsive tabler">
                                     <table class="table table-bordered table-striped table-hover responsive nowrap datatable">

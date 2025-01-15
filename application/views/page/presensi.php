@@ -62,12 +62,28 @@
 														<td><?= tglmysql($profileuser['tglmasuk']) . ' (' . umur($profileuser['tglmasuk']) . ')'; ?></td>
 													</tr>
 												</table>
+												<div id="formgs" class="hilang">
+													<?php 
+														if(isset($gps['latitude'])){
+															$latitude = $gps['latitude'];
+															$longitude = $gps['longitude'];
+															$jarak = $gps['jarak'];
+														}else{
+															$latitude = 0;
+															$longitude = 0;
+															$jarak = 0;
+														}
+													 ?>
+													<input type="text" id="latitude" value="<?= $latitude ?>">
+													<input type="text" id="longitude" value="<?= $longitude; ?>">
+													<input type="text" id="jarak" value="<?= $jarak; ?>">
+												</div>
 											</div>
 										</div>
 										<div class="col-sm-5 text-center">
 											<input type="text" id="lokasinya" value="" class="hilang">
 											<input type="text" id="tglku" value="<?= date('Y-m-d'); ?>" class="hilang">
-											<div id="jam-masukkeluar" class="text-center" style="width: 50%; margin: auto; margin-top:10px;">
+											<div id="jam-masukkeluar" class="text-center" style="margin: auto; margin-top:10px; margin-bottom: 10px; border-bottom: 1px dashed rgba(0,0,0,0.2);">
 												00:00
 											</div>
 											<span style="font-size: 12px;" id="jarakanda">Cek Jarak (Loading ...)</span><br>
@@ -85,9 +101,15 @@
 													<option value="kembali">ABSEN KEMBALI</option>
 												</select>
 											</div>
-											<div class="text-center mb-2" id="formtombol" style="margin-top: 10px; margin-bottom: 20px !important">
-												<a class="btn btn-xs btn-success btn-flat" id="kirimpresensi"><i class="fa fa-check"></i> SIMPAN PRESENSI</a>
+											<div class="text-center mb-2" id="formtombol" style="margin-top: 10px;">
+												<a class="btn btn-xs btn-success btn-flat disabled" id="kirimpresensi"><i class="fa fa-check"></i> SIMPAN PRESENSI</a>
 												<a class="btn btn-xs btn-info btn-flat" id="synclokasi"><i class="fa fa-map-marker"></i> SYNC</a>
+											</div>
+											<div class="text-center mb-2 <?php if(trim($bagian['bagian']) != 'IT'){ echo 'hilang';} ?>" id="formtombol">
+												<a href="<?= base_url().'presensi/setlatitude'; ?>" class="btn btn-xs btn-warning btn-flat text-black" data-remote="false" data-toggle="modal" data-title="Edit LAT LONG & RADIUS" data-target="#modalBox" title="Edit LAT LONG & RADIUS" id="setgps"><i class="fa fa-map-pin"></i> SET LAT LONG & RADIUS</a>
+											</div>
+											<div style="font-size: 8px !important; margin-bottom: 20px !important; line-height: 9px; margin-top: 5px;">
+												<?= $latitude; ?>, <?= $longitude; ?> <br> Radius diperbolehkan <?= rupiah($jarak,1); ?> meter
 											</div>
 										</div>
 									</div>
@@ -125,7 +147,7 @@
 										</div>
 									</div>
 									<?= $this->session->flashdata('pesan'); ?>
-									<div class="col-sm-12 font-kecil" style="padding: 10px 10px !important">
+									<div class="col-sm-12 font-kecil table-responsive" style="padding: 10px 5px !important;">
 										<table class="table table-bordered table-striped table-hover nowrap responsive">
 											<thead style="background-color: #D8EFE2;">
 												<tr>
