@@ -149,6 +149,7 @@
 		$m9 = '';
 		$m10 = '';
 		$m11 = '';
+		$m12 = '';
 		if ($act == 1) {
 			$m1 = 'ifn-active';
 		} elseif ($act == 2) {
@@ -169,6 +170,8 @@
 			$m10 = 'ifn-active';
 		} elseif ($act == 11) {
 			$m11 = 'ifn-active';
+		} elseif ($act == 12) {
+			$m12 = 'ifn-active';
 		} else {
 			$m4 = 'ifn-active';
 		}
@@ -202,6 +205,7 @@
 					<?php if (trim($this->session->userdata('bagian')) == 'IT' || trim($this->session->userdata('bagian')) == 'SATPAM' || trim($this->session->userdata('bagian')) == 'PERSONALIA') { ?>
 						<li class="<?= $m9 ?>"><a href="<?= base_url() . 'busabsen' ?>" title="Absen bus jemputan">Absen Bus</a></li>
 					<?php } ?>
+					<li class="<?= $m12 ?>"><a href="<?= base_url() . 'presensi/clear' ?>" title="Input Presensi">Presensi</a></li>
 					<?php if ($this->session->userdata('hakdep') != "'X'") { ?>
 						<li class="<?= $m5 ?>"><a href="<?= base_url() . 'spl' ?>" title="Surat Perintah Lembur">Overtime</a></li>
 					<?php } ?>

@@ -31,7 +31,7 @@ class M_validator extends CI_Model
 	public function getdatavalid($kode)
 	{
 		$query = $this->db->query("SELECT a.nama,a.bagian,a.jabatan,a.valid,a.rilis,b.noinduk as nikvalid,b.nama AS namavalid,d.jabatan AS jabatanvalid,
-		c.noinduk as nikrilis,c.nama AS namarilis,e.jabatan AS jabatanrilis FROM mperson a
+		c.noinduk as nikrilis,c.nama AS namarilis,e.jabatan AS jabatanrilis,a.spc FROM mperson a
 		LEFT JOIN validator b ON a.valid = b.id
 		LEFT JOIN validator c ON a.rilis = c.id
 		LEFT JOIN mperson d ON CONCAT(b.kritkar,b.person_id) = CONCAT(d.kritkar,d.person_id)
@@ -83,5 +83,10 @@ class M_validator extends CI_Model
 			$query2 = $this->db->query("select * from mperson where concat(kritkar,person_id)='" . $isi . "' ");
 		}
 		return $query2;
+	}
+	public function inputspc($data){
+		$this->db->where('person_id',$data['id']);
+		$query = $this->db->update('mperson',['spc'=>$data['spc']]);
+		return $query;
 	}
 }

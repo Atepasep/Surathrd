@@ -154,6 +154,18 @@
 												</div>
 											</div>
 										</div>
+										<div class="form-horizontal">
+											<div class="formakses font-kecil" style="border: 1px dashed #fc6e2d !important; padding: 5px;">
+												<div class="col-sm-12 bg-green" style="text-align:center;margin-bottom:5px;color:white;"></div>
+												<div class="form-group">
+													<label class="col-md-5 control-label" style="text-align: left;" for="inputDefault">Hanya Releaser</label>
+													<input type="text" id="idkaryawan" value="" class="hilang">
+													<div class="col-md-7">
+														<input type="checkbox" id="spc" style="margin-top: 12px;">
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

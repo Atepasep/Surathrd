@@ -166,6 +166,7 @@
 										} else {
 											// $oknum = namaapprover($this->session->userdata('kritper'), $data['appcol'], substr($data['kunci'], 0, 4));
 											$oknum = namaapprover($this->session->userdata('kritper'), $data['appcol'], substr($data['kunci'], 0, 4));
+											// $oknum = 'SDFSDGSDG';
 										}
 									} else {
 										if ($data['approve'] == 3) {

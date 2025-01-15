@@ -480,10 +480,14 @@ function getspc($kritper)
 {
 	$CI = &get_instance();
 	$getdata = $CI->m_user->getspc($kritper)->row_array();
-	if ($getdata['valid'] == 0) {
+	if ($getdata['spc'] == 1) {
 		return 1;
 	} else {
 		return 0;
 	}
 	// return $getdata['spc'];
+}
+function isibulan(){
+	$bulan = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','Nopember','Desember'];
+	return $bulan; 
 }

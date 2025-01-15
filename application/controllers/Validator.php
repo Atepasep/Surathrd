@@ -97,4 +97,12 @@ class Validator extends CI_Controller
 			redirect($url);
 		}
 	}
+	public function inputspc(){
+		$data = [
+			'id' => substr($_POST['id'],1,10),
+			'spc' => $_POST['spc']
+		];
+		$query = $this->m_validator->inputspc($data);
+		echo $query;
+	}
 }

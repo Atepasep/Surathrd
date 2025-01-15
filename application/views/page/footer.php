@@ -58,12 +58,22 @@
 <?php if (isset($footer) and $footer == 'repkonfirm') : ?>
 	<script src="<?= LOK_PAGE ?>js/konfirmrep.js"></script>
 <?php endif; ?>
+<?php if (isset($footer) and $footer == 'presensi') : ?>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="<?= LOK_PAGE ?>js/presensi.js"></script>
+<?php endif; ?>
 <?php if ($this->session->flashdata('pesan') == 'qrcodeberhasil') { ?>
 	<script>
 		swal("Terima kasih!", "Scan barcode surat izin berhasil", "success");
 	</script>
 <?php }
 $this->session->set_flashdata('pesan', ''); ?>
+<?php if ($this->session->flashdata('pesanpresensi') == 'berhasilpresensi') { ?>
+	<script>
+		swal("Terima kasih!", "Input Presensi Berhasil, Terima kasih", "success");
+	</script>
+<?php }
+$this->session->set_flashdata('pesanpresensi', ''); ?>
 <?php if ($this->session->flashdata('msg') == '') { ?>
 	<!-- Pesan Msg untuk tanda error upload dokumen -->
 	<?php if ($this->session->flashdata('pesancuti') != '') { ?>
