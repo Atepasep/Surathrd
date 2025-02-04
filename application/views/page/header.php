@@ -197,7 +197,7 @@
 			<nav id="ifn-main-menu" role="navigation">
 				<ul>
 					<li class="<?= $m1 ?>"><a href="<?= base_url() ?>">Dashboard</a></li>
-					<?php if (substr($this->session->userdata('kritper'), 0, 1) == '0') { ?>
+					<?php if (substr($this->session->userdata('kritper'), 0, 1) == '0' || substr($this->session->userdata('kritper'), 0, 1) == '4' || substr($this->session->userdata('kritper'), 0, 1) == '5') { ?>
 						<li class="<?= $m2 ?>"><a href="<?= base_url() . 'cuti' ?>" title="Permohonan Cuti dan Izin Khusus">Cuti dan Izin khusus</a></li>
 					<?php } ?>
 					<li class="<?= $m3 ?>"><a href="<?= base_url() . 'izin' ?>" title="surat izin keluar, pulang, terlambat">Izin P/L/K</a></li>
