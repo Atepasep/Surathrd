@@ -443,7 +443,7 @@ class M_cuti extends CI_Model
 	{
 		$noinduk = $this->session->userdata('kritper');
 		$jabat = $this->session->userdata('id_jabatan');
-		$departemen = array("SPINNING", "NETTING", "FINISHING", "RING");
+		$departemen = array("SPINNING", "NETTING", "FINISHING", "RING","ENVIRONMENTAL I");
 		$temp = $this->db->query("select * from izin where id = '" . $id . "' ")->row_array();
 		if ($jabat >= 5) {
 			if ($temp['appcol'] == 0) {
